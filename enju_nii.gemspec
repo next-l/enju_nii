@@ -7,11 +7,11 @@ require "enju_nii/version"
 Gem::Specification.new do |s|
   s.name        = "enju_nii"
   s.version     = EnjuNii::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of EnjuNii."
-  s.description = "TODO: Description of EnjuNii."
+  s.authors     = ["Kosuke Tanabe"]
+  s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
+  s.homepage    = "https://github.com/nabeta/enju_nii"
+  s.summary     = "enju_nii plugin"
+  s.description = "add nii_type attribute to Next-L Enju"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
