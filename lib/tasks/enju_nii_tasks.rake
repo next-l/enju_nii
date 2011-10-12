@@ -1,6 +1,6 @@
+require 'active_record'
+require 'active_record/fixtures'
 desc "copy fixtures for enju_nii"
-task :enju_nii do
-  Dir.glob(Rails.root.to_s + '/db/fixtures/*.yml').each do |file|
-    Fixtures.create_fixtures('db/fixtures', File.basename(file, '.*'))
-  end
+task :enju_nii => :environment do
+  ActiveRecord::Fixtures.create_fixtures(File.expand_path(File.dirname(__FILE__)) + '/../../db/fixtures/', File.basename('nii_types', '.yml'))
 end
