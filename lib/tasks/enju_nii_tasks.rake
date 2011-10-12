@@ -1,4 +1,3 @@
-require 'active_record'
 require 'active_record/fixtures'
 desc "copy fixtures for enju_nii"
 task :enju_nii => :environment do
