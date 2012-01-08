@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    models:
+      nii_type: NII metadata type
+
+    attributes:
+      nii_type:
+        name: Name
+        display_name: Display name
+        note: Note
+        position: Position
