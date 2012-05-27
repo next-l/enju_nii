@@ -36,5 +36,12 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+require 'rspec/core'
+require 'rspec/core/rake_task'
 
-task :default => :test
+RSpec::Core::RakeTask.new(:spec) do |spec|
+    spec.pattern = FileList['spec/**/*_spec.rb']
+end
+
+
+task :default => :spec
