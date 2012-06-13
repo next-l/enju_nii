@@ -28,7 +28,7 @@
         <%= link_to t('page.edit'), edit_nii_type_path(nii_type) -%>
       <% end %>
       <%- if can? :destroy, nii_type -%>
-        <%= link_to t('page.destroy'), nii_type, :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), nii_type, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <% end -%>
     </td>
   </tr>
