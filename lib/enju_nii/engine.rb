@@ -1,8 +1,6 @@
-require 'devise'
-require 'cancan'
-require 'inherited_resources'
-require 'acts_as_list'
-require 'attribute_normalizer'
+require 'enju_biblio'
+require 'enju_manifestation_viewer'
+require 'rss'
 
 module EnjuNii
   class Engine < ::Rails::Engine

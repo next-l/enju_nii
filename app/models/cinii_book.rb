@@ -35,7 +35,7 @@ class CiniiBook
       cnt = self.per_page
       page = 1 if page.to_i < 1
       idx = (page.to_i - 1) * cnt + 1
-      doc = Nokogiri::XML(Manifestation.search_ndl(query, {:cnt => cnt, :page => page, :idx => idx, :raw => true}).to_s)
+      doc = Nokogiri::XML(Manifestation.search_nii(query, {:cnt => cnt, :page => page, :idx => idx, :raw => true}).to_s)
       items = doc.xpath('//channel/item').collect{|node| self.new node }
       total_entries = doc.at('//channel/openSearch:totalResults').content.to_i
 

@@ -17,12 +17,10 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3.2"
-  s.add_dependency "devise"
-  s.add_dependency "cancan"
-  s.add_dependency "inherited_resources"
-  s.add_dependency "acts_as_list"
   s.add_dependency "attribute_normalizer"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre8"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "enju_manifestation_viewer"
   s.add_development_dependency "rspec-rails"
 end

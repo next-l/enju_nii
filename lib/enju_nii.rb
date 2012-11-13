@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require "enju_nii/engine"
 require 'open-uri'
-require 'enju_nii/cinii'
+require 'enju_nii/cinii_book'
 
 module EnjuNii
   module ActsAsMethods
@@ -10,8 +10,8 @@ module EnjuNii
     end
 
     module ClassMethods
-      def enju_nii_cinii
-        include EnjuNii::CiNii
+      def enju_nii_cinii_book
+        include EnjuNii::CiNiiBook
       end
     end
   end
