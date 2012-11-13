@@ -14,10 +14,16 @@ module EnjuNii
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
         return manifestation if manifestation
 
-        doc = return_xml(lisbn.isbn)
+        doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
         #raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
         import_record(doc)
+      end
+
+      def import_record(doc)
+        ncid = doc.at('//cinii:ncid').try(:content)
+        manifestation = Manifestation.where(:ncid => ncid).first if ncid
+        return manifestation if manifestation
       end
 
       def search_cinii_book(query, options = {})
@@ -38,15 +44,21 @@ module EnjuNii
         end
       end
 
-      def return_xml(isbn)
-        rss = self.search_cinii_book(isbn, {:dpid => 'iss-ndl-opac', :item => 'isbn'})
+      def return_rdf(isbn)
+        rss = self.search_cinii_by_isbn(isbn)
         if rss.channel.totalResults.to_i == 0
-          isbn = normalize_isbn(isbn)
-          rss = self.search_ndl(isbn, {:dpid => 'iss-ndl-opac', :item => 'isbn'})
+          rss = self.search_cinii_by_isbn(normalize_isbn(isbn))
         end
         if rss.items.first
-          doc = Nokogiri::XML(open("#{rss.items.first.link}.rdf").read)
+          Nokogiri::XML(open("#{rss.items.first.link}.rdf").read)
         end
+      end
+
+      def search_cinii_by_isbn(isbn)
+        url = "http://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+        RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
+        RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
+        rss = RSS::Parser.parse(url, false)
       end
 
       private
