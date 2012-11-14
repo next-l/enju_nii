@@ -24,6 +24,52 @@ module EnjuNii
         ncid = doc.at('//cinii:ncid').try(:content)
         manifestation = Manifestation.where(:ncid => ncid).first if ncid
         return manifestation if manifestation
+
+        creators = get_creator(doc)
+        publishers = get_publisher(doc)
+
+        # title
+        title = get_title(doc)
+        manifestation = Manifestation.new(title)
+
+        # date of publication
+        pub_date = doc.at('//dc:date').try(:content)
+        if pub_date
+          date = pub_date.split('-')
+          if date[0] and date[1]
+            date = sprintf("%04d-%02d", date[0], date[1])
+          else
+            date = pub_date
+          end
+        end
+        manifestation.pub_date = pub_date
+
+        language = Language.where(:iso_639_3 => get_language(doc)).first
+        if language
+          manifestation.language_id = language.id
+        else
+          manifestation.language_id = 1
+        end
+
+        urn = doc.at("//dcterms:hasPart[@rdf:resource]").attributes["resource"].value
+        if urn =~ /^urn:isbn/
+          manifestation.isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, ""))
+        end
+
+        manifestation.carrier_type = CarrierType.where(:name => 'print').first
+        manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
+
+        if manifestation.valid?
+          Patron.transaction do
+            manifestation.save
+            publisher_patrons = Patron.import_patrons(publishers)
+            creator_patrons = Patron.import_patrons(creators)
+            manifestation.publishers = publisher_patrons
+            manifestation.creators = creator_patrons
+          end
+        end
+
+        manifestation
       end
 
       def search_cinii_book(query, options = {})
@@ -34,7 +80,7 @@ module EnjuNii
         if startrecord == 0
           startrecord = 1
         end
-        url = "http://ci.nii.ac.jp/books/opensearch/search?q=#{query}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
+        url = "http://ci.nii.ac.jp/books/opensearch/search?q=#{URI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
         if options[:raw] == true
           open(url).read
         else
@@ -61,13 +107,39 @@ module EnjuNii
         rss = RSS::Parser.parse(url, false)
       end
 
-      private
+      #private
       def normalize_isbn(isbn)
         if isbn.length == 10
           Lisbn.new(isbn).isbn13
         else
           Lisbn.new(isbn).isbn10
         end
+      end
+
+      def get_creator(doc)
+        doc.xpath("//foaf:maker/foaf:Person").map{|e|
+          {
+            :full_name => e.at("./foaf:name").content,
+            :full_name_transcription => e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
+            :patron_identifier => e.attributes["about"].try(:content)
+          }
+        }
+      end
+
+      def get_publisher(doc)
+        doc.xpath("//dc:publisher").map{|e| {:full_name => e.content}}
+      end
+
+      def get_title(doc)
+        {
+          :original_title => doc.at("//dc:title[not(@xml:lang)]").content,
+          :title_transcription => doc.xpath("//dc:title[@xml:lang]").map{|e| e.try(:content)}.join("\n"),
+          :title_alternative => doc.xpath("//dcterms:alternative").map{|e| e.try(:content)}.join("\n")
+        }
+      end
+
+      def get_language(doc)
+        doc.at("//dc:language").try(:content)
       end
     end
 
