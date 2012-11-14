@@ -23,7 +23,10 @@ class CiniiBook
   end
 
   def ncid
-    @node.at('./cinii:ncid').try(:content)
+    url = @node.attributes['about'].try(:content)
+    if url
+      URI.parse(url).path.split('/').reverse.first
+    end
   end
 
   def issued
