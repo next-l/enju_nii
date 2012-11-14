@@ -10,7 +10,7 @@ module EnjuNii
     end
 
     module ClassMethods
-      def enju_nii_cinii_book
+      def enju_nii_cinii_books
         include EnjuNii::CiNiiBook
       end
     end

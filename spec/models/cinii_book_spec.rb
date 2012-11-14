@@ -4,7 +4,7 @@ require 'spec_helper'
 describe CiniiBook do
   fixtures :all
 
-  Manifestation.enju_nii_cinii_book
+  Manifestation.enju_nii_cinii_books
 
   use_vcr_cassette "enju_nii/search", :record => :new_episodes
 
