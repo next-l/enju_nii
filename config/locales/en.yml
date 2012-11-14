@@ -1,0 +1,7 @@
+en:
+  enju_nii:
+    import_from_cinii_books: Import from CiNii Books
+    record_not_found: Record not found.
+    not_available: Not available
+    add: Add
+    already_exists: Already exists
