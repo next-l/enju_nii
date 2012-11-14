@@ -51,9 +51,12 @@ module EnjuNii
           manifestation.language_id = 1
         end
 
-        urn = doc.at("//dcterms:hasPart[@rdf:resource]").attributes["resource"].value
-        if urn =~ /^urn:isbn/
-          manifestation.isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, ""))
+        begin
+          urn = doc.at("//dcterms:hasPart[@rdf:resource]").attributes["resource"].value
+          if urn =~ /^urn:isbn/
+            manifestation.isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, ""))
+          end
+        rescue NoMethodError
         end
 
         manifestation.carrier_type = CarrierType.where(:name => 'print').first
