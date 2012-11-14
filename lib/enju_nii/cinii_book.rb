@@ -17,10 +17,10 @@ module EnjuNii
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
         #raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
-        import_record(doc)
+        import_record_from_cinii_books(doc)
       end
 
-      def import_record(doc)
+      def import_record_from_cinii_books(doc)
         ncid = doc.at('//cinii:ncid').try(:content)
         manifestation = Manifestation.where(:ncid => ncid).first if ncid
         return manifestation if manifestation
@@ -58,15 +58,16 @@ module EnjuNii
 
         manifestation.carrier_type = CarrierType.where(:name => 'print').first
         manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
+        manifestation.ncid = ncid
 
         if manifestation.valid?
-          Patron.transaction do
-            manifestation.save
+          #Patron.transaction do
+            manifestation.save!
             publisher_patrons = Patron.import_patrons(publishers)
             creator_patrons = Patron.import_patrons(creators)
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
-          end
+          #end
         end
 
         manifestation
@@ -107,7 +108,7 @@ module EnjuNii
         rss = RSS::Parser.parse(url, false)
       end
 
-      #private
+      private
       def normalize_isbn(isbn)
         if isbn.length == 10
           Lisbn.new(isbn).isbn13

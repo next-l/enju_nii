@@ -41,6 +41,11 @@ class CiniiBook
   end
 
   def self.import_ncid(ncid)
+    manifestation = Manifestation.where(:ncid => ncid).first
+    return if manifestation
+    url = "http://ci.nii.ac.jp/ncid/#{ncid}.rdf"
+    doc = Nokogiri::XML(open(url).read)
+    Manifestation.import_record_from_cinii_books(doc)
   end
 
   attr_accessor :url

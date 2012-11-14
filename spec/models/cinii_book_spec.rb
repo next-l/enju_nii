@@ -8,7 +8,11 @@ describe CiniiBook do
 
   use_vcr_cassette "enju_nii/cinii_books", :record => :new_episodes
 
-  it "should import a bibliographic record" do
+  it "should search bibliographic records" do
     CiniiBook.search("library system")[:total_entries].should eq 3088
+  end
+
+  it "should import a bibliographic record" do
+    CiniiBook.import_ncid("BA85746967").should be_true
   end
 end
