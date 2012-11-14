@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 class CiniiBook
-  attr_reader :title, :creator, :publisher, :link
+  attr_reader :title, :creator, :publisher, :link, :ncid, :issued
 
   def initialize(node)
     @node = node
@@ -20,6 +20,14 @@ class CiniiBook
 
   def link
     @node.at('./xmlns:link').try(:content)
+  end
+
+  def ncid
+    @node.at('./cinii:ncid').try(:content)
+  end
+
+  def issued
+    @node.at('./dc:date').try(:content)
   end
 
   def self.per_page

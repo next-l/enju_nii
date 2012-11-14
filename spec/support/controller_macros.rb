@@ -1,27 +1,4 @@
 module ControllerMacros
-  def login_admin
-    before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:admin]
-      sign_in FactoryGirl.create(:admin)
-    end
-  end
-
-  def login_librarian
-    before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      user = FactoryGirl.create(:librarian)
-      sign_in user
-    end
-  end
-
-  def login_user
-    before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
-      user = FactoryGirl.create(:user)
-      sign_in user
-    end
-  end
-
   def login_fixture_admin
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:admin]
@@ -32,7 +9,7 @@ module ControllerMacros
 
   def login_fixture_librarian
     before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:user]
+      @request.env["devise.mapping"] = Devise.mappings[:librarian]
       @user = users(:librarian1)
       sign_in @user
     end
