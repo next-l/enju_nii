@@ -13,6 +13,6 @@ describe CiniiBook do
   end
 
   it "should import a bibliographic record" do
-    CiniiBook.import_ncid("BA85746967").should be_true
+    CiniiBook.import_ncid("BA85746967").should be_nil
   end
 end

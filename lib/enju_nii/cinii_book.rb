@@ -21,6 +21,9 @@ module EnjuNii
       end
 
       def import_record_from_cinii_books(doc)
+        # http://ci.nii.ac.jp/info/ja/terms.html
+        return nil
+
         ncid = doc.at('//cinii:ncid').try(:content)
         manifestation = Manifestation.where(:ncid => ncid).first if ncid
         return manifestation if manifestation
