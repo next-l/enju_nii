@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "vcr"
   s.add_development_dependency "fakeweb"
-  s.add_development_dependency "charlock_holmes"
   s.add_development_dependency "enju_manifestation_viewer"
   s.add_development_dependency "enju_subject", "~> 0.1.0.pre3"
 end
