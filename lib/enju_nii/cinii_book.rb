@@ -6,7 +6,7 @@ module EnjuNii
     end
 
     module ClassMethods
-      def import_isbn(isbn)
+      def import_from_cinii(options = {:isbn => isbn})
         return nil unless isbn
         lisbn = Lisbn.new(isbn)
         raise EnjuNii::InvalidIsbn unless lisbn.valid?
