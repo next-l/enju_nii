@@ -18,12 +18,13 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2"
   s.add_dependency "attribute_normalizer"
-  s.add_dependency "enju_biblio", "~> 0.1.0.pre11"
+  s.add_dependency "enju_biblio", "~> 0.1.0.pre13"
+  s.add_dependency "nori", "~> 1.1"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "vcr"
   s.add_development_dependency "fakeweb"
   s.add_development_dependency "enju_manifestation_viewer"
-  s.add_development_dependency "enju_subject", "~> 0.1.0.pre3"
+  s.add_development_dependency "enju_subject", "~> 0.1.0.pre4"
 end
