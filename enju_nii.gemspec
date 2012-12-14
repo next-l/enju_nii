@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = EnjuNii::VERSION
   s.authors     = ["Kosuke Tanabe"]
   s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
-  s.homepage    = "https://github.com/nabeta/enju_nii"
+  s.homepage    = "https://github.com/next-l/enju_nii"
   s.summary     = "enju_nii plugin"
   s.description = "add nii_type attribute to Next-L Enju"
 
