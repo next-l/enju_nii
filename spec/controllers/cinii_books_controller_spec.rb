@@ -9,16 +9,17 @@ describe CiniiBooksController do
 
   describe "GET index" do
     login_fixture_admin
-    use_vcr_cassette "enju_nii/search", :record => :new_episodes
+    VCR.use_cassette "enju_nii/search", :record => :new_episodes do
 
-    it "should get index" do
-      get :index, :query => 'library'
-      assigns(:books).should_not be_empty
-    end
+      it "should get index" do
+        get :index, :query => 'library'
+        assigns(:books).should_not be_empty
+      end
 
-    it "should be empty if a query is not set" do
-      get :index
-      assigns(:books).should be_empty
+      it "should be empty if a query is not set" do
+        get :index
+        assigns(:books).should be_empty
+      end
     end
   end
 end
