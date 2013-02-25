@@ -43,4 +43,4 @@ module Dummy
   end
 end
 
-require 'master_model'
+require 'enju_biblio'
