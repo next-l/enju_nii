@@ -1,0 +1,131 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://ci.nii.ac.jp/books/opensearch/search?q=library&p=1&count=10&format=rss
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      accept:
+      - '*/*'
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Mon, 25 Feb 2013 06:33:42 GMT
+      content-encoding:
+      - UTF-8
+      content-type:
+      - application/rss+xml
+      transfer-encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns="http://purl.org/rss/1.0/">
+        <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library&amp;p=1&amp;format=rss">
+        <title>CiNii Books OpenSearch - 10 library 1</title>
+        <description>CiNii Books OpenSearch - 10 library 1</description>
+        <link>http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library&amp;p=1&amp;format=rss</link>
+        <dc:date>2013-02-25T15:33:42+0900</dc:date>
+        <opensearch:totalResults>144829</opensearch:totalResults>
+        <opensearch:startIndex>0</opensearch:startIndex>
+        <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+        <items>
+        <rdf:Seq>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA28725003"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA90663224"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA46821654"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA67588241"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA10547663"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/AA00270565"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA58960319"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BB09766306"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA36988970"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA19184900"/>
+        </rdf:Seq>
+        </items>
+        </channel>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA28725003">
+        <title>National Library Conferences</title>
+        <link>http://ci.nii.ac.jp/ncid/BA28725003</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA28725003.rdf"/>
+        <dc:creator/>
+        <dc:publisher>National Library</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA90663224">
+        <title>Lifetime library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA90663224</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA90663224.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Books for Libraries</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA46821654">
+        <title>Popular library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA46821654</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA46821654.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Popular Library</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA67588241">
+        <title>Libraries Unlimited library management collection</title>
+        <link>http://ci.nii.ac.jp/ncid/BA67588241</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA67588241.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Libraries Unlimited</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA10547663">
+        <title>Burndy Library publication</title>
+        <link>http://ci.nii.ac.jp/ncid/BA10547663</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA10547663.rdf"/>
+        <dc:creator/>
+        <dc:publisher>The Library</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/AA00270565">
+        <title>Library world</title>
+        <link>http://ci.nii.ac.jp/ncid/AA00270565</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/AA00270565.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Library supply</dc:publisher>
+        <prism:publicationDate>1898</prism:publicationDate>
+        <dc:date>1898</dc:date>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA58960319">
+        <title>Modern Library food</title>
+        <link>http://ci.nii.ac.jp/ncid/BA58960319</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA58960319.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Modern Library</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BB09766306">
+        <title>Heinemann first library</title>
+        <link>http://ci.nii.ac.jp/ncid/BB09766306</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BB09766306.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Heinemann Library</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA36988970">
+        <title>The acme library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA36988970</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA36988970.rdf"/>
+        <dc:creator/>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA19184900">
+        <title>Instant Library report</title>
+        <link>http://ci.nii.ac.jp/ncid/BA19184900</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA19184900.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Instant Library</dc:publisher>
+        </item>
+        </rdf:RDF>
+    http_version: '1.1'
+  recorded_at: Mon, 25 Feb 2013 06:33:41 GMT
+recorded_with: VCR 2.4.0
