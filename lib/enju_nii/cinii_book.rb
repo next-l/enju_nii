@@ -80,12 +80,6 @@ module EnjuNii
         manifestation
       end
 
-      def import_isbn!(isbn)
-        manifestation = import_from_cinii_books(:isbn => isbn)
-        manifestation.save!
-        manifestation
-      end
-
       def search_cinii_book(query, options = {})
         options = {:p => 1, :count => 10, :raw => false}.merge(options)
         doc = nil
