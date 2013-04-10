@@ -6,10 +6,11 @@ module EnjuNii
     end
 
     module ClassMethods
-      def import_from_cinii(options = {:isbn => isbn})
-        return nil unless isbn
-        lisbn = Lisbn.new(isbn)
-        raise EnjuNii::InvalidIsbn unless lisbn.valid?
+      def import_from_cinii_books(options)
+        #if options[:isbn]
+          lisbn = Lisbn.new(options[:isbn])
+          raise EnjuNii::InvalidIsbn unless lisbn.valid?
+        #end
 
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
         return manifestation if manifestation
@@ -76,6 +77,12 @@ module EnjuNii
           #end
         end
 
+        manifestation
+      end
+
+      def import_isbn!(isbn)
+        manifestation = import_from_cinii_books(:isbn => isbn)
+        manifestation.save!
         manifestation
       end
 

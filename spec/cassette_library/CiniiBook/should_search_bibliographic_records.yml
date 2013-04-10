@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 25 Feb 2013 06:30:52 GMT
+      - Wed, 10 Apr 2013 02:49:29 GMT
       content-encoding:
       - UTF-8
       content-type:
@@ -29,14 +29,13 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" encoding="UTF-8"?>
-        <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns="http://purl.org/rss/1.0/">
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns="http://purl.org/rss/1.0/">
         <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library%20system&amp;p=1&amp;format=rss">
         <title>CiNii Books OpenSearch - 10 library system 1</title>
         <description>CiNii Books OpenSearch - 10 library system 1</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library%20system&amp;p=1&amp;format=rss</link>
-        <dc:date>2013-02-25T15:30:52+0900</dc:date>
-        <opensearch:totalResults>3137</opensearch:totalResults>
+        <dc:date>2013-04-10T11:49:29+0900</dc:date>
+        <opensearch:totalResults>3141</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
@@ -44,13 +43,13 @@ http_interactions:
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA49885915"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/AA10632899"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/AA00227023"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA06786762"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA21080453"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA07771013"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA91258560"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA63820104"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA53745669"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BB09127329"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA21852421"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA06786762"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA07771013"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA63820104"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA91258560"/>
         </rdf:Seq>
         </items>
         </channel>
@@ -81,13 +80,6 @@ http_interactions:
         <prism:publicationDate>1968</prism:publicationDate>
         <dc:date>1968</dc:date>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA06786762">
-        <title>Hayden Books UNIX system library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA06786762</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA06786762.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Hayden Books</dc:publisher>
-        </item>
         <item rdf:about="http://ci.nii.ac.jp/ncid/BA21080453">
         <title>AT&amp;T UNIX system V library</title>
         <link>http://ci.nii.ac.jp/ncid/BA21080453</link>
@@ -95,21 +87,33 @@ http_interactions:
         <dc:creator/>
         <dc:publisher>Prentice Hall</dc:publisher>
         </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA53745669">
+        <title>The business man's library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA53745669</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA53745669.rdf"/>
+        <dc:creator/>
+        <dc:publisher>System Co.</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA21852421">
+        <title>Prentice Hall open systems library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA21852421</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA21852421.rdf"/>
+        <dc:creator/>
+        <dc:publisher>PTR Prentice Hall</dc:publisher>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA06786762">
+        <title>Hayden Books UNIX system library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA06786762</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA06786762.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Hayden Books</dc:publisher>
+        </item>
         <item rdf:about="http://ci.nii.ac.jp/ncid/BA07771013">
         <title>Hayden UNIX system library</title>
         <link>http://ci.nii.ac.jp/ncid/BA07771013</link>
         <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA07771013.rdf"/>
         <dc:creator/>
         <dc:publisher>Hayden Book Co</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA91258560">
-        <title>Intelligent systems reference library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA91258560</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA91258560.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Springer</dc:publisher>
-        <prism:publicationDate>2009</prism:publicationDate>
-        <dc:date>2009</dc:date>
         </item>
         <item rdf:about="http://ci.nii.ac.jp/ncid/BA63820104">
         <title>Business correspondence library</title>
@@ -120,23 +124,16 @@ http_interactions:
         <prism:publicationDate>1911</prism:publicationDate>
         <dc:date>1911</dc:date>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA53745669">
-        <title>The business man's library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA53745669</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA53745669.rdf"/>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA91258560">
+        <title>Intelligent systems reference library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA91258560</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA91258560.rdf"/>
         <dc:creator/>
-        <dc:publisher>System Co.</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BB09127329">
-        <title>The herpetocultural library</title>
-        <link>http://ci.nii.ac.jp/ncid/BB09127329</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BB09127329.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Advanced Vivarium Systems</dc:publisher>
-        <prism:publicationDate>1990</prism:publicationDate>
-        <dc:date>1990</dc:date>
+        <dc:publisher>Springer</dc:publisher>
+        <prism:publicationDate>2009</prism:publicationDate>
+        <dc:date>2009</dc:date>
         </item>
         </rdf:RDF>
     http_version: '1.1'
-  recorded_at: Mon, 25 Feb 2013 06:30:51 GMT
+  recorded_at: Wed, 10 Apr 2013 02:49:29 GMT
 recorded_with: VCR 2.4.0
