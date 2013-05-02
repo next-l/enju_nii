@@ -605,7 +605,7 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.text     "title_subseries_transcription"
   end
 
-  add_index "series_statements", ["root_manifestation_id"], :name => "index_series_statements_on_manifestation_id"
+  add_index "series_statements", ["root_manifestation_id"], :name => "index_series_statements_on_root_manifestation_id"
   add_index "series_statements", ["series_statement_identifier"], :name => "index_series_statements_on_series_statement_identifier"
 
   create_table "subject_has_classifications", :force => true do |t|
