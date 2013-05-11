@@ -13,7 +13,7 @@ module EnjuNii
         #end
 
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
-        return manifestation if manifestation
+        return manifestation if manifestation.present?
 
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc

@@ -13,6 +13,11 @@ module EnjuNii
       def enju_nii_cinii_books
         include EnjuNii::CiNiiBook
       end
+
+      def import_isbn(isbn)
+        manifestation = Manifestation.import_from_ndl_search(:isbn => isbn)
+        manifestation
+      end
     end
   end
 

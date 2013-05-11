@@ -6,7 +6,7 @@ class CreatePatronImportFiles < ActiveRecord::Migration
       t.integer :size
       t.integer :user_id
       t.text :note
-      t.datetime :imported_at
+      t.datetime :executed_at
       t.string :state
       t.string :patron_import_file_name
       t.string :patron_import_content_type

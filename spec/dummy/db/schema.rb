@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113163717) do
+ActiveRecord::Schema.define(:version => 20130511144310) do
 
   create_table "carrier_types", :force => true do |t|
     t.string   "name",         :null => false
@@ -40,10 +40,12 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.datetime "updated_at",             :null => false
     t.integer  "lft"
     t.integer  "rgt"
+    t.integer  "manifestation_id"
   end
 
   add_index "classifications", ["category"], :name => "index_classifications_on_category"
   add_index "classifications", ["classification_type_id"], :name => "index_classifications_on_classification_type_id"
+  add_index "classifications", ["manifestation_id"], :name => "index_classifications_on_manifestation_id"
   add_index "classifications", ["parent_id"], :name => "index_classifications_on_parent_id"
 
   create_table "content_types", :force => true do |t|
@@ -139,6 +141,27 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "identifier_types", :force => true do |t|
+    t.string   "name"
+    t.text     "display_name"
+    t.text     "note"
+    t.integer  "position"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "identifiers", :force => true do |t|
+    t.string   "body",               :null => false
+    t.integer  "identifier_type_id", :null => false
+    t.integer  "manifestation_id"
+    t.boolean  "primary"
+    t.integer  "position"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "identifiers", ["body", "identifier_type_id"], :name => "index_identifiers_on_body_and_identifier_type_id"
+
   create_table "import_requests", :force => true do |t|
     t.string   "isbn"
     t.string   "state"
@@ -170,6 +193,7 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.datetime "acquired_at"
     t.integer  "bookstore_id"
     t.integer  "budget_type_id"
+    t.integer  "manifestation_id"
   end
 
   add_index "items", ["bookstore_id"], :name => "index_items_on_bookstore_id"
@@ -243,13 +267,6 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.integer  "height"
     t.integer  "width"
     t.integer  "depth"
-    t.string   "isbn"
-    t.string   "isbn10"
-    t.string   "wrong_isbn"
-    t.string   "nbn"
-    t.string   "lccn"
-    t.string   "oclc_number"
-    t.string   "issn"
     t.integer  "price"
     t.text     "fulltext"
     t.string   "volume_number_string"
@@ -288,20 +305,17 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.text     "attachment_meta"
     t.integer  "month_of_publication"
     t.string   "ncid"
+    t.boolean  "fulltext_content"
+    t.string   "doi"
+    t.boolean  "periodical"
   end
 
   add_index "manifestations", ["access_address"], :name => "index_manifestations_on_access_address"
-  add_index "manifestations", ["carrier_type_id"], :name => "index_manifestations_on_carrier_type_id"
-  add_index "manifestations", ["frequency_id"], :name => "index_manifestations_on_frequency_id"
-  add_index "manifestations", ["isbn"], :name => "index_manifestations_on_isbn"
-  add_index "manifestations", ["issn"], :name => "index_manifestations_on_issn"
-  add_index "manifestations", ["lccn"], :name => "index_manifestations_on_lccn"
+  add_index "manifestations", ["date_of_publication"], :name => "index_manifestations_on_date_of_publication"
+  add_index "manifestations", ["doi"], :name => "index_manifestations_on_doi"
   add_index "manifestations", ["manifestation_identifier"], :name => "index_manifestations_on_manifestation_identifier"
-  add_index "manifestations", ["nbn"], :name => "index_manifestations_on_nbn"
   add_index "manifestations", ["ncid"], :name => "index_manifestations_on_ncid"
   add_index "manifestations", ["nii_type_id"], :name => "index_manifestations_on_nii_type_id"
-  add_index "manifestations", ["oclc_number"], :name => "index_manifestations_on_oclc_number"
-  add_index "manifestations", ["required_role_id"], :name => "index_manifestations_on_required_role_id"
   add_index "manifestations", ["updated_at"], :name => "index_manifestations_on_updated_at"
 
   create_table "medium_of_performances", :force => true do |t|
@@ -560,17 +574,6 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "series_has_manifestations", :force => true do |t|
-    t.integer  "series_statement_id"
-    t.integer  "manifestation_id"
-    t.integer  "position"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-  end
-
-  add_index "series_has_manifestations", ["manifestation_id"], :name => "index_series_has_manifestations_on_manifestation_id"
-  add_index "series_has_manifestations", ["series_statement_id"], :name => "index_series_has_manifestations_on_series_statement_id"
-
   create_table "series_statement_merge_lists", :force => true do |t|
     t.string   "title"
     t.datetime "created_at", :null => false
@@ -593,41 +596,24 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.text     "title_subseries"
     t.text     "numbering_subseries"
     t.integer  "position"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.text     "title_transcription"
     t.text     "title_alternative"
     t.string   "series_statement_identifier"
-    t.string   "issn"
-    t.boolean  "periodical"
-    t.integer  "root_manifestation_id"
+    t.integer  "manifestation_id"
     t.text     "note"
     t.text     "title_subseries_transcription"
+    t.text     "creator_string"
+    t.text     "volume_number_string"
+    t.text     "volume_number_transcription_string"
+    t.boolean  "series_master"
+    t.integer  "root_manifestation_id"
   end
 
+  add_index "series_statements", ["manifestation_id"], :name => "index_series_statements_on_manifestation_id"
   add_index "series_statements", ["root_manifestation_id"], :name => "index_series_statements_on_root_manifestation_id"
   add_index "series_statements", ["series_statement_identifier"], :name => "index_series_statements_on_series_statement_identifier"
-
-  create_table "subject_has_classifications", :force => true do |t|
-    t.integer  "subject_id"
-    t.string   "subject_type"
-    t.integer  "classification_id", :null => false
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  add_index "subject_has_classifications", ["classification_id"], :name => "index_subject_has_classifications_on_classification_id"
-  add_index "subject_has_classifications", ["subject_id"], :name => "index_subject_has_classifications_on_subject_id"
-
-  create_table "subject_heading_type_has_subjects", :force => true do |t|
-    t.integer  "subject_id",              :null => false
-    t.string   "subject_type"
-    t.integer  "subject_heading_type_id", :null => false
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-  end
-
-  add_index "subject_heading_type_has_subjects", ["subject_id"], :name => "index_subject_heading_type_has_subjects_on_subject_id"
 
   create_table "subject_heading_types", :force => true do |t|
     t.string   "name",         :null => false
@@ -652,22 +638,37 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.integer  "use_term_id"
     t.string   "term"
     t.text     "term_transcription"
-    t.integer  "subject_type_id",                   :null => false
+    t.integer  "subject_type_id",                        :null => false
     t.text     "scope_note"
     t.text     "note"
-    t.integer  "required_role_id",   :default => 1, :null => false
-    t.integer  "lock_version",       :default => 0, :null => false
+    t.integer  "required_role_id",        :default => 1, :null => false
+    t.integer  "lock_version",            :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "url"
+    t.integer  "manifestation_id"
+    t.integer  "subject_heading_type_id"
   end
 
+  add_index "subjects", ["manifestation_id"], :name => "index_subjects_on_manifestation_id"
   add_index "subjects", ["parent_id"], :name => "index_subjects_on_parent_id"
   add_index "subjects", ["required_role_id"], :name => "index_subjects_on_required_role_id"
   add_index "subjects", ["subject_type_id"], :name => "index_subjects_on_subject_type_id"
   add_index "subjects", ["term"], :name => "index_subjects_on_term"
   add_index "subjects", ["use_term_id"], :name => "index_subjects_on_use_term_id"
+
+  create_table "user_groups", :force => true do |t|
+    t.string   "name"
+    t.text     "display_name"
+    t.text     "note"
+    t.integer  "position"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.datetime "deleted_at"
+    t.integer  "valid_period_for_new_user", :default => 0, :null => false
+    t.datetime "expired_at"
+  end
 
   create_table "user_has_roles", :force => true do |t|
     t.integer  "user_id"
@@ -677,11 +678,6 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "user_group_id"
-    t.integer  "required_role_id"
-    t.string   "username"
-    t.text     "note"
-    t.string   "locale"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "email",                  :default => "", :null => false
@@ -694,19 +690,29 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "password_salt"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
+    t.string   "username"
+    t.string   "user_number"
+    t.string   "state"
+    t.string   "locale"
+    t.datetime "deleted_at"
+    t.datetime "expired_at"
+    t.integer  "library_id",             :default => 1,  :null => false
+    t.integer  "required_role_id",       :default => 1,  :null => false
+    t.integer  "user_group_id",          :default => 1,  :null => false
+    t.text     "note"
+    t.text     "keyword_list"
+    t.integer  "failed_attempts"
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "authentication_token"
+    t.datetime "confirmed_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
+  add_index "users", ["user_group_id"], :name => "index_users_on_user_group_id"
+  add_index "users", ["user_number"], :name => "index_users_on_user_number", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false
@@ -718,17 +724,5 @@ ActiveRecord::Schema.define(:version => 20121113163717) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
-
-  create_table "work_has_subjects", :force => true do |t|
-    t.integer  "subject_id"
-    t.string   "subject_type"
-    t.integer  "work_id"
-    t.integer  "position"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "work_has_subjects", ["subject_id"], :name => "index_work_has_subjects_on_subject_id"
-  add_index "work_has_subjects", ["work_id"], :name => "index_work_has_subjects_on_work_id"
 
 end
