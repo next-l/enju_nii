@@ -595,12 +595,6 @@ ActiveRecord::Schema.define(version: 20130511144310) do
     t.datetime "updated_at"
   end
 
-  create_table "series_statement_merge_lists", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "series_statements", force: true do |t|
     t.text     "original_title"
     t.text     "numbering"
