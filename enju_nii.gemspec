@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "enju_nii"
   s.version     = EnjuNii::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["kosuke@e23.jp"]
+  s.email       = ["nabeta@fastmail.fm"]
   s.homepage    = "https://github.com/next-l/enju_nii"
   s.summary     = "enju_nii plugin"
   s.description = "add nii_type attribute to Next-L Enju"
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "enju_biblio", "~> 0.1.0.pre50"
 
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "rspec-rails", "2.99"
   s.add_development_dependency "vcr"
   s.add_development_dependency "fakeweb"
   s.add_development_dependency "enju_leaf", "~> 1.1.0.rc7"
