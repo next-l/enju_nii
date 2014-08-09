@@ -1,10 +1,10 @@
 = EnjuNii
 
-This project rocks and uses MIT-LICENSE.
+CiNii Booksから書誌をインポートするための Enju プラグインです。
 
-== Install
+== インストール方法 / How to Install
 
-enju_leafのGemfile に以下の行を追加してください。
+お使いのenju_leafのGemfile に以下の行を追加してください。
 
   gem 'enju_nii', github: "next-l/enju_nii", branch: '1.1'
 
@@ -17,4 +17,15 @@ gemをインストールします。
   $ rake enju_nii_engine:install:migrations
   $ rake enju_nii:setup
 
+データベースを更新します。
 
+  $ rake db:migrate
+
+その後、Enjuを再起動してください。
+
+\http://(Enjuのホスト)/cinii_books/ にアクセスすると、
+CiNii Books検索によるインポート機能が利用できます。
+
+== ライセンス / License
+
+This project rocks and uses MIT-LICENSE.
