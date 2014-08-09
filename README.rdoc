@@ -1,3 +1,20 @@
 = EnjuNii
 
 This project rocks and uses MIT-LICENSE.
+
+== Install
+
+enju_leafのGemfile に以下の行を追加してください。
+
+  gem 'enju_nii', github: "next-l/enju_nii", branch: '1.1'
+
+gemをインストールします。
+
+  $ bundle update
+
+インストールが完了したら、以下のコマンドでセットアップを行います。
+
+  $ rake enju_nii_engine:install:migrations
+  $ rake enju_nii:setup
+
+
