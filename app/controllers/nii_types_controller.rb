@@ -1,7 +1,7 @@
 class NiiTypesController < ApplicationController
   before_action :set_nii_type, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
+  after_action :verify_policy_scoped, only: :index
 
   # GET /nii_types
   def index
@@ -29,7 +29,7 @@ class NiiTypesController < ApplicationController
     authorize @nii_type
 
     if @nii_type.save
-      redirect_to @nii_type, notice:  t('controller.successfully_created', :model => t('activerecord.models.nii_type'))
+      redirect_to @nii_type, notice:  t('controller.successfully_created', model: t('activerecord.models.nii_type'))
     else
       render action: 'new'
     end
@@ -42,7 +42,7 @@ class NiiTypesController < ApplicationController
       return
     end
     if @nii_type.update(nii_type_params)
-      redirect_to @nii_type, notice:  t('controller.successfully_updated', :model => t('activerecord.models.nii_type'))
+      redirect_to @nii_type, notice:  t('controller.successfully_updated', model: t('activerecord.models.nii_type'))
     else
       render action: 'edit'
     end
@@ -51,7 +51,7 @@ class NiiTypesController < ApplicationController
   # DELETE /nii_types/1
   def destroy
     @nii_type.destroy
-    redirect_to nii_types_url, :notice => t('controller.successfully_deleted', :model => t('activerecord.models.nii_type'))
+    redirect_to nii_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.nii_type'))
   end
 
   private
