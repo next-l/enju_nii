@@ -15,7 +15,7 @@ module EnjuNii
       end
 
       def import_isbn(isbn)
-        manifestation = Manifestation.import_from_ndl_search(:isbn => isbn)
+        manifestation = Manifestation.import_from_cinii_books(isbn: isbn)
         manifestation
       end
     end

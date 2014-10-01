@@ -104,7 +104,7 @@ module EnjuNii
           rss = self.search_cinii_by_isbn(normalize_isbn(isbn))
         end
         if rss.items.first
-          Nokogiri::XML(open("#{rss.items.first.link}.rdf").read)
+          Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
         end
       end
 

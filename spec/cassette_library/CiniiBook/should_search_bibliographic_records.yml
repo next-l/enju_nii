@@ -2,138 +2,156 @@
 http_interactions:
 - request:
     method: get
-    uri: http://ci.nii.ac.jp/books/opensearch/search?q=library%20system&p=1&count=10&format=rss
+    uri: http://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=library%20system
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept-encoding:
+      Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      accept:
-      - '*/*'
-      user-agent:
+      Accept:
+      - "*/*"
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      date:
-      - Wed, 10 Apr 2013 02:49:29 GMT
-      content-encoding:
-      - UTF-8
-      content-type:
-      - application/rss+xml
-      transfer-encoding:
+      Date:
+      - Wed, 01 Oct 2014 10:32:58 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: |
-        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns="http://purl.org/rss/1.0/">
-        <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library%20system&amp;p=1&amp;format=rss">
-        <title>CiNii Books OpenSearch - 10 library system 1</title>
-        <description>CiNii Books OpenSearch - 10 library system 1</description>
-        <link>http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library%20system&amp;p=1&amp;format=rss</link>
-        <dc:date>2013-04-10T11:49:29+0900</dc:date>
-        <opensearch:totalResults>3141</opensearch:totalResults>
-        <opensearch:startIndex>0</opensearch:startIndex>
-        <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
-        <items>
-        <rdf:Seq>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA49885915"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/AA10632899"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/AA00227023"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA21080453"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA53745669"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA21852421"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA06786762"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA07771013"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA63820104"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA91258560"/>
-        </rdf:Seq>
-        </items>
-        </channel>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA49885915">
-        <title>The Logos Library Systems</title>
-        <link>http://ci.nii.ac.jp/ncid/BA49885915</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA49885915.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Logos Research Systems</dc:publisher>
-        <prism:publicationDate>1997</prism:publicationDate>
-        <dc:date>1997</dc:date>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/AA10632899">
-        <title>Library systems</title>
-        <link>http://ci.nii.ac.jp/ncid/AA10632899</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/AA10632899.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Library Technology Reports, American Library Association</dc:publisher>
-        <prism:publicationDate>1981</prism:publicationDate>
-        <dc:date>1981</dc:date>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/AA00227023">
-        <title>Information retrieval &amp; library automation letter</title>
-        <link>http://ci.nii.ac.jp/ncid/AA00227023</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/AA00227023.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Lomond Systems</dc:publisher>
-        <prism:publicationDate>1968</prism:publicationDate>
-        <dc:date>1968</dc:date>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA21080453">
-        <title>AT&amp;T UNIX system V library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA21080453</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA21080453.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Prentice Hall</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA53745669">
-        <title>The business man's library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA53745669</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA53745669.rdf"/>
-        <dc:creator/>
-        <dc:publisher>System Co.</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA21852421">
-        <title>Prentice Hall open systems library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA21852421</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA21852421.rdf"/>
-        <dc:creator/>
-        <dc:publisher>PTR Prentice Hall</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA06786762">
-        <title>Hayden Books UNIX system library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA06786762</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA06786762.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Hayden Books</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA07771013">
-        <title>Hayden UNIX system library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA07771013</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA07771013.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Hayden Book Co</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA63820104">
-        <title>Business correspondence library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA63820104</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA63820104.rdf"/>
-        <dc:creator/>
-        <dc:publisher>System Co</dc:publisher>
-        <prism:publicationDate>1911</prism:publicationDate>
-        <dc:date>1911</dc:date>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA91258560">
-        <title>Intelligent systems reference library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA91258560</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA91258560.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Springer</dc:publisher>
-        <prism:publicationDate>2009</prism:publicationDate>
-        <dc:date>2009</dc:date>
-        </item>
-        </rdf:RDF>
-    http_version: '1.1'
-  recorded_at: Wed, 10 Apr 2013 02:49:29 GMT
-recorded_with: VCR 2.4.0
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48cmRmOlJE
+        RiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8i
+        IHhtbG5zOmRjdGVybXM9Imh0dHA6Ly9wdXJsLm9yZy9kYy90ZXJtcy8iIHht
+        bG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3lu
+        dGF4LW5zIyIgeG1sbnM6b3BlbnNlYXJjaD0iaHR0cDovL2E5LmNvbS8tL3Nw
+        ZWMvb3BlbnNlYXJjaC8xLjEvIiB4bWxuczpyZGZzPSJodHRwOi8vd3d3Lncz
+        Lm9yZy8yMDAwLzAxL3JkZi1zY2hlbWEjIiB4bWxuczpwcmlzbT0iaHR0cDov
+        L3ByaXNtc3RhbmRhcmQub3JnL25hbWVzcGFjZXMvYmFzaWMvMi4wLyIgeG1s
+        bnM6Y2luaWk9Imh0dHA6Ly9jaS5uaWkuYWMuanAvbnMvMS4wLyIgeG1sbnM9
+        Imh0dHA6Ly9wdXJsLm9yZy9yc3MvMS4wLyI+CjxjaGFubmVsIHJkZjphYm91
+        dD0iaHR0cDovL2NpLm5paS5hYy5qcC9ib29rcy9vcGVuc2VhcmNoL3NlYXJj
+        aD9jb3VudD0xMCZhbXA7cT1saWJyYXJ5JTIwc3lzdGVtJmFtcDtwPTEmYW1w
+        O2Zvcm1hdD1yc3MiPgo8dGl0bGU+Q2lOaWkgQm9va3MgT3BlblNlYXJjaCAt
+        IDEwIGxpYnJhcnkgc3lzdGVtIDE8L3RpdGxlPgo8ZGVzY3JpcHRpb24+Q2lO
+        aWkgQm9va3MgT3BlblNlYXJjaCAtIDEwIGxpYnJhcnkgc3lzdGVtIDE8L2Rl
+        c2NyaXB0aW9uPgo8bGluaz5odHRwOi8vY2kubmlpLmFjLmpwL2Jvb2tzL29w
+        ZW5zZWFyY2gvc2VhcmNoP2NvdW50PTEwJmFtcDtxPWxpYnJhcnklMjBzeXN0
+        ZW0mYW1wO3A9MSZhbXA7Zm9ybWF0PXJzczwvbGluaz4KPGRjOmRhdGU+MjAx
+        NC0xMC0wMVQxOTozMjo1OCswOTAwPC9kYzpkYXRlPgo8b3BlbnNlYXJjaDp0
+        b3RhbFJlc3VsdHM+MzM5Nzwvb3BlbnNlYXJjaDp0b3RhbFJlc3VsdHM+Cjxv
+        cGVuc2VhcmNoOnN0YXJ0SW5kZXg+MDwvb3BlbnNlYXJjaDpzdGFydEluZGV4
+        Pgo8b3BlbnNlYXJjaDppdGVtc1BlclBhZ2U+MTA8L29wZW5zZWFyY2g6aXRl
+        bXNQZXJQYWdlPgo8aXRlbXM+CjxyZGY6U2VxPgo8cmRmOmxpIHJkZjpyZXNv
+        dXJjZT0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JBNDk4ODU5MTUiLz4K
+        PHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHA6Ly9jaS5uaWkuYWMuanAvbmNp
+        ZC9BQTEwNjMyODk5Ii8+CjxyZGY6bGkgcmRmOnJlc291cmNlPSJodHRwOi8v
+        Y2kubmlpLmFjLmpwL25jaWQvQkEyMDQ0MzkzNyIvPgo8cmRmOmxpIHJkZjpy
+        ZXNvdXJjZT0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JBNTM3NDU2Njki
+        Lz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHA6Ly9jaS5uaWkuYWMuanAv
+        bmNpZC9CQTA2Nzg2NzYyIi8+CjxyZGY6bGkgcmRmOnJlc291cmNlPSJodHRw
+        Oi8vY2kubmlpLmFjLmpwL25jaWQvQkEwNzc3MTAxMyIvPgo8cmRmOmxpIHJk
+        ZjpyZXNvdXJjZT0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JCMDkxMjcz
+        MjkiLz4KPHJkZjpsaSByZGY6cmVzb3VyY2U9Imh0dHA6Ly9jaS5uaWkuYWMu
+        anAvbmNpZC9CQTkxMjU4NTYwIi8+CjxyZGY6bGkgcmRmOnJlc291cmNlPSJo
+        dHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkEwNjY0MzY4NSIvPgo8cmRmOmxp
+        IHJkZjpyZXNvdXJjZT0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JBMDM5
+        NzQzNjkiLz4KPC9yZGY6U2VxPgo8L2l0ZW1zPgo8L2NoYW5uZWw+CjxpdGVt
+        IHJkZjphYm91dD0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JBNDk4ODU5
+        MTUiPgo8dGl0bGU+VGhlIExvZ29zIExpYnJhcnkgU3lzdGVtczwvdGl0bGU+
+        CjxsaW5rPmh0dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTQ5ODg1OTE1PC9s
+        aW5rPgo8cmRmczpzZWVBbHNvIHJkZjpyZXNvdXJjZT0iaHR0cDovL2NpLm5p
+        aS5hYy5qcC9uY2lkL0JBNDk4ODU5MTUucmRmIi8+CjxkYzpjcmVhdG9yLz4K
+        PGRjOnB1Ymxpc2hlcj5Mb2dvcyBSZXNlYXJjaCBTeXN0ZW1zPC9kYzpwdWJs
+        aXNoZXI+CjxwcmlzbTpwdWJsaWNhdGlvbkRhdGU+MTk5NzwvcHJpc206cHVi
+        bGljYXRpb25EYXRlPgo8ZGM6ZGF0ZT4xOTk3PC9kYzpkYXRlPgo8Y2luaWk6
+        b3duZXJDb3VudD4wPC9jaW5paTpvd25lckNvdW50Pgo8L2l0ZW0+CjxpdGVt
+        IHJkZjphYm91dD0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0FBMTA2MzI4
+        OTkiPgo8dGl0bGU+TGlicmFyeSBzeXN0ZW1zPC90aXRsZT4KPGxpbms+aHR0
+        cDovL2NpLm5paS5hYy5qcC9uY2lkL0FBMTA2MzI4OTk8L2xpbms+CjxyZGZz
+        OnNlZUFsc28gcmRmOnJlc291cmNlPSJodHRwOi8vY2kubmlpLmFjLmpwL25j
+        aWQvQUExMDYzMjg5OS5yZGYiLz4KPGRjOmNyZWF0b3IvPgo8ZGM6cHVibGlz
+        aGVyPkxpYnJhcnkgVGVjaG5vbG9neSBSZXBvcnRzLCBBbWVyaWNhbiBMaWJy
+        YXJ5IEFzc29jaWF0aW9uPC9kYzpwdWJsaXNoZXI+CjxwcmlzbTpwdWJsaWNh
+        dGlvbkRhdGU+MTk4MTwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGM6ZGF0
+        ZT4xOTgxPC9kYzpkYXRlPgo8ZGN0ZXJtczpoYXNQYXJ0IHJkZjpyZXNvdXJj
+        ZT0idXJuOmlzc246MDI3NzAyODgiLz4KPGNpbmlpOm93bmVyQ291bnQ+Mjwv
+        Y2luaWk6b3duZXJDb3VudD4KPC9pdGVtPgo8aXRlbSByZGY6YWJvdXQ9Imh0
+        dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTIwNDQzOTM3Ij4KPHRpdGxlPkNh
+        dGFsb2d1ZSBTdXBwb3J0IFN5c3RlbSAoQ0FUU1MpIHRlcm1pbmFsIG9wZXJh
+        dG9yJ3MgZ3VpZGU8L3RpdGxlPgo8bGluaz5odHRwOi8vY2kubmlpLmFjLmpw
+        L25jaWQvQkEyMDQ0MzkzNzwvbGluaz4KPHJkZnM6c2VlQWxzbyByZGY6cmVz
+        b3VyY2U9Imh0dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTIwNDQzOTM3LnJk
+        ZiIvPgo8ZGM6Y3JlYXRvcj5Vbml2ZXJzaXR5IG9mIFRvcm9udG8sIExpYnJh
+        cnkgQXV0b21hdGlvbiBTeXN0ZW1zPC9kYzpjcmVhdG9yPgo8ZGM6cHVibGlz
+        aGVyPuS4uOWWhE1BU0lT44K744Oz44K/44O8PC9kYzpwdWJsaXNoZXI+Cjxw
+        cmlzbTpwdWJsaWNhdGlvbkRhdGU+MTk3OTwvcHJpc206cHVibGljYXRpb25E
+        YXRlPgo8ZGM6ZGF0ZT4xOTc5PC9kYzpkYXRlPgo8Y2luaWk6b3duZXJDb3Vu
+        dD42PC9jaW5paTpvd25lckNvdW50Pgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91
+        dD0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JBNTM3NDU2NjkiPgo8dGl0
+        bGU+VGhlIGJ1c2luZXNzIG1hbidzIGxpYnJhcnk8L3RpdGxlPgo8bGluaz5o
+        dHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkE1Mzc0NTY2OTwvbGluaz4KPHJk
+        ZnM6c2VlQWxzbyByZGY6cmVzb3VyY2U9Imh0dHA6Ly9jaS5uaWkuYWMuanAv
+        bmNpZC9CQTUzNzQ1NjY5LnJkZiIvPgo8ZGM6Y3JlYXRvci8+CjxkYzpwdWJs
+        aXNoZXI+U3lzdGVtIENvLjwvZGM6cHVibGlzaGVyPgo8Y2luaWk6b3duZXJD
+        b3VudD4wPC9jaW5paTpvd25lckNvdW50Pgo8L2l0ZW0+CjxpdGVtIHJkZjph
+        Ym91dD0iaHR0cDovL2NpLm5paS5hYy5qcC9uY2lkL0JBMDY3ODY3NjIiPgo8
+        dGl0bGU+SGF5ZGVuIEJvb2tzIFVOSVggc3lzdGVtIGxpYnJhcnk8L3RpdGxl
+        Pgo8bGluaz5odHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkEwNjc4Njc2Mjwv
+        bGluaz4KPHJkZnM6c2VlQWxzbyByZGY6cmVzb3VyY2U9Imh0dHA6Ly9jaS5u
+        aWkuYWMuanAvbmNpZC9CQTA2Nzg2NzYyLnJkZiIvPgo8ZGM6Y3JlYXRvci8+
+        CjxkYzpwdWJsaXNoZXI+SGF5ZGVuIEJvb2tzPC9kYzpwdWJsaXNoZXI+Cjxj
+        aW5paTpvd25lckNvdW50PjA8L2NpbmlpOm93bmVyQ291bnQ+CjwvaXRlbT4K
+        PGl0ZW0gcmRmOmFib3V0PSJodHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkEw
+        Nzc3MTAxMyI+Cjx0aXRsZT5IYXlkZW4gVU5JWCBzeXN0ZW0gbGlicmFyeTwv
+        dGl0bGU+CjxsaW5rPmh0dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTA3Nzcx
+        MDEzPC9saW5rPgo8cmRmczpzZWVBbHNvIHJkZjpyZXNvdXJjZT0iaHR0cDov
+        L2NpLm5paS5hYy5qcC9uY2lkL0JBMDc3NzEwMTMucmRmIi8+CjxkYzpjcmVh
+        dG9yLz4KPGRjOnB1Ymxpc2hlcj5IYXlkZW4gQm9vayBDbzwvZGM6cHVibGlz
+        aGVyPgo8Y2luaWk6b3duZXJDb3VudD4wPC9jaW5paTpvd25lckNvdW50Pgo8
+        L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cDovL2NpLm5paS5hYy5qcC9u
+        Y2lkL0JCMDkxMjczMjkiPgo8dGl0bGU+VGhlIGhlcnBldG9jdWx0dXJhbCBs
+        aWJyYXJ5PC90aXRsZT4KPGxpbms+aHR0cDovL2NpLm5paS5hYy5qcC9uY2lk
+        L0JCMDkxMjczMjk8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJlc291cmNl
+        PSJodHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkIwOTEyNzMyOS5yZGYiLz4K
+        PGRjOmNyZWF0b3IvPgo8ZGM6cHVibGlzaGVyPkFkdmFuY2VkIFZpdmFyaXVt
+        IFN5c3RlbXM8L2RjOnB1Ymxpc2hlcj4KPHByaXNtOnB1YmxpY2F0aW9uRGF0
+        ZT4xOTkwPC9wcmlzbTpwdWJsaWNhdGlvbkRhdGU+CjxkYzpkYXRlPjE5OTA8
+        L2RjOmRhdGU+CjxjaW5paTpvd25lckNvdW50PjA8L2NpbmlpOm93bmVyQ291
+        bnQ+CjwvaXRlbT4KPGl0ZW0gcmRmOmFib3V0PSJodHRwOi8vY2kubmlpLmFj
+        LmpwL25jaWQvQkE5MTI1ODU2MCI+Cjx0aXRsZT5JbnRlbGxpZ2VudCBzeXN0
+        ZW1zIHJlZmVyZW5jZSBsaWJyYXJ5PC90aXRsZT4KPGxpbms+aHR0cDovL2Np
+        Lm5paS5hYy5qcC9uY2lkL0JBOTEyNTg1NjA8L2xpbms+CjxyZGZzOnNlZUFs
+        c28gcmRmOnJlc291cmNlPSJodHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkE5
+        MTI1ODU2MC5yZGYiLz4KPGRjOmNyZWF0b3IvPgo8ZGM6cHVibGlzaGVyPlNw
+        cmluZ2VyPC9kYzpwdWJsaXNoZXI+CjxwcmlzbTpwdWJsaWNhdGlvbkRhdGU+
+        MjAwOTwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGM6ZGF0ZT4yMDA5PC9k
+        YzpkYXRlPgo8Y2luaWk6b3duZXJDb3VudD4wPC9jaW5paTpvd25lckNvdW50
+        Pgo8L2l0ZW0+CjxpdGVtIHJkZjphYm91dD0iaHR0cDovL2NpLm5paS5hYy5q
+        cC9uY2lkL0JBMDY2NDM2ODUiPgo8dGl0bGU+SGF5ZGVuIEJvb2tzIFVOSVgg
+        bGlicmFyeSBzeXN0ZW08L3RpdGxlPgo8bGluaz5odHRwOi8vY2kubmlpLmFj
+        LmpwL25jaWQvQkEwNjY0MzY4NTwvbGluaz4KPHJkZnM6c2VlQWxzbyByZGY6
+        cmVzb3VyY2U9Imh0dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTA2NjQzNjg1
+        LnJkZiIvPgo8ZGM6Y3JlYXRvci8+CjxkYzpwdWJsaXNoZXI+SGF5ZGVuIEJv
+        b2tzPC9kYzpwdWJsaXNoZXI+CjxjaW5paTpvd25lckNvdW50PjA8L2Npbmlp
+        Om93bmVyQ291bnQ+CjwvaXRlbT4KPGl0ZW0gcmRmOmFib3V0PSJodHRwOi8v
+        Y2kubmlpLmFjLmpwL25jaWQvQkEwMzk3NDM2OSI+Cjx0aXRsZT5UaGUgSW50
+        ZXJuYXRpb25hbCBsaWJyYXJ5IG9mIHN5c3RlbXMgdGhlb3J5IGFuZCBwaGls
+        b3NvcGh5PC90aXRsZT4KPGxpbms+aHR0cDovL2NpLm5paS5hYy5qcC9uY2lk
+        L0JBMDM5NzQzNjk8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJlc291cmNl
+        PSJodHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkEwMzk3NDM2OS5yZGYiLz4K
+        PGRjOmNyZWF0b3IvPgo8ZGM6cHVibGlzaGVyPkcuIEJyYXppbGxlcjwvZGM6
+        cHVibGlzaGVyPgo8Y2luaWk6b3duZXJDb3VudD4wPC9jaW5paTpvd25lckNv
+        dW50Pgo8L2l0ZW0+CjwvcmRmOlJERj4K
+    http_version: 
+  recorded_at: Wed, 01 Oct 2014 10:32:58 GMT
+recorded_with: VCR 2.9.3
