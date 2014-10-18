@@ -52,8 +52,8 @@ class CiniiBook
   end
 
   def self.import_ncid(ncid)
-    manifestation = Manifestation.where(ncid: ncid).first
-    return if manifestation
+    identifier = Identifier.where(body: ncid, identifier_type_id: IdentifierType.where(name: 'ncid').first_or_create.id).first
+    return if identifier
     url = "http://ci.nii.ac.jp/ncid/#{ncid}.rdf"
     doc = Nokogiri::XML(Faraday.get(url).body)
     Manifestation.import_record_from_cinii_books(doc)
