@@ -10,6 +10,13 @@ describe CiniiBook do
     CiniiBook.search("library system")[:total_entries].should eq 3397
   end
 
+  it "should search with ncid", vcr: true do
+    result = CiniiBook.search("BA85746967")
+    result.should be_truthy
+    result[:items].should be_truthy
+    result[:items].first.ncid.should eq "BA85746967"
+  end
+
   it "should import a bibliographic record", vcr: true do
     CiniiBook.import_ncid("BA85746967").should be_nil
   end
