@@ -22,8 +22,8 @@ module EnjuNii
       end
 
       def import_record_from_cinii_books(doc)
-        # http://ci.nii.ac.jp/info/ja/terms.html
-        return nil
+        # http://ci.nii.ac.jp/info/ja/api/api_outline.html#cib_od
+        #return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
         manifestation = Manifestation.where(:ncid => ncid).first if ncid
@@ -68,13 +68,13 @@ module EnjuNii
         manifestation.ncid = ncid
 
         if manifestation.valid?
-          #Patron.transaction do
+          Agent.transaction do
             manifestation.save!
-            publisher_patrons = Patron.import_patrons(publishers)
-            creator_patrons = Patron.import_patrons(creators)
+            publisher_patrons = Agent.import_agents(publishers)
+            creator_patrons = Agent.import_agents(creators)
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
-          #end
+          end
         end
 
         manifestation

@@ -18,6 +18,8 @@ describe CiniiBook do
   end
 
   it "should import a bibliographic record", vcr: true do
-    CiniiBook.import_ncid("BA85746967").should be_nil
+    book = CiniiBook.import_ncid("BA85746967")
+    book.should be_truthy
+    book.original_title.should eq "固体高分子形燃料電池要素材料・水素貯蔵材料の知的設計"
   end
 end
