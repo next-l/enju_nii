@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813182425) do
+ActiveRecord::Schema.define(version: 20140823095740) do
 
   create_table "accepts", force: true do |t|
     t.integer  "basket_id"
@@ -233,6 +233,17 @@ ActiveRecord::Schema.define(version: 20140813182425) do
   add_index "classifications", ["classification_type_id"], name: "index_classifications_on_classification_type_id"
   add_index "classifications", ["manifestation_id"], name: "index_classifications_on_manifestation_id"
   add_index "classifications", ["parent_id"], name: "index_classifications_on_parent_id"
+
+  create_table "colors", force: true do |t|
+    t.integer  "library_group_id"
+    t.string   "property"
+    t.string   "code"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "colors", ["library_group_id"], name: "index_colors_on_library_group_id"
 
   create_table "content_types", force: true do |t|
     t.string   "name",         null: false
@@ -510,7 +521,6 @@ ActiveRecord::Schema.define(version: 20140813182425) do
     t.string   "access_address"
     t.integer  "language_id",                     default: 1,     null: false
     t.integer  "carrier_type_id",                 default: 1,     null: false
-    t.integer  "extent_id",                       default: 1,     null: false
     t.integer  "start_page"
     t.integer  "end_page"
     t.integer  "height"
@@ -554,9 +564,11 @@ ActiveRecord::Schema.define(version: 20140813182425) do
     t.string   "ncid"
     t.boolean  "fulltext_content"
     t.string   "doi"
-    t.boolean  "periodical"
+    t.boolean  "serial"
     t.text     "statement_of_responsibility"
     t.text     "publication_place"
+    t.text     "extent"
+    t.text     "dimensions"
   end
 
   add_index "manifestations", ["access_address"], name: "index_manifestations_on_access_address"
@@ -760,6 +772,7 @@ ActiveRecord::Schema.define(version: 20140813182425) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "error_message"
   end
 
   add_index "resource_import_results", ["item_id"], name: "index_resource_import_results_on_item_id"
