@@ -27,8 +27,8 @@ class CiniiBooksController < ApplicationController
           flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.manifestation'))
           format.html { redirect_to manifestation_items_url(@manifestation) }
         else
-          flash[:notice] = t('enju_ndl.record_not_found')
-          format.html { redirect_to ndl_books_url }
+          flash[:notice] = t('enju_nii.record_not_found')
+          format.html { redirect_to cinii_books_url }
         end
       end
     end
