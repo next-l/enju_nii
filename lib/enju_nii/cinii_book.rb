@@ -79,7 +79,7 @@ module EnjuNii
 	end
 	STDERR.puts "Validation:: " + manifestation.valid?.to_s
 
-        manifestation.carrier_type = CarrierType.where(:name => 'print').first
+        manifestation.carrier_type = CarrierType.where(:name => 'volume').first
         manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
 
         if manifestation.valid?
