@@ -85,6 +85,19 @@ module EnjuNii
             creator_patrons = Agent.import_agents(creators)
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
+	    if defined?(EnjuSubject)
+	      subjects = get_cinii_subjects(doc)
+	      subject_heading_type = SubjectHeadingType.where(:name => 'bsh').first_or_create
+	      subjects.each do |term|
+	        subject = Subject.where(:term => term[:term]).first
+	        unless subject
+	          subject = Subject.new(term)
+		  subject.subject_heading_type = subject_heading_type
+		  subject.subject_type = SubjectType.where(:name => 'concept').first_or_create
+		end
+	        manifestation.subjects << subject
+              end
+	    end
           end
         end
 
@@ -164,6 +177,14 @@ module EnjuNii
 	else
 	  language
 	end
+      end
+
+      def get_cinii_subjects(doc)
+	subjects = []
+	doc.xpath('//foaf:topic').each do |s|
+	  subjects << { :term => s["dc:title"] }
+	end
+	subjects
       end
     end
 

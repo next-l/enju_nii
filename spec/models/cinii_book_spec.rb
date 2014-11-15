@@ -32,6 +32,10 @@ describe CiniiBook do
     book.creators.size.should eq 2
     book.creators[0].full_name.should eq "笠井, 秀明"
     book.creators[1].full_name.should eq "津田, 宗幸"
+    book.subjects.map{|e| e.term }.should include("工業材料")
+    book.subjects.map{|e| e.term }.should include("燃料電池")
+    book.subjects.map{|e| e.term }.should include("水素エネルギー")
+    book.subjects.map{|e| e.term }.should include("シミュレーション")
   end
 
   it "should import a bibliographic record with dual languages", vcr: true do
