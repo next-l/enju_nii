@@ -48,6 +48,8 @@ module EnjuNii
         end
         manifestation.pub_date = pub_date
 
+        manifestation.statement_of_responsibility = doc.at('//dc:creator').try(:content)
+
         language = Language.where(:iso_639_3 => get_language(doc)).first
         if language
           manifestation.language_id = language.id

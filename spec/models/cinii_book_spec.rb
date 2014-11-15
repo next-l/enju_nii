@@ -21,5 +21,11 @@ describe CiniiBook do
     book = CiniiBook.import_ncid("BA85746967")
     book.should be_truthy
     book.original_title.should eq "固体高分子形燃料電池要素材料・水素貯蔵材料の知的設計"
+    book.title_transcription.should include("コタイ コウブンシケイ ネンリョウ デンチ ヨウソ ザイリョウ スイソ チョゾウ ザイリョウ ノ チテキ セッケイ")
+    book.title_alternative.should include("Computational materials design, case study I")
+    book.statement_of_responsibility.should eq "笠井秀明, 津田宗幸著 = Intelligent/directed materials design for polymer electrolyte fuel cells and hydrogen storage applications / Hideaki Kasai, Muneyuki Tsuda"
+    book.publishers.first.full_name.should eq "大阪大学出版会"
+    book.language.iso_639_2.should eq "jpn"
+    book.date_of_publication.year.should eq 2008
   end
 end
