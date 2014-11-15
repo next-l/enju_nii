@@ -57,9 +57,12 @@ module EnjuNii
           manifestation.language_id = 1
         end
 
-        urn = doc.at("//dcterms:hasPart[@rdf:resource]").attributes["resource"].value
-        if urn =~ /^urn:isbn/
-          isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, "")).isbn
+        urn = doc.at("//dcterms:hasPart[@rdf:resource]")
+	if urn
+	  urn = urn.attributes["resource"].value
+          if urn =~ /^urn:isbn/
+            isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, "")).isbn
+          end
         end
 
 	identifier = {}
@@ -74,6 +77,7 @@ module EnjuNii
 	identifier.each do |k, v|
 	  manifestation.identifiers << v
 	end
+	STDERR.puts "Validation:: " + manifestation.valid?.to_s
 
         manifestation.carrier_type = CarrierType.where(:name => 'print').first
         manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
