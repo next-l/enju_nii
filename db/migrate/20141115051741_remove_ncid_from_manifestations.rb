@@ -1,5 +1,5 @@
 class RemoveNcidFromManifestations < ActiveRecord::Migration
   def change
-    remove_column :manifestations, :ncid, :string
+    remove_column :manifestations, :ncid
   end
 end
