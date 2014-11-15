@@ -29,11 +29,11 @@ module EnjuNii
         manifestation = Manifestation.where(:ncid => ncid).first if ncid
         return manifestation if manifestation
 
-        creators = get_creator(doc)
-        publishers = get_publisher(doc)
+        creators = get_cinii_creator(doc)
+        publishers = get_cinii_publisher(doc)
 
         # title
-        title = get_title(doc)
+        title = get_cinii_title(doc)
         manifestation = Manifestation.new(title)
 
         # date of publication
@@ -50,7 +50,7 @@ module EnjuNii
 
         manifestation.statement_of_responsibility = doc.at('//dc:creator').try(:content)
 
-        language = Language.where(:iso_639_3 => get_language(doc)).first
+        language = Language.where(:iso_639_3 => get_cinii_language(doc)).first
         if language
           manifestation.language_id = language.id
         else
@@ -109,7 +109,7 @@ module EnjuNii
       def return_rdf(isbn)
         rss = self.search_cinii_by_isbn(isbn)
         if rss.channel.totalResults.to_i == 0
-          rss = self.search_cinii_by_isbn(normalize_isbn(isbn))
+          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
         end
         if rss.items.first
           Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
@@ -124,7 +124,7 @@ module EnjuNii
       end
 
       private
-      def normalize_isbn(isbn)
+      def cinii_normalize_isbn(isbn)
         if isbn.length == 10
           Lisbn.new(isbn).isbn13
         else
@@ -132,7 +132,7 @@ module EnjuNii
         end
       end
 
-      def get_creator(doc)
+      def get_cinii_creator(doc)
         doc.xpath("//foaf:maker/foaf:Person").map{|e|
           {
             :full_name => e.at("./foaf:name").content,
@@ -142,11 +142,11 @@ module EnjuNii
         }
       end
 
-      def get_publisher(doc)
+      def get_cinii_publisher(doc)
         doc.xpath("//dc:publisher").map{|e| {:full_name => e.content}}
       end
 
-      def get_title(doc)
+      def get_cinii_title(doc)
         {
           :original_title => doc.at("//dc:title[not(@xml:lang)]").content,
           :title_transcription => doc.xpath("//dc:title[@xml:lang]").map{|e| e.try(:content)}.join("\n"),
@@ -154,8 +154,13 @@ module EnjuNii
         }
       end
 
-      def get_language(doc)
-        doc.at("//dc:language").try(:content)
+      def get_cinii_language(doc)
+        language = doc.at("//dc:language").try(:content)
+	if language.size > 3
+	  language[0..2]
+	else
+	  language
+	end
       end
     end
 

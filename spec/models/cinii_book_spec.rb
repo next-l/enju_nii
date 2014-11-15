@@ -29,5 +29,14 @@ describe CiniiBook do
     book.date_of_publication.year.should eq 2008
     book.identifier_contents("isbn").first.should eq "9784872592542"
     book.creators.size.should eq 2
+    book.creators[0].full_name.should eq "笠井, 秀明"
+    book.creators[1].full_name.should eq "津田, 宗幸"
+  end
+
+  it "should import a bibliographic record with dual languages", vcr: true do
+    book = CiniiBook.import_ncid("BB13942810")
+    book.should be_truthy
+    book.original_title.should eq "赤毛のアン = Anne of Green Gables"
+    book.language.iso_639_2.should eq "jpn"
   end
 end
