@@ -27,5 +27,7 @@ describe CiniiBook do
     book.publishers.first.full_name.should eq "大阪大学出版会"
     book.language.iso_639_2.should eq "jpn"
     book.date_of_publication.year.should eq 2008
+    book.identifier_contents("isbn").first.should eq "9784872592542"
+    book.creators.size.should eq 2
   end
 end
