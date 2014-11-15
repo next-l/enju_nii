@@ -20,6 +20,7 @@ describe CiniiBook do
   it "should import a bibliographic record", vcr: true do
     book = CiniiBook.import_ncid("BA85746967")
     book.should be_truthy
+    book.should be_valid
     book.original_title.should eq "固体高分子形燃料電池要素材料・水素貯蔵材料の知的設計"
     book.title_transcription.should include("コタイ コウブンシケイ ネンリョウ デンチ ヨウソ ザイリョウ スイソ チョゾウ ザイリョウ ノ チテキ セッケイ")
     book.title_alternative.should include("Computational materials design, case study I")
@@ -36,11 +37,13 @@ describe CiniiBook do
     book.subjects.map{|e| e.term }.should include("燃料電池")
     book.subjects.map{|e| e.term }.should include("水素エネルギー")
     book.subjects.map{|e| e.term }.should include("シミュレーション")
+    book.series_manifestations.first.original_title.should eq "大阪大学新世紀レクチャー"
   end
 
   it "should import a bibliographic record with dual languages", vcr: true do
     book = CiniiBook.import_ncid("BB13942810")
     book.should be_truthy
+    book.should be_valid
     book.original_title.should eq "赤毛のアン = Anne of Green Gables"
     book.language.iso_639_2.should eq "jpn"
   end
