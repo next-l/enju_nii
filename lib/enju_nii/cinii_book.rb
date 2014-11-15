@@ -26,8 +26,8 @@ module EnjuNii
         #return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        manifestation = Manifestation.where(:ncid => ncid).first if ncid
-        return manifestation if manifestation
+	identifier = Identifier.where(body: ncid, identifier_type_id: IdentifierType.where(name: 'ncid').first_or_create.id).first
+        return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
         publishers = get_cinii_publisher(doc)
@@ -63,6 +63,10 @@ module EnjuNii
         end
 
 	identifier = {}
+	if ncid
+	  identifier[:ncid] = Identifier.new(:body => ncid)
+	  identifier[:ncid].identifier_type = IdentifierType.where(:name => 'ncid').first_or_create
+	end
 	if isbn
 	  identifier[:isbn] = Identifier.new(:body => isbn)
 	  identifier[:isbn].identifier_type = IdentifierType.where(:name => 'isbn').first_or_create
@@ -73,7 +77,6 @@ module EnjuNii
 
         manifestation.carrier_type = CarrierType.where(:name => 'print').first
         manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
-        manifestation.ncid = ncid
 
         if manifestation.valid?
           Agent.transaction do

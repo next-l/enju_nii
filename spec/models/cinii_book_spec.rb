@@ -28,6 +28,7 @@ describe CiniiBook do
     book.language.iso_639_2.should eq "jpn"
     book.date_of_publication.year.should eq 2008
     book.identifier_contents("isbn").first.should eq "9784872592542"
+    book.identifier_contents("ncid").first.should eq "BA85746967"
     book.creators.size.should eq 2
     book.creators[0].full_name.should eq "笠井, 秀明"
     book.creators[1].full_name.should eq "津田, 宗幸"
