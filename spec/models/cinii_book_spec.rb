@@ -37,7 +37,12 @@ describe CiniiBook do
     book.subjects.map{|e| e.term }.should include("燃料電池")
     book.subjects.map{|e| e.term }.should include("水素エネルギー")
     book.subjects.map{|e| e.term }.should include("シミュレーション")
-    book.series_manifestations.first.original_title.should eq "大阪大学新世紀レクチャー"
+    book.series_statements.size.should eq 2
+    book.series_statements[0].series_statement_identifier.should eq "http://ci.nii.ac.jp/ncid/BA61636068"
+    book.series_statements[0].original_title.should eq "大阪大学新世紀レクチャー"
+    book.series_statements[0].title_transcription.should eq "オオサカ ダイガク シンセイキ レクチャー"
+    book.series_statements[1].original_title.should eq "計算機マテリアルデザイン先端研究事例"
+    book.series_statements[1].title_transcription.should eq "ケイサンキ マテリアル デザイン センタン ケンキュウ ジレイ"
   end
 
   it "should import a bibliographic record with dual languages", vcr: true do

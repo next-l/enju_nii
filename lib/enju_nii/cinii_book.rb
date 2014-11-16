@@ -77,7 +77,6 @@ module EnjuNii
 	identifier.each do |k, v|
 	  manifestation.identifiers << v
 	end
-	STDERR.puts "Validation:: " + manifestation.valid?.to_s
 
         manifestation.carrier_type = CarrierType.where(:name => 'volume').first
         manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
@@ -85,6 +84,7 @@ module EnjuNii
         if manifestation.valid?
           Agent.transaction do
             manifestation.save!
+	    create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)
             manifestation.publishers = publisher_patrons
@@ -189,6 +189,31 @@ module EnjuNii
 	  subjects << { :term => s["dc:title"] }
 	end
 	subjects
+      end
+
+      def create_cinii_series_statements(doc, manifestation)
+        series = doc.at("//dcterms:isPartOf")
+	if series and parent_url = series["rdf:resource"]
+	  ptbl = series["dc:title"]
+	  parent_url = parent_url.gsub(/\#\w+\Z/, "")
+	  parent_doc = Nokogiri::XML(Faraday.get(parent_url+".rdf").body)
+	  parent_titles = get_cinii_title(parent_doc)
+	  series_statement = SeriesStatement.new(parent_titles)
+	  series_statement.series_statement_identifier = parent_url
+	  manifestation.series_statements << series_statement
+	  if parts = ptbl.split(/ \. /)
+	    parts[1..-1].each do |part|
+	      title, volume_number, = part.split(/ ; /)
+	      original_title, title_transcription, = title.split(/\|\|/)
+	      series_statement = SeriesStatement.new(
+	        :original_title => original_title,
+		:title_transcription => title_transcription,
+		:volume_number_string => volume_number,
+	      )
+	      manifestation.series_statements << series_statement
+	    end
+          end
+	end
       end
     end
 

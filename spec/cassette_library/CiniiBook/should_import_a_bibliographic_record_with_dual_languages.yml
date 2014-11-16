@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2014 06:02:33 GMT
+      - Sun, 16 Nov 2014 00:44:29 GMT
       Access-Control-Allow-Origin:
       - "*"
       Content-Type:
@@ -224,5 +224,69 @@ http_interactions:
         YWY6T3JnYW5pemF0aW9uPgo8L2JpYm86b3duZXI+CjwvcmRmOkRlc2NyaXB0
         aW9uPgo8L3JkZjpSREY+Cg==
     http_version: 
-  recorded_at: Sat, 15 Nov 2014 05:01:20 GMT
+  recorded_at: Sun, 16 Nov 2014 00:44:29 GMT
+- request:
+    method: get
+    uri: http://ci.nii.ac.jp/ncid/BB06916424.rdf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 16 Nov 2014 00:44:29 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/rdf+xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48cmRmOlJE
+        RiB4bWxuczpvd2w9Imh0dHA6Ly93d3cudzMub3JnLzIwMDIvMDcvb3dsIyIg
+        eG1sbnM6Ymlibz0iaHR0cDovL3B1cmwub3JnL29udG9sb2d5L2JpYm8vIiB4
+        bWxuczpmb2FmPSJodHRwOi8veG1sbnMuY29tL2ZvYWYvMC4xLyIgeG1sbnM6
+        cmRmcz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wMS9yZGYtc2NoZW1hIyIg
+        eG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1z
+        eW50YXgtbnMjIiB4bWxuczpwcmlzbT0iaHR0cDovL3ByaXNtc3RhbmRhcmQu
+        b3JnL25hbWVzcGFjZXMvYmFzaWMvMi4wLyIgeG1sbnM6Y2luaWk9Imh0dHA6
+        Ly9jaS5uaWkuYWMuanAvbnMvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJs
+        Lm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpkY3Rlcm1zPSJodHRwOi8v
+        cHVybC5vcmcvZGMvdGVybXMvIj4KPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJv
+        dXQ9Imh0dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQjA2OTE2NDI0I2VudGl0
+        eSI+Cjxmb2FmOmlzUHJpbWFyeVRvcGljT2YgcmRmOnJlc291cmNlPSJodHRw
+        Oi8vY2kubmlpLmFjLmpwL25jaWQvQkIwNjkxNjQyNC5yZGYiLz4KPGRjOnRp
+        dGxlPklCQ+Wvvuios+ODqeOCpOODluODqeODquODvDwvZGM6dGl0bGU+Cjxk
+        Yzp0aXRsZSB4bWw6bGFuZz0iamEtaHJrdCI+SUJDIOOCv+OCpOODpOOCryDj
+        g6njgqTjg5bjg6njg6rjg7w8L2RjOnRpdGxlPgo8ZGN0ZXJtczphbHRlcm5h
+        dGl2ZT5JQkPlr77oqLPjg6njgqTjg5bjg6njg6rjg7w8L2RjdGVybXM6YWx0
+        ZXJuYXRpdmU+CjxkYzpwdWJsaXNoZXI+SUJD44OR44OW44Oq44OD44K344Oz
+        44KwPC9kYzpwdWJsaXNoZXI+CjxkYzpsYW5ndWFnZT51bmQ8L2RjOmxhbmd1
+        YWdlPgo8Y2luaWk6bmNpZD5CQjA2OTE2NDI0PC9jaW5paTpuY2lkPgo8Y2lu
+        aWk6b3duZXJDb3VudD4xPC9jaW5paTpvd25lckNvdW50Pgo8L3JkZjpEZXNj
+        cmlwdGlvbj4KPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9Imh0dHA6Ly9j
+        aS5uaWkuYWMuanAvbmNpZC9CQjA2OTE2NDI0I2VudGl0eSI+CjxiaWJvOm93
+        bmVyPgo8Zm9hZjpPcmdhbml6YXRpb24gcmRmOmFib3V0PSJodHRwOi8vY2ku
+        bmlpLmFjLmpwL2xpYnJhcnkvRkEwMTcwMjkiPgo8Zm9hZjpuYW1lPueLrOer
+        i+ihjOaUv+azleS6uiDlm73pmpvkuqTmtYHln7rph5Eg6Zai6KW/5Zu96Zqb
+        44K744Oz44K/44O8IOWbs+abuOmkqDwvZm9hZjpuYW1lPgo8cmRmczpzZWVB
+        bHNvIHJkZjpyZXNvdXJjZT0iaHR0cDovL2psaWstb3BhYy5qcGYuZ28uanAv
+        bXlsaW1lZGlvL3NlYXJjaC9pbnB1dC1maW5kLmRvP3RhcmdldD1sb2NhbCZh
+        bXA7bW9kZT1jb21wJmFtcDtuY2lkPUJCMDY5MTY0MjQiLz4KPC9mb2FmOk9y
+        Z2FuaXphdGlvbj4KPC9iaWJvOm93bmVyPgo8L3JkZjpEZXNjcmlwdGlvbj4K
+        PC9yZGY6UkRGPgo=
+    http_version: 
+  recorded_at: Sun, 16 Nov 2014 00:44:29 GMT
 recorded_with: VCR 2.9.3
