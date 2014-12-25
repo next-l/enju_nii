@@ -52,7 +52,9 @@ class CiniiBook
   end
 
   def self.import_ncid(ncid)
-    identifier = Identifier.where(body: ncid, identifier_type_id: IdentifierType.where(name: 'ncid').first_or_create.id).first
+    identifier_type = IdentifierType.where(name: 'ncid').first
+    identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+    identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
     return if identifier
     url = "http://ci.nii.ac.jp/ncid/#{ncid}.rdf"
     doc = Nokogiri::XML(Faraday.get(url).body)

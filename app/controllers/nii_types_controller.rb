@@ -38,7 +38,7 @@ class NiiTypesController < ApplicationController
   # POST /nii_types
   # POST /nii_types.json
   def create
-    @nii_type = NiiType.new(params[:nii_type])
+    @nii_type = NiiType.new(nii_type_params)
 
     respond_to do |format|
       if @nii_type.save
@@ -60,7 +60,7 @@ class NiiTypesController < ApplicationController
     end
 
     respond_to do |format|
-      if @nii_type.update_attributes(params[:nii_type])
+      if @nii_type.update_attributes(nii_type_params)
         format.html { redirect_to @nii_type, notice:  t('controller.successfully_updated', model:  t('activerecord.models.nii_type')) }
         format.json { head :no_content }
       else
@@ -79,5 +79,10 @@ class NiiTypesController < ApplicationController
       format.html { redirect_to nii_types_url, notice: t('controller.successfully_deleted', model: t('activerecord.models.nii_type')) }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def nii_type_params
+    params.require(:nii_type).permit(:name, :display_name, :note)
   end
 end

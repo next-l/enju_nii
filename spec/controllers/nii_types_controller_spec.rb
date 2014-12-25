@@ -60,6 +60,43 @@ describe NiiTypesController do
     end
   end
 
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new NiiType" do
+        expect {
+          post :create, :nii_type => valid_attributes
+        }.to change(NiiType, :count).by(1)
+      end
+
+      it "assigns a newly created nii_type as @nii_type" do
+        post :create, :nii_type => valid_attributes
+        expect(assigns(:nii_type)).to be_a(NiiType)
+        expect(assigns(:nii_type)).to be_persisted
+      end
+
+      it "redirects to the created nii_type" do
+        post :create, :nii_type => valid_attributes
+        expect(response).to redirect_to(NiiType.last)
+      end
+    end
+
+    describe "with invalid params" do
+      it "assigns a newly created but unsaved nii_type as @nii_type" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        NiiType.any_instance.stub(:save).and_return(false)
+        post :create, :nii_type => {name: "test"}
+        expect(assigns(:nii_type)).to be_a_new(NiiType)
+      end
+
+      it "re-renders the 'new' template" do
+        # Trigger the behavior that occurs when invalid params are submitted
+        NiiType.any_instance.stub(:save).and_return(false)
+        post :create, :nii_type => {name: "test"}
+        expect(response).to render_template("new")
+      end
+    end
+  end
+
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested nii_type" do
@@ -68,8 +105,8 @@ describe NiiTypesController do
         # specifies that the NiiType created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        NiiType.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => nii_type.id, :nii_type => {'these' => 'params'}
+        NiiType.any_instance.should_receive(:update_attributes).with({'name' => 'test'})
+        put :update, :id => nii_type.id, :nii_type => {'name' => 'test'}
       end
 
       it "assigns the requested nii_type as @nii_type" do
@@ -98,7 +135,7 @@ describe NiiTypesController do
         nii_type = NiiType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         NiiType.any_instance.stub(:save).and_return(false)
-        put :update, :id => nii_type.id, :nii_type => {}
+        put :update, :id => nii_type.id, :nii_type => {name: "test"}
         expect(assigns(:nii_type)).to eq(nii_type)
       end
 
@@ -106,8 +143,8 @@ describe NiiTypesController do
         nii_type = NiiType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         NiiType.any_instance.stub(:save).and_return(false)
-        put :update, :id => nii_type.id, :nii_type => {}
-        #expect(response).to render_template("edit")
+        put :update, :id => nii_type.id, :nii_type => {name: "test"}
+        expect(response).to render_template("edit")
       end
     end
   end

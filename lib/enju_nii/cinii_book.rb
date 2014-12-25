@@ -26,7 +26,9 @@ module EnjuNii
         #return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-	identifier = Identifier.where(body: ncid, identifier_type_id: IdentifierType.where(name: 'ncid').first_or_create.id).first
+        identifier_type = IdentifierType.where(name: 'ncid').first
+        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
         return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
@@ -58,50 +60,57 @@ module EnjuNii
         end
 
         urn = doc.at("//dcterms:hasPart[@rdf:resource]")
-	if urn
-	  urn = urn.attributes["resource"].value
+        if urn
+          urn = urn.attributes["resource"].value
           if urn =~ /^urn:isbn/
             isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, "")).isbn
           end
         end
 
-	identifier = {}
-	if ncid
-	  identifier[:ncid] = Identifier.new(:body => ncid)
-	  identifier[:ncid].identifier_type = IdentifierType.where(:name => 'ncid').first_or_create
-	end
-	if isbn
-	  identifier[:isbn] = Identifier.new(:body => isbn)
-	  identifier[:isbn].identifier_type = IdentifierType.where(:name => 'isbn').first_or_create
-	end
-	identifier.each do |k, v|
-	  manifestation.identifiers << v
-	end
+        identifier = {}
+	      if ncid
+	        identifier[:ncid] = Identifier.new(body: ncid)
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
+	        identifier[:ncid].identifier_type = identifier_type_ncid
+	      end
+	      if isbn
+	        identifier[:isbn] = Identifier.new(body: isbn)
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
+	        identifier[:isbn].identifier_type = identifier_type_isbn
+	      end
+	      identifier.each do |k, v|
+	        manifestation.identifiers << v
+	      end
 
-        manifestation.carrier_type = CarrierType.where(:name => 'volume').first
-        manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
+        manifestation.carrier_type = CarrierType.where(name: 'volume').first
+        manifestation.manifestation_content_type = ContentType.where(name: 'text').first
 
         if manifestation.valid?
           Agent.transaction do
             manifestation.save!
-	    create_cinii_series_statements(doc, manifestation)
+            create_cinii_series_statements(doc, manifestation)
             publisher_patrons = Agent.import_agents(publishers)
             creator_patrons = Agent.import_agents(creators)
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
-	    if defined?(EnjuSubject)
-	      subjects = get_cinii_subjects(doc)
-	      subject_heading_type = SubjectHeadingType.where(:name => 'bsh').first_or_create
-	      subjects.each do |term|
-	        subject = Subject.where(:term => term[:term]).first
-	        unless subject
-	          subject = Subject.new(term)
-		  subject.subject_heading_type = subject_heading_type
-		  subject.subject_type = SubjectType.where(:name => 'concept').first_or_create
-		end
-	        manifestation.subjects << subject
+            if defined?(EnjuSubject)
+	            subjects = get_cinii_subjects(doc)
+              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
+              subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
+              subjects.each do |term|
+                subject = Subject.where(:term => term[:term]).first
+	              unless subject
+                  subject = Subject.new(term)
+                  subject.subject_heading_type = subject_heading_type
+                  subject_type = SubjectType.where(name: 'concept').first
+                  subject_type = SubjectType.create(name: 'concept') unless subject_type
+                  subject.subject_type = subject_type
+                end
+                manifestation.subjects << subject
               end
-	    end
+            end
           end
         end
 
