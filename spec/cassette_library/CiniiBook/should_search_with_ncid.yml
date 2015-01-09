@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=BA85746967
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 18 Oct 2014 07:52:42 GMT
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48cmRmOlJE
+        RiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8i
+        IHhtbG5zOmRjdGVybXM9Imh0dHA6Ly9wdXJsLm9yZy9kYy90ZXJtcy8iIHht
+        bG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3lu
+        dGF4LW5zIyIgeG1sbnM6b3BlbnNlYXJjaD0iaHR0cDovL2E5LmNvbS8tL3Nw
+        ZWMvb3BlbnNlYXJjaC8xLjEvIiB4bWxuczpyZGZzPSJodHRwOi8vd3d3Lncz
+        Lm9yZy8yMDAwLzAxL3JkZi1zY2hlbWEjIiB4bWxuczpwcmlzbT0iaHR0cDov
+        L3ByaXNtc3RhbmRhcmQub3JnL25hbWVzcGFjZXMvYmFzaWMvMi4wLyIgeG1s
+        bnM6Y2luaWk9Imh0dHA6Ly9jaS5uaWkuYWMuanAvbnMvMS4wLyIgeG1sbnM9
+        Imh0dHA6Ly9wdXJsLm9yZy9yc3MvMS4wLyI+CjxjaGFubmVsIHJkZjphYm91
+        dD0iaHR0cDovL2NpLm5paS5hYy5qcC9ib29rcy9vcGVuc2VhcmNoL3NlYXJj
+        aD9jb3VudD0xMCZhbXA7cT1CQTg1NzQ2OTY3JmFtcDtwPTEmYW1wO2Zvcm1h
+        dD1yc3MiPgo8dGl0bGU+Q2lOaWkgQm9va3MgT3BlblNlYXJjaCAtIDEwIEJB
+        ODU3NDY5NjcgMTwvdGl0bGU+CjxkZXNjcmlwdGlvbj5DaU5paSBCb29rcyBP
+        cGVuU2VhcmNoIC0gMTAgQkE4NTc0Njk2NyAxPC9kZXNjcmlwdGlvbj4KPGxp
+        bms+aHR0cDovL2NpLm5paS5hYy5qcC9ib29rcy9vcGVuc2VhcmNoL3NlYXJj
+        aD9jb3VudD0xMCZhbXA7cT1CQTg1NzQ2OTY3JmFtcDtwPTEmYW1wO2Zvcm1h
+        dD1yc3M8L2xpbms+CjxkYzpkYXRlPjIwMTQtMTAtMThUMTY6NTI6NDIrMDkw
+        MDwvZGM6ZGF0ZT4KPG9wZW5zZWFyY2g6dG90YWxSZXN1bHRzPjE8L29wZW5z
+        ZWFyY2g6dG90YWxSZXN1bHRzPgo8b3BlbnNlYXJjaDpzdGFydEluZGV4PjA8
+        L29wZW5zZWFyY2g6c3RhcnRJbmRleD4KPG9wZW5zZWFyY2g6aXRlbXNQZXJQ
+        YWdlPjE8L29wZW5zZWFyY2g6aXRlbXNQZXJQYWdlPgo8aXRlbXM+CjxyZGY6
+        U2VxPgo8cmRmOmxpIHJkZjpyZXNvdXJjZT0iaHR0cDovL2NpLm5paS5hYy5q
+        cC9uY2lkL0JBODU3NDY5NjciLz4KPC9yZGY6U2VxPgo8L2l0ZW1zPgo8L2No
+        YW5uZWw+CjxpdGVtIHJkZjphYm91dD0iaHR0cDovL2NpLm5paS5hYy5qcC9u
+        Y2lkL0JBODU3NDY5NjciPgo8dGl0bGU+5Zu65L2T6auY5YiG5a2Q5b2i54eD
+        5paZ6Zu75rGg6KaB57Sg5p2Q5paZ44O75rC057Sg6LKv6JS15p2Q5paZ44Gu
+        55+l55qE6Kit6KiIPC90aXRsZT4KPGxpbms+aHR0cDovL2NpLm5paS5hYy5q
+        cC9uY2lkL0JBODU3NDY5Njc8L2xpbms+CjxyZGZzOnNlZUFsc28gcmRmOnJl
+        c291cmNlPSJodHRwOi8vY2kubmlpLmFjLmpwL25jaWQvQkE4NTc0Njk2Ny5y
+        ZGYiLz4KPGRjOmNyZWF0b3I+56yg5LqV56eA5piOLCDmtKXnlLDlrpflubjo
+        kZcgPSBJbnRlbGxpZ2VudC9kaXJlY3RlZCBtYXRlcmlhbHMgZGVzaWduIGZv
+        ciBwb2x5bWVyIGVsZWN0cm9seXRlIGZ1ZWwgY2VsbHMgYW5kIGh5ZHJvZ2Vu
+        IHN0b3JhZ2UgYXBwbGljYXRpb25zIC8gSGlkZWFraSBLYXNhaSwgTXVuZXl1
+        a2kgVHN1ZGE8L2RjOmNyZWF0b3I+CjxkYzpwdWJsaXNoZXI+5aSn6Ziq5aSn
+        5a2m5Ye654mI5LyaPC9kYzpwdWJsaXNoZXI+CjxwcmlzbTpwdWJsaWNhdGlv
+        bkRhdGU+MjAwODwvcHJpc206cHVibGljYXRpb25EYXRlPgo8ZGM6ZGF0ZT4y
+        MDA4PC9kYzpkYXRlPgo8ZGN0ZXJtczppc1BhcnRPZiByZGY6cmVzb3VyY2U9
+        Imh0dHA6Ly9jaS5uaWkuYWMuanAvbmNpZC9CQTYxNjM2MDY4IiBkYzp0aXRs
+        ZT0i5aSn6Ziq5aSn5a2m5paw5LiW57SA44Os44Kv44OB44Oj44O8Ii8+Cjxk
+        Y3Rlcm1zOmhhc1BhcnQgcmRmOnJlc291cmNlPSJ1cm46aXNibjo5Nzg0ODcy
+        NTkyNTQyIi8+CjxjaW5paTpvd25lckNvdW50PjQ5PC9jaW5paTpvd25lckNv
+        dW50Pgo8L2l0ZW0+CjwvcmRmOlJERj4K
+    http_version: 
+  recorded_at: Sat, 18 Oct 2014 06:36:38 GMT
+recorded_with: VCR 2.9.3

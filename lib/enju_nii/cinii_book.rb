@@ -22,18 +22,20 @@ module EnjuNii
       end
 
       def import_record_from_cinii_books(doc)
-        # http://ci.nii.ac.jp/info/ja/terms.html
-        return nil
+        # http://ci.nii.ac.jp/info/ja/api/api_outline.html#cib_od
+        #return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        manifestation = Manifestation.where(:ncid => ncid).first if ncid
-        return manifestation if manifestation
+        identifier_type = IdentifierType.where(name: 'ncid').first
+        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
+        return identifier.manifestation if identifier
 
-        creators = get_creator(doc)
-        publishers = get_publisher(doc)
+        creators = get_cinii_creator(doc)
+        publishers = get_cinii_publisher(doc)
 
         # title
-        title = get_title(doc)
+        title = get_cinii_title(doc)
         manifestation = Manifestation.new(title)
 
         # date of publication
@@ -48,33 +50,68 @@ module EnjuNii
         end
         manifestation.pub_date = pub_date
 
-        language = Language.where(:iso_639_3 => get_language(doc)).first
+        manifestation.statement_of_responsibility = doc.at('//dc:creator').try(:content)
+
+        language = Language.where(:iso_639_3 => get_cinii_language(doc)).first
         if language
           manifestation.language_id = language.id
         else
           manifestation.language_id = 1
         end
 
-        begin
-          urn = doc.at("//dcterms:hasPart[@rdf:resource]").attributes["resource"].value
+        urn = doc.at("//dcterms:hasPart[@rdf:resource]")
+        if urn
+          urn = urn.attributes["resource"].value
           if urn =~ /^urn:isbn/
-            manifestation.isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, ""))
+            isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, "")).isbn
           end
-        rescue NoMethodError
         end
 
-        manifestation.carrier_type = CarrierType.where(:name => 'print').first
-        manifestation.manifestation_content_type = ContentType.where(:name => 'text').first
-        manifestation.ncid = ncid
+        identifier = {}
+	      if ncid
+	        identifier[:ncid] = Identifier.new(body: ncid)
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
+	        identifier[:ncid].identifier_type = identifier_type_ncid
+	      end
+	      if isbn
+	        identifier[:isbn] = Identifier.new(body: isbn)
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
+	        identifier[:isbn].identifier_type = identifier_type_isbn
+	      end
+	      identifier.each do |k, v|
+	        manifestation.identifiers << v
+	      end
+
+        manifestation.carrier_type = CarrierType.where(name: 'volume').first
+        manifestation.manifestation_content_type = ContentType.where(name: 'text').first
 
         if manifestation.valid?
-          #Patron.transaction do
+          Agent.transaction do
             manifestation.save!
-            publisher_patrons = Patron.import_patrons(publishers)
-            creator_patrons = Patron.import_patrons(creators)
+            create_cinii_series_statements(doc, manifestation)
+            publisher_patrons = Agent.import_agents(publishers)
+            creator_patrons = Agent.import_agents(creators)
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
-          #end
+            if defined?(EnjuSubject)
+	            subjects = get_cinii_subjects(doc)
+              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
+              subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
+              subjects.each do |term|
+                subject = Subject.where(:term => term[:term]).first
+	              unless subject
+                  subject = Subject.new(term)
+                  subject.subject_heading_type = subject_heading_type
+                  subject_type = SubjectType.where(name: 'concept').first
+                  subject_type = SubjectType.create(name: 'concept') unless subject_type
+                  subject.subject_type = subject_type
+                end
+                manifestation.subjects << subject
+              end
+            end
+          end
         end
 
         manifestation
@@ -101,10 +138,10 @@ module EnjuNii
       def return_rdf(isbn)
         rss = self.search_cinii_by_isbn(isbn)
         if rss.channel.totalResults.to_i == 0
-          rss = self.search_cinii_by_isbn(normalize_isbn(isbn))
+          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
         end
         if rss.items.first
-          Nokogiri::XML(open("#{rss.items.first.link}.rdf").read)
+          Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
         end
       end
 
@@ -116,7 +153,7 @@ module EnjuNii
       end
 
       private
-      def normalize_isbn(isbn)
+      def cinii_normalize_isbn(isbn)
         if isbn.length == 10
           Lisbn.new(isbn).isbn13
         else
@@ -124,7 +161,7 @@ module EnjuNii
         end
       end
 
-      def get_creator(doc)
+      def get_cinii_creator(doc)
         doc.xpath("//foaf:maker/foaf:Person").map{|e|
           {
             :full_name => e.at("./foaf:name").content,
@@ -134,11 +171,11 @@ module EnjuNii
         }
       end
 
-      def get_publisher(doc)
+      def get_cinii_publisher(doc)
         doc.xpath("//dc:publisher").map{|e| {:full_name => e.content}}
       end
 
-      def get_title(doc)
+      def get_cinii_title(doc)
         {
           :original_title => doc.at("//dc:title[not(@xml:lang)]").content,
           :title_transcription => doc.xpath("//dc:title[@xml:lang]").map{|e| e.try(:content)}.join("\n"),
@@ -146,8 +183,46 @@ module EnjuNii
         }
       end
 
-      def get_language(doc)
-        doc.at("//dc:language").try(:content)
+      def get_cinii_language(doc)
+        language = doc.at("//dc:language").try(:content)
+	if language.size > 3
+	  language[0..2]
+	else
+	  language
+	end
+      end
+
+      def get_cinii_subjects(doc)
+	subjects = []
+	doc.xpath('//foaf:topic').each do |s|
+	  subjects << { :term => s["dc:title"] }
+	end
+	subjects
+      end
+
+      def create_cinii_series_statements(doc, manifestation)
+        series = doc.at("//dcterms:isPartOf")
+	if series and parent_url = series["rdf:resource"]
+	  ptbl = series["dc:title"]
+	  parent_url = parent_url.gsub(/\#\w+\Z/, "")
+	  parent_doc = Nokogiri::XML(Faraday.get(parent_url+".rdf").body)
+	  parent_titles = get_cinii_title(parent_doc)
+	  series_statement = SeriesStatement.new(parent_titles)
+	  series_statement.series_statement_identifier = parent_url
+	  manifestation.series_statements << series_statement
+	  if parts = ptbl.split(/ \. /)
+	    parts[1..-1].each do |part|
+	      title, volume_number, = part.split(/ ; /)
+	      original_title, title_transcription, = title.split(/\|\|/)
+	      series_statement = SeriesStatement.new(
+	        :original_title => original_title,
+		:title_transcription => title_transcription,
+		:volume_number_string => volume_number,
+	      )
+	      manifestation.series_statements << series_statement
+	    end
+          end
+	end
       end
     end
 

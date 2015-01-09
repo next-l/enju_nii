@@ -41,21 +41,23 @@ class CiniiBook
     if query
       cnt = self.per_page
       page = 1 if page.to_i < 1
-      doc = Nokogiri::XML(Manifestation.search_cinii_book(query, {:p => page, :count => cnt, :raw => true}).to_s)
+      doc = Nokogiri::XML(Manifestation.search_cinii_book(query, {p: page, count: cnt, raw: true}).to_s)
       items = doc.xpath('//xmlns:item').collect{|node| self.new node }
       total_entries = doc.at('//opensearch:totalResults').content.to_i
 
-      {:items => items, :total_entries => total_entries}
+      {items: items, total_entries: total_entries}
     else
-      {:items => [], :total_entries => 0}
+      {items: [], total_entries: 0}
     end
   end
 
   def self.import_ncid(ncid)
-    manifestation = Manifestation.where(:ncid => ncid).first
-    return if manifestation
+    identifier_type = IdentifierType.where(name: 'ncid').first
+    identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+    identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
+    return if identifier
     url = "http://ci.nii.ac.jp/ncid/#{ncid}.rdf"
-    doc = Nokogiri::XML(open(url).read)
+    doc = Nokogiri::XML(Faraday.get(url).body)
     Manifestation.import_record_from_cinii_books(doc)
   end
 

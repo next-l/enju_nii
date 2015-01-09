@@ -2,130 +2,138 @@
 http_interactions:
 - request:
     method: get
-    uri: http://ci.nii.ac.jp/books/opensearch/search?q=library&p=1&count=10&format=rss
+    uri: http://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=library
     body:
       encoding: US-ASCII
       string: ''
     headers:
-      accept-encoding:
+      Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      accept:
-      - '*/*'
-      user-agent:
+      Accept:
+      - "*/*"
+      User-Agent:
       - Ruby
   response:
     status:
       code: 200
       message: OK
     headers:
-      date:
-      - Wed, 10 Apr 2013 02:49:29 GMT
-      content-encoding:
-      - UTF-8
-      content-type:
-      - application/rss+xml
-      transfer-encoding:
+      Date:
+      - Wed, 01 Oct 2014 10:32:58 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns="http://purl.org/rss/1.0/">
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
         <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library&amp;p=1&amp;format=rss">
         <title>CiNii Books OpenSearch - 10 library 1</title>
         <description>CiNii Books OpenSearch - 10 library 1</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library&amp;p=1&amp;format=rss</link>
-        <dc:date>2013-04-10T11:49:29+0900</dc:date>
-        <opensearch:totalResults>145706</opensearch:totalResults>
+        <dc:date>2014-10-01T19:32:58+0900</dc:date>
+        <opensearch:totalResults>159911</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
         <rdf:Seq>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA28725003"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA90663224"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA46821654"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA10547663"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/AA00270565"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA58960319"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA8763629X"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA70322854"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA2480676X"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA06793495"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA35998221"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA48143394"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA26254788"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA12212848"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA11561058"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA72991593"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA11345904"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA01218354"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA10121322"/>
         </rdf:Seq>
         </items>
         </channel>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA28725003">
-        <title>National Library Conferences</title>
-        <link>http://ci.nii.ac.jp/ncid/BA28725003</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA28725003.rdf"/>
-        <dc:creator/>
-        <dc:publisher>National Library</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA90663224">
-        <title>Lifetime library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA90663224</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA90663224.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Books for Libraries</dc:publisher>
-        </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA46821654">
-        <title>Popular library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA46821654</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA46821654.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Popular Library</dc:publisher>
-        </item>
         <item rdf:about="http://ci.nii.ac.jp/ncid/BA10547663">
         <title>Burndy Library publication</title>
         <link>http://ci.nii.ac.jp/ncid/BA10547663</link>
         <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA10547663.rdf"/>
         <dc:creator/>
         <dc:publisher>The Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/AA00270565">
-        <title>Library world</title>
-        <link>http://ci.nii.ac.jp/ncid/AA00270565</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/AA00270565.rdf"/>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA35998221">
+        <title>Readers library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA35998221</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA35998221.rdf"/>
         <dc:creator/>
-        <dc:publisher>Library supply</dc:publisher>
-        <prism:publicationDate>1898</prism:publicationDate>
-        <dc:date>1898</dc:date>
+        <dc:publisher>Readers Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA58960319">
-        <title>Modern Library food</title>
-        <link>http://ci.nii.ac.jp/ncid/BA58960319</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA58960319.rdf"/>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA48143394">
+        <title>Cornerstone library</title>
+        <link>http://ci.nii.ac.jp/ncid/BA48143394</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA48143394.rdf"/>
         <dc:creator/>
-        <dc:publisher>Modern Library</dc:publisher>
+        <dc:publisher>Cornerstone Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA8763629X">
-        <title>Venus library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA8763629X</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA8763629X.rdf"/>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA26254788">
+        <title>Library series</title>
+        <link>http://ci.nii.ac.jp/ncid/BA26254788</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA26254788.rdf"/>
         <dc:creator/>
-        <dc:publisher>Venus Library</dc:publisher>
+        <dc:publisher>ISEAS Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA70322854">
-        <title>Miniture library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA70322854</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA70322854.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Little Leather Library</dc:publisher>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA12212848">
+        <title>Occasional publication</title>
+        <link>http://ci.nii.ac.jp/ncid/BA12212848</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA12212848.rdf"/>
+        <dc:creator>Science Reference Library</dc:creator>
+        <dc:publisher>British Library, Science Reference Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA2480676X">
-        <title>Library resource</title>
-        <link>http://ci.nii.ac.jp/ncid/BA2480676X</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA2480676X.rdf"/>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA11561058">
+        <title>Bibliographies</title>
+        <link>http://ci.nii.ac.jp/ncid/BA11561058</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA11561058.rdf"/>
         <dc:creator/>
-        <dc:publisher>British Library</dc:publisher>
+        <dc:publisher>Library Association</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA06793495">
-        <title>Perennial fiction library</title>
-        <link>http://ci.nii.ac.jp/ncid/BA06793495</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA06793495.rdf"/>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA72991593">
+        <title>Guildhall Library research guide</title>
+        <link>http://ci.nii.ac.jp/ncid/BA72991593</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA72991593.rdf"/>
         <dc:creator/>
-        <dc:publisher>Perennial Library</dc:publisher>
+        <dc:publisher>Guildhall Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA11345904">
+        <title>Bohn's libraries</title>
+        <link>http://ci.nii.ac.jp/ncid/BA11345904</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA11345904.rdf"/>
+        <dc:creator/>
+        <dc:publisher>G. Bell</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA01218354">
+        <title>British Library series</title>
+        <link>http://ci.nii.ac.jp/ncid/BA01218354</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA01218354.rdf"/>
+        <dc:creator/>
+        <dc:publisher>British Library Reference Division</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA10121322">
+        <title>Small libraries publications</title>
+        <link>http://ci.nii.ac.jp/ncid/BA10121322</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA10121322.rdf"/>
+        <dc:creator/>
+        <dc:publisher>American Library Association</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
         </item>
         </rdf:RDF>
-    http_version: '1.1'
-  recorded_at: Wed, 10 Apr 2013 02:49:29 GMT
-recorded_with: VCR 2.4.0
+    http_version: 
+  recorded_at: Wed, 01 Oct 2014 10:32:58 GMT
+recorded_with: VCR 2.9.3

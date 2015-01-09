@@ -1,5 +1,5 @@
-<div id="content_detail" class="ui-corner-all">
-<h1 class="title"><%= t('page.listing', model: t('activerecord.models.nii_type')) -%></h1>
+<div id="content_detail" class="ui-corner-all ui-widget-content">
+<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.nii_type')) -%></h1>
 <div id="content_list">
 
 <table class="table table-striped index">
@@ -13,7 +13,7 @@
 <%- @nii_types.each do |nii_type| -%>
   <tr class="line<%= cycle("0", "1") -%>">
     <td>
-      <%- if policy(nii_type).update? -%>
+      <%- if can? :update, nii_type -%>
         <%= move_position(nii_type) -%>
       <%- end -%>
     </td>
@@ -24,11 +24,11 @@
     </td>
     <td><%= nii_type.note -%></td>
     <td>
-      <%- if policy(nii_type).update? -%>
+      <%- if can? :update, nii_type -%>
         <%= link_to t('page.edit'), edit_nii_type_path(nii_type) -%>
       <% end %>
-      <%- if policy(nii_type).destroy? -%>
-        <%= link_to t('page.destroy'), nii_type, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
+      <%- if can? :delete, nii_type -%>
+        <%= link_to t('page.destroy'), nii_type, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <% end -%>
     </td>
   </tr>
@@ -38,10 +38,8 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all">
-  <% if policy(NiiType).create? %>
-    <ul>
-      <li><%= link_to t('page.new', model: t('activerecord.models.nii_type')), new_nii_type_path -%></li>
-    </ul>
-  <% end %>
+<div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.nii_type')), new_nii_type_path -%></li>
+  </ul>
 </div>
