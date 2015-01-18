@@ -1,9 +1,11 @@
 class NiiTypesController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_nii_type, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+
   # GET /nii_types
   # GET /nii_types.json
   def index
-    @nii_types = NiiType.all
+    @nii_types = NiiType.order(:position)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,6 +84,16 @@ class NiiTypesController < ApplicationController
   end
 
   private
+  def set_nii_type
+    @nii_type = NiiType.find(params[:id])
+    authorize @nii_type
+    access_denied unless LibraryGroup.site_config.network_access_allowed?(request.ip)
+  end
+
+  def check_policy
+    authorize NiiType
+  end
+
   def nii_type_params
     params.require(:nii_type).permit(:name, :display_name, :note)
   end
