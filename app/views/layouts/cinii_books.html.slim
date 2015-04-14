@@ -1,0 +1,13 @@
+doctype html
+html lang="#{@locale.to_s}"
+  head
+    meta[charset="UTF-8"]
+    title
+      = t('enju_nii.import_from_cinii_books')
+    = render 'page/include'
+  body[itemscope itemtype="http://schema.org/WebPage"]
+    .container
+      = render 'page/header'
+      = render 'page/menu'
+      = yield
+      = render 'page/footer'

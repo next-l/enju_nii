@@ -1,0 +1,25 @@
+.row
+  #content_list.col-md-9
+    h1.title
+      = t('page.showing', :model => t('activerecord.models.nii_type'))
+    p
+      strong
+        = t('activerecord.attributes.nii_type.name')
+        | :
+      = @nii_type.name
+    p
+      strong
+        = t('activerecord.attributes.nii_type.display_name')
+        | :
+      = @nii_type.display_name.localize
+    p
+      strong
+        = t('activerecord.attributes.nii_type.note')
+        | :
+      = @nii_type.note
+  #submenu.col-md-3
+    ul
+      li
+        = link_to t('page.edit'), edit_nii_type_path(@nii_type)
+      li
+        = back_to_index
