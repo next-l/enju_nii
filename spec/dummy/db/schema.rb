@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115051741) do
+ActiveRecord::Schema.define(version: 20150305030046) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -721,14 +721,16 @@ ActiveRecord::Schema.define(version: 20141115051741) do
 
   create_table "resource_export_files", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "resource_export_file_name"
-    t.string   "resource_export_content_type"
-    t.integer  "resource_export_file_size"
-    t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "resource_export_id"
+    t.string   "resource_export_file_name"
+    t.integer  "resource_export_size"
+    t.integer  "resource_export_content_type"
   end
+
+  add_index "resource_export_files", ["resource_export_id"], name: "index_resource_export_files_on_resource_export_id"
 
   create_table "resource_import_file_transitions", force: :cascade do |t|
     t.string   "to_state"
@@ -942,14 +944,16 @@ ActiveRecord::Schema.define(version: 20141115051741) do
 
   create_table "user_export_files", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "user_export_file_name"
-    t.string   "user_export_content_type"
-    t.integer  "user_export_file_size"
-    t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_export_id"
+    t.string   "user_export_file_name"
+    t.integer  "user_export_size"
+    t.string   "user_export_content_type"
   end
+
+  add_index "user_export_files", ["user_export_id"], name: "index_user_export_files_on_user_export_id"
 
   create_table "user_groups", force: :cascade do |t|
     t.string   "name"
