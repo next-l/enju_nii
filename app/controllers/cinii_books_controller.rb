@@ -1,5 +1,5 @@
 class CiniiBooksController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate
   before_filter :check_librarian
 
   def index
