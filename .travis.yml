@@ -15,12 +15,16 @@ gemfile:
   - gemfiles/rails_3.2.gemfile
   - gemfiles/rails_4.1.gemfile
   - gemfiles/rails_4.2.gemfile
+  - gemfiles/rails_4.2_loc.gemfile
+  - gemfiles/rails_4.2_ndl.gemfile
 env:
   - DB=sqlite
   - DB=mysql
   - DB=postgresql
 matrix:
   exclude:
+  - gemfile: gemfiles/rails_4.2_loc.gemfile
+  - gemfile: gemfiles/rails_4.2_ndl.gemfile
   - rvm: 1.9.3
     gemfile: gemfiles/rails_4.1.gemfile
   - rvm: 1.9.3
@@ -33,6 +37,13 @@ matrix:
     gemfile: gemfiles/rails_3.2.gemfile
   - rvm: 2.2.3
     gemfile: gemfiles/rails_3.2.gemfile
+  include:
+  - gemfile: gemfiles/rails_4.2_loc.gemfile
+    rvm: 2.2.3
+    env: DB=postgresql
+  - gemfile: gemfiles/rails_4.2_ndl.gemfile
+    rvm: 2.2.3
+    env: DB=postgresql
 notifications:
   slack:
     secure: UIe53zKTV3GYyi07+PIkndBzOYYU2bWDNuGUNbbTvx0tZ77SEoY32cYPn7NrdydIRT+WPEglDsYHXH2Vp8onO/xUQkt127zP2vGn5jEfL+GpAe75EhR4QkyrIZXItoSfIjXifEkkniSEUUT9PKk4dkTJv1kIancufImYj/EQX1A=
