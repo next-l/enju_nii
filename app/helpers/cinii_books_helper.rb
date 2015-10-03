@@ -9,7 +9,7 @@ module CiniiBooksHelper
         manifestation = Identifier.where(:body => ncid, :identifier_type_id => identifier_type.id).first.try(:manifestation)
       end
       unless manifestation
-        link_to t('enju_nii.add'), cinii_books_path(:book => {:ncid => ncid}), :method => :post
+        button_to t('enju_nii.add'), cinii_books_path(book: {ncid: ncid}), method: :post, data: {disable_with: t('page.saving')}
       else
         link_to t('enju_nii.already_exists'), manifestation
       end
