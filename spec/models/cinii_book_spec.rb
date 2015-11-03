@@ -7,7 +7,7 @@ describe CiniiBook do
   Manifestation.enju_nii_cinii_books
 
   it "should search bibliographic records", vcr: true do
-    CiniiBook.search("library system")[:total_entries].should eq 3397
+    CiniiBook.search("library system")[:total_entries].should eq 3456
   end
 
   it "should search with ncid", vcr: true do
