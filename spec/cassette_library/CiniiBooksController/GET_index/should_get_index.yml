@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 01 Oct 2014 10:32:58 GMT
+      - Tue, 03 Nov 2015 18:15:23 GMT
       Access-Control-Allow-Origin:
       - "*"
       Content-Type:
@@ -34,8 +34,8 @@ http_interactions:
         <title>CiNii Books OpenSearch - 10 library 1</title>
         <description>CiNii Books OpenSearch - 10 library 1</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?count=10&amp;q=library&amp;p=1&amp;format=rss</link>
-        <dc:date>2014-10-01T19:32:58+0900</dc:date>
-        <opensearch:totalResults>159911</opensearch:totalResults>
+        <dc:date>2015-11-04T03:15:23+0900</dc:date>
+        <opensearch:totalResults>164010</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
@@ -45,8 +45,8 @@ http_interactions:
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA48143394"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA26254788"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA12212848"/>
-        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA11561058"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA72991593"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA11561058"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA11345904"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA01218354"/>
         <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA10121322"/>
@@ -93,20 +93,20 @@ http_interactions:
         <dc:publisher>British Library, Science Reference Library</dc:publisher>
         <cinii:ownerCount>0</cinii:ownerCount>
         </item>
-        <item rdf:about="http://ci.nii.ac.jp/ncid/BA11561058">
-        <title>Bibliographies</title>
-        <link>http://ci.nii.ac.jp/ncid/BA11561058</link>
-        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA11561058.rdf"/>
-        <dc:creator/>
-        <dc:publisher>Library Association</dc:publisher>
-        <cinii:ownerCount>0</cinii:ownerCount>
-        </item>
         <item rdf:about="http://ci.nii.ac.jp/ncid/BA72991593">
         <title>Guildhall Library research guide</title>
         <link>http://ci.nii.ac.jp/ncid/BA72991593</link>
         <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA72991593.rdf"/>
         <dc:creator/>
         <dc:publisher>Guildhall Library</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA11561058">
+        <title>Bibliographies</title>
+        <link>http://ci.nii.ac.jp/ncid/BA11561058</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA11561058.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Library Association</dc:publisher>
         <cinii:ownerCount>0</cinii:ownerCount>
         </item>
         <item rdf:about="http://ci.nii.ac.jp/ncid/BA11345904">
@@ -135,5 +135,5 @@ http_interactions:
         </item>
         </rdf:RDF>
     http_version: 
-  recorded_at: Wed, 01 Oct 2014 10:32:58 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Tue, 03 Nov 2015 18:15:23 GMT
+recorded_with: VCR 3.0.0

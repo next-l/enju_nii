@@ -16,9 +16,18 @@ appraise "rails-4.1" do
   gem "coveralls", require: false
 end
 
-appraise "rails-4.2" do
+appraise "rails-4.2-ndl" do
   gem "rails", "4.2.4"
   gem "jquery-rails"
   gem "statesman", "~> 1.3"
+  gem "enju_ndl", "~> 0.1.0.pre37"
+  gem "coveralls", require: false
+end
+
+appraise "rails-4.2-loc" do
+  gem "rails", "4.2.4"
+  gem "jquery-rails"
+  gem "statesman", "~> 1.3"
+  gem "enju_loc", "~> 0.1.0.pre4"
   gem "coveralls", require: false
 end
