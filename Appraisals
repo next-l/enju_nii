@@ -1,36 +1,25 @@
-appraise "rails-3.2" do
-  gem "rails", "3.2.22"
-  gem "jquery-rails"
-  gem "cancancan", "~> 1.12.0"
-  gem "strong_parameters"
-  gem "cache_digests"
-  gem "foreigner"
-  gem "coveralls", require: false
-end
-
-appraise "rails-4.1" do
-  gem "rails", "4.1.14"
-  gem "jquery-rails"
-  gem "foreigner"
-  gem "coveralls", require: false
-end
-
 appraise "rails-4.2" do
   gem "rails", "4.2.5"
   gem "jquery-rails"
-  gem "coveralls", require: false
+  gem 'enju_leaf', github: 'next-l/enju_leaf', branch: '1.2'
+  gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.2'
+  gem 'enju_subject', github: 'next-l/enju_subject', branch: '1.2'
 end
 
 appraise "rails-4.2-ndl" do
   gem "rails", "4.2.5"
   gem "jquery-rails"
+  gem 'enju_leaf', github: 'next-l/enju_leaf', branch: '1.2'
+  gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.2'
+  gem 'enju_subject', github: 'next-l/enju_subject', branch: '1.2'
   gem "enju_ndl", "~> 0.1.0"
-  gem "coveralls", require: false
 end
 
 appraise "rails-4.2-loc" do
   gem "rails", "4.2.5"
   gem "jquery-rails"
+  gem 'enju_leaf', github: 'next-l/enju_leaf', branch: '1.2'
+  gem 'enju_biblio', github: 'next-l/enju_biblio', branch: '1.2'
+  gem 'enju_subject', github: 'next-l/enju_subject', branch: '1.2'
   gem "enju_loc", "~> 0.1.0"
-  gem "coveralls", require: false
 end
