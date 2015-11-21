@@ -1,7 +1,7 @@
 = EnjuNii
-{<img src="https://secure.travis-ci.org/next-l/enju_nii.png?branch=1.1" alt="Build Status" />}[http://travis-ci.org/next-l/enju_nii]
-{<img src="https://coveralls.io/repos/next-l/enju_nii/badge.png?branch=1.1" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_nii?branch=1.1]
-{<img src="https://hakiri.io/github/next-l/enju_nii/1.1.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_nii/1.1]
+{<img src="https://travis-ci.org/next-l/enju_nii.svg?branch=1.2" alt="Build Status" />}[https://travis-ci.org/next-l/enju_nii]
+{<img src="https://coveralls.io/repos/next-l/enju_nii/badge.svg?branch=1.2&service=github" alt="Coverage Status" />}[https://coveralls.io/github/next-l/enju_nii?branch=1.2]
+{<img src="https://hakiri.io/github/next-l/enju_nii/1.2.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_nii/1.2]
 
 CiNii Booksから書誌をインポートするための Enju プラグインです。
 
@@ -9,7 +9,7 @@ CiNii Booksから書誌をインポートするための Enju プラグインで
 
 お使いのenju_leafのGemfile に以下の行を追加してください。
 
-  gem 'enju_nii', github: "next-l/enju_nii", branch: '1.1'
+  gem 'enju_nii', github: "next-l/enju_nii", branch: '1.2'
 
 gemをインストールします。
 
