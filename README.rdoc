@@ -1,6 +1,6 @@
 = EnjuNii
-{<img src="https://secure.travis-ci.org/next-l/enju_nii.png?branch=1.1" alt="Build Status" />}[http://travis-ci.org/next-l/enju_nii]
-{<img src="https://coveralls.io/repos/next-l/enju_nii/badge.png?branch=1.1" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_nii?branch=1.1]
+{<img src="https://travis-ci.org/next-l/enju_nii.svg?branch=1.1" alt="Build Status" />}[https://travis-ci.org/next-l/enju_nii]
+{<img src="https://coveralls.io/repos/next-l/enju_nii/badge.svg?branch=1.1&service=github" alt="Coverage Status" />}[https://coveralls.io/github/next-l/enju_nii?branch=1.1]
 {<img src="https://hakiri.io/github/next-l/enju_nii/1.1.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_nii/1.1]
 
 CiNii Booksから書誌をインポートするための Enju プラグインです。
@@ -13,7 +13,7 @@ CiNii Booksから書誌をインポートするための Enju プラグインで
 
 gemをインストールします。
 
-  $ bundle update
+  $ buniie update
 
 インストールが完了したら、以下のコマンドでセットアップを行います。
 
