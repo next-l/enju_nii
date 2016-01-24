@@ -87,7 +87,6 @@ class NiiTypesController < ApplicationController
   def set_nii_type
     @nii_type = NiiType.find(params[:id])
     authorize @nii_type
-    access_denied unless LibraryGroup.site_config.network_access_allowed?(request.ip)
   end
 
   def check_policy
