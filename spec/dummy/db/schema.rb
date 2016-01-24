@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425073705) do
+ActiveRecord::Schema.define(version: 20151125004028) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -160,12 +160,14 @@ ActiveRecord::Schema.define(version: 20150425073705) do
     t.string   "birth_date"
     t.string   "death_date"
     t.string   "agent_identifier"
+    t.integer  "profile_id"
   end
 
   add_index "agents", ["agent_identifier"], name: "index_agents_on_agent_identifier"
   add_index "agents", ["country_id"], name: "index_agents_on_country_id"
   add_index "agents", ["full_name"], name: "index_agents_on_full_name"
   add_index "agents", ["language_id"], name: "index_agents_on_language_id"
+  add_index "agents", ["profile_id"], name: "index_agents_on_profile_id"
   add_index "agents", ["required_role_id"], name: "index_agents_on_required_role_id"
 
   create_table "baskets", force: :cascade do |t|
@@ -632,7 +634,7 @@ ActiveRecord::Schema.define(version: 20150425073705) do
     t.datetime "updated_at"
     t.string   "picture_filename"
     t.string   "picture_content_type"
-    t.integer  "picture_file_size"
+    t.integer  "picture_size"
     t.datetime "picture_updated_at"
     t.text     "picture_meta"
     t.string   "picture_fingerprint"
@@ -964,9 +966,8 @@ ActiveRecord::Schema.define(version: 20150425073705) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_export_id"
-    t.string   "user_export_filename"
     t.integer  "user_export_size"
-    t.string   "user_export_content_type"
+    t.string   "user_import_filename"
   end
 
   add_index "user_export_files", ["user_export_id"], name: "index_user_export_files_on_user_export_id"
@@ -1009,7 +1010,7 @@ ActiveRecord::Schema.define(version: 20150425073705) do
     t.integer  "user_id"
     t.text     "note"
     t.datetime "executed_at"
-    t.string   "user_import_filename"
+    t.string   "user_import_file_name"
     t.string   "user_import_content_type"
     t.string   "user_import_file_size"
     t.datetime "user_import_updated_at"
