@@ -1,0 +1,139 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=test
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 28 May 2016 12:41:00 GMT
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns="http://purl.org/rss/1.0/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss">
+        <title>CiNii Books OpenSearch - 1 test 10</title>
+        <description>CiNii Books OpenSearch - 1 test 10</description>
+        <link>http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss</link>
+        <dc:date>2016-05-28T21:41:00+0900</dc:date>
+        <opensearch:totalResults>29061</opensearch:totalResults>
+        <opensearch:startIndex>0</opensearch:startIndex>
+        <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+        <items>
+        <rdf:Seq>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA14163266"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA00651454"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA76174068"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BB18014323"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BB05214487"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BB05434188"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA10315759"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA42168202"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BB17350970"/>
+        <rdf:li rdf:resource="http://ci.nii.ac.jp/ncid/BA50300600"/>
+        </rdf:Seq>
+        </items>
+        </channel>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA14163266">
+        <title>The ETS Test Collection catalog</title>
+        <link>http://ci.nii.ac.jp/ncid/BA14163266</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA14163266.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Oryx Press</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA00651454">
+        <title>Nondestructive testing handbook</title>
+        <link>http://ci.nii.ac.jp/ncid/BA00651454</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA00651454.rdf"/>
+        <dc:creator/>
+        <dc:publisher>American Society for Nondestructive Testing</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA76174068">
+        <title>California Test Bureau manual</title>
+        <link>http://ci.nii.ac.jp/ncid/BA76174068</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA76174068.rdf"/>
+        <dc:creator/>
+        <dc:publisher>California Test Bureau</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BB18014323">
+        <title>Nondestructive testing handbook</title>
+        <link>http://ci.nii.ac.jp/ncid/BB18014323</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BB18014323.rdf"/>
+        <dc:creator/>
+        <dc:publisher>American Society for Nondestructive Testing</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BB05214487">
+        <title>Brooklands road test series</title>
+        <link>http://ci.nii.ac.jp/ncid/BB05214487</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BB05214487.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Brooklands</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BB05434188">
+        <title>Test-preparation guide</title>
+        <link>http://ci.nii.ac.jp/ncid/BB05434188</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BB05434188.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Marshall Cavendish Education</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA10315759">
+        <title>Spot tests</title>
+        <link>http://ci.nii.ac.jp/ncid/BA10315759</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA10315759.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Elsevier</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA42168202">
+        <title>Orientamento</title>
+        <link>http://ci.nii.ac.jp/ncid/BA42168202</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA42168202.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Alpha test</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BB17350970">
+        <title>Test</title>
+        <link>http://ci.nii.ac.jp/ncid/BB17350970</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BB17350970.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Stiftung Warentest</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        <item rdf:about="http://ci.nii.ac.jp/ncid/BA50300600">
+        <title>Hypothesis testing</title>
+        <link>http://ci.nii.ac.jp/ncid/BA50300600</link>
+        <rdfs:seeAlso rdf:resource="http://ci.nii.ac.jp/ncid/BA50300600.rdf"/>
+        <dc:creator/>
+        <dc:publisher>Longman</dc:publisher>
+        <cinii:ownerCount>0</cinii:ownerCount>
+        </item>
+        </rdf:RDF>
+    http_version: 
+  recorded_at: Sat, 28 May 2016 00:37:41 GMT
+recorded_with: VCR 3.0.3

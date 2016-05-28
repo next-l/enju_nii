@@ -45,5 +45,10 @@
 </div>
 </div>
 
+<% if @query.present? %>
 <div id="submenu" class="ui-corner-all ui-widget-content">
+  <ul>
+    <li><%= link_to t('enju_nii.same_query_in_cinii_books'), "http://ci.nii.ac.jp/books/search?q=#{u(@query)}" -%></li>
+  </ul>
 </div>
+<% end %>
