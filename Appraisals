@@ -22,5 +22,5 @@ end
 appraise "rails-4.2-loc" do
   gem "rails", "~> 4.2.7"
   gem 'statesman', '~> 1.3'
-  gem "enju_loc", "~> 0.2.0.beta.1"
+  gem "enju_loc", "~> 0.2.0.beta.2"
 end
