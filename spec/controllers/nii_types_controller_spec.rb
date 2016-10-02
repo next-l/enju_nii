@@ -126,7 +126,7 @@ describe NiiTypesController do
         position = nii_type.position
         put :update, :id => nii_type.id, :move => 'higher'
         expect(response).to redirect_to nii_types_url
-        assigns(:nii_type).position.should eq position - 1
+        assigns(:nii_type).reload.position.should eq position - 1
       end
     end
 
