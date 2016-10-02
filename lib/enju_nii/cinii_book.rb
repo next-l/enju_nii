@@ -8,8 +8,8 @@ module EnjuNii
     module ClassMethods
       def import_from_cinii_books(options)
         #if options[:isbn]
-          lisbn = Lisbn.new(options[:isbn])
-          raise EnjuNii::InvalidIsbn unless lisbn.valid?
+        lisbn = Lisbn.new(options[:isbn])
+        raise EnjuNii::InvalidIsbn unless lisbn.valid?
         #end
 
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
@@ -68,21 +68,21 @@ module EnjuNii
         end
 
         identifier = {}
-	      if ncid
-	        identifier[:ncid] = Identifier.new(body: ncid)
+        if ncid
+          identifier[:ncid] = Identifier.new(body: ncid)
           identifier_type_ncid = IdentifierType.where(name: 'ncid').first
           identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
-	        identifier[:ncid].identifier_type = identifier_type_ncid
-	      end
-	      if isbn
-	        identifier[:isbn] = Identifier.new(body: isbn)
+          identifier[:ncid].identifier_type = identifier_type_ncid
+        end
+        if isbn
+          identifier[:isbn] = Identifier.new(body: isbn)
           identifier_type_isbn = IdentifierType.where(name: 'isbn').first
           identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
-	        identifier[:isbn].identifier_type = identifier_type_isbn
-	      end
-	      identifier.each do |k, v|
-	        manifestation.identifiers << v
-	      end
+          identifier[:isbn].identifier_type = identifier_type_isbn
+        end
+        identifier.each do |k, v|
+          manifestation.identifiers << v
+        end
 
         manifestation.carrier_type = CarrierType.where(name: 'volume').first
         manifestation.manifestation_content_type = ContentType.where(name: 'text').first
@@ -96,12 +96,12 @@ module EnjuNii
             manifestation.publishers = publisher_patrons
             manifestation.creators = creator_patrons
             if defined?(EnjuSubject)
-	            subjects = get_cinii_subjects(doc)
+              subjects = get_cinii_subjects(doc)
               subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
               subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
               subjects.each do |term|
                 subject = Subject.where(:term => term[:term]).first
-	              unless subject
+                unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
                   subject_type = SubjectType.where(name: 'concept').first
@@ -185,44 +185,44 @@ module EnjuNii
 
       def get_cinii_language(doc)
         language = doc.at("//dc:language").try(:content)
-	if language.size > 3
-	  language[0..2]
-	else
-	  language
-	end
+        if language.size > 3
+          language[0..2]
+        else
+          language
+        end
       end
 
       def get_cinii_subjects(doc)
-	subjects = []
-	doc.xpath('//foaf:topic').each do |s|
-	  subjects << { :term => s["dc:title"] }
-	end
-	subjects
+        subjects = []
+        doc.xpath('//foaf:topic').each do |s|
+          subjects << { :term => s["dc:title"] }
+        end
+        subjects
       end
 
       def create_cinii_series_statements(doc, manifestation)
         series = doc.at("//dcterms:isPartOf")
-	if series and parent_url = series["rdf:resource"]
-	  ptbl = series["dc:title"]
-	  parent_url = parent_url.gsub(/\#\w+\Z/, "")
-	  parent_doc = Nokogiri::XML(Faraday.get(parent_url+".rdf").body)
-	  parent_titles = get_cinii_title(parent_doc)
-	  series_statement = SeriesStatement.new(parent_titles)
-	  series_statement.series_statement_identifier = parent_url
-	  manifestation.series_statements << series_statement
-	  if parts = ptbl.split(/ \. /)
-	    parts[1..-1].each do |part|
-	      title, volume_number, = part.split(/ ; /)
-	      original_title, title_transcription, = title.split(/\|\|/)
-	      series_statement = SeriesStatement.new(
-	        :original_title => original_title,
-		:title_transcription => title_transcription,
-		:volume_number_string => volume_number,
-	      )
-	      manifestation.series_statements << series_statement
-	    end
+        if series and parent_url = series["rdf:resource"]
+          ptbl = series["dc:title"]
+          parent_url = parent_url.gsub(/\#\w+\Z/, "")
+          parent_doc = Nokogiri::XML(Faraday.get(parent_url+".rdf").body)
+          parent_titles = get_cinii_title(parent_doc)
+          series_statement = SeriesStatement.new(parent_titles)
+          series_statement.series_statement_identifier = parent_url
+          manifestation.series_statements << series_statement
+          if parts = ptbl.split(/ \. /)
+            parts[1..-1].each do |part|
+              title, volume_number, = part.split(/ ; /)
+              original_title, title_transcription, = title.split(/\|\|/)
+              series_statement = SeriesStatement.new(
+                :original_title => original_title,
+                :title_transcription => title_transcription,
+                :volume_number_string => volume_number,
+              )
+              manifestation.series_statements << series_statement
+            end
           end
-	end
+        end
       end
     end
 
