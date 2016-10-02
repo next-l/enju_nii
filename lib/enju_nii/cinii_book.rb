@@ -51,6 +51,8 @@ module EnjuNii
         manifestation.pub_date = pub_date
 
         manifestation.statement_of_responsibility = doc.at('//dc:creator').try(:content)
+        manifestation.extent = doc.at('//dcterms:extent').try(:content)
+        manifestation.dimensions = doc.at('//cinii:size').try(:content)
 
         language = Language.where(:iso_639_3 => get_cinii_language(doc)).first
         if language
