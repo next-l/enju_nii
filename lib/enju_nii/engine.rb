@@ -1,5 +1,4 @@
-require 'enju_biblio'
-require 'nokogiri'
+require 'enju_subject'
 require 'rss'
 
 module EnjuNii
