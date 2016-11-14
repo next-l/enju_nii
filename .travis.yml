@@ -4,9 +4,10 @@ rvm:
   - 2.2.5
   - 2.3.1
 before_script:
-  - mysql -e 'create database enju_nii_dummy_test'
   - psql -c 'create database enju_nii_dummy_test;' -U postgres
   - bundle exec rake db:migrate
+after_script:
+  - bundle exec codeclimate-test-reporter
 services:
   - redis-server
 env:
@@ -17,5 +18,3 @@ notifications:
 sudo: false
 addons:
   postgresql: "9.4"
-  code_climate:
-    repo_token: d5765378857c91462fbc7c9bf321487559764eb467f7c5d6f65f0f2684a61d98
