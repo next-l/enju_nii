@@ -9,7 +9,7 @@ end
 # Table name: nii_types
 #
 #  id           :integer          not null, primary key
-#  name         :string(255)      not null
+#  name         :string           not null
 #  display_name :text
 #  note         :text
 #  position     :integer
