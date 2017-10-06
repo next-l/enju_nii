@@ -8,6 +8,7 @@ mysql: &mysql
   password:
   database: enju_<%= Rails.env %>
   encoding: utf8mb4
+  collation: utf8mb4_general_ci
 
 postgresql: &postgresql
   adapter: postgresql
