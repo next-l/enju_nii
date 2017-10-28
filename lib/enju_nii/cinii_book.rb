@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+
 module EnjuNii
   module CiNiiBook
     def self.included(base)
@@ -27,7 +27,7 @@ module EnjuNii
 
         ncid = doc.at('//cinii:ncid').try(:content)
         identifier_type = IdentifierType.where(name: 'ncid').first
-        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+        identifier_type ||= IdentifierType.create!(name: 'ncid')
         identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
         return identifier.manifestation if identifier
 
@@ -43,7 +43,7 @@ module EnjuNii
         if pub_date
           date = pub_date.split('-')
           date = if date[0] && date[1]
-                   sprintf('%04d-%02d', date[0], date[1])
+                   format('%04d-%02d', date[0], date[1])
                  else
                    pub_date
                  end
@@ -73,13 +73,13 @@ module EnjuNii
         if ncid
           identifier[:ncid] = Identifier.new(body: ncid)
           identifier_type_ncid = IdentifierType.where(name: 'ncid').first
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
+          identifier_type_ncid ||= IdentifierType.where(name: 'ncid').create!
           identifier[:ncid].identifier_type = identifier_type_ncid
         end
         if isbn
           identifier[:isbn] = Identifier.new(body: isbn)
           identifier_type_isbn = IdentifierType.where(name: 'isbn').first
-          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
+          identifier_type_isbn ||= IdentifierType.where(name: 'isbn').create!
           identifier[:isbn].identifier_type = identifier_type_isbn
         end
         identifier.each do |_k, v|
@@ -100,14 +100,14 @@ module EnjuNii
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
               subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
-              subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
+              subject_heading_type ||= SubjectHeadingType.create!(name: 'bsh')
               subjects.each do |term|
                 subject = Subject.where(term: term[:term]).first
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
                   subject_type = SubjectType.where(name: 'concept').first
-                  subject_type = SubjectType.create(name: 'concept') unless subject_type
+                  subject_type ||= SubjectType.create(name: 'concept')
                   subject.subject_type = subject_type
                 end
                 manifestation.subjects << subject
