@@ -12,8 +12,8 @@ module EnjuNii
         raise EnjuNii::InvalidIsbn unless lisbn.valid?
         # end
 
-        manifestation = Manifestation.find_by(isbn: lisbn.isbn)
-        return manifestation if manifestation.present?
+        manifestation = IsbnRecord.where(body: lisbn.isbn).first.try(:manifestation)
+        return manifestation if manifestation
 
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
@@ -26,10 +26,10 @@ module EnjuNii
         # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        identifier_type = IdentifierType.where(name: 'ncid').first
-        identifier_type ||= IdentifierType.create!(name: 'ncid')
-        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
-        return identifier.manifestation if identifier
+        if ncid
+          ncid_record = NcidRecord.find_by(body: ncid)
+          return ncid_recor.manifestation if ncid_record.try(:manifestation)
+        end
 
         creators = get_cinii_creator(doc)
         publishers = get_cinii_publisher(doc)
@@ -61,29 +61,13 @@ module EnjuNii
                                       1
                                     end
 
+        isbn = nil
         urn = doc.at('//dcterms:hasPart[@rdf:resource]')
         if urn
           urn = urn.attributes['resource'].value
           if urn =~ /^urn:isbn/
             isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, '')).isbn
           end
-        end
-
-        identifier = {}
-        if ncid
-          identifier[:ncid] = Identifier.new(body: ncid)
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
-          identifier_type_ncid ||= IdentifierType.where(name: 'ncid').create!
-          identifier[:ncid].identifier_type = identifier_type_ncid
-        end
-        if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
-          identifier_type_isbn ||= IdentifierType.where(name: 'isbn').create!
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
-        identifier.each do |_k, v|
-          manifestation.identifiers << v
         end
 
         manifestation.carrier_type = CarrierType.where(name: 'volume').first
@@ -114,6 +98,11 @@ module EnjuNii
               end
             end
           end
+          ncid_record = NcidRecord.where(body: ncid).first_or_initialize
+          ncid_record.manifestation = manifestation
+          ncid_record.save
+          isbn_record = IsbnRecord.where(body: isbn).first_or_initialize
+          manifestation.isbn_records << isbn_record
         end
 
         manifestation
