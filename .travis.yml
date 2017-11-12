@@ -18,4 +18,4 @@ notifications:
     secure: UIe53zKTV3GYyi07+PIkndBzOYYU2bWDNuGUNbbTvx0tZ77SEoY32cYPn7NrdydIRT+WPEglDsYHXH2Vp8onO/xUQkt127zP2vGn5jEfL+GpAe75EhR4QkyrIZXItoSfIjXifEkkniSEUUT9PKk4dkTJv1kIancufImYj/EQX1A=
 sudo: false
 addons:
-  postgresql: "9.4"
+  postgresql: "9.5"
