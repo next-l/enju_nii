@@ -1,10 +1,5 @@
 class AddNiiTypeIdToManifestation < ActiveRecord::Migration[5.1]
-  def self.up
-    add_column :manifestations, :nii_type_id, :integer
-    add_index :manifestations, :nii_type_id
-  end
-
-  def self.down
-    remove_column :manifestations, :nii_type_id
+  def change
+    add_reference :manifestations, :nii_type, foreign_key: true
   end
 end
