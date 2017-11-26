@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "agent_merges", force: :cascade do |t|
-    t.integer "agent_id", null: false
-    t.integer "agent_merge_list_id", null: false
+    t.uuid "agent_id"
+    t.bigint "agent_merge_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_agent_merges_on_agent_id"
@@ -105,12 +105,13 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "agent_relationships", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.integer "agent_relationship_type_id"
+    t.uuid "parent_id", null: false
+    t.uuid "child_id", null: false
+    t.bigint "agent_relationship_type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.index ["agent_relationship_type_id"], name: "index_agent_relationships_on_agent_relationship_type_id"
     t.index ["child_id"], name: "index_agent_relationships_on_child_id"
     t.index ["parent_id"], name: "index_agent_relationships_on_parent_id"
   end
@@ -125,7 +126,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
     t.index ["name"], name: "index_agent_types_on_name", unique: true
   end
 
-  create_table "agents", force: :cascade do |t|
+  create_table "agents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "last_name"
     t.string "middle_name"
     t.string "first_name"
@@ -299,7 +300,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "creates", force: :cascade do |t|
-    t.bigint "agent_id", null: false
+    t.uuid "agent_id", null: false
     t.uuid "work_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
@@ -322,7 +323,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "donates", force: :cascade do |t|
-    t.bigint "agent_id", null: false
+    t.uuid "agent_id", null: false
     t.uuid "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -698,7 +699,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "owns", force: :cascade do |t|
-    t.bigint "agent_id", null: false
+    t.uuid "agent_id", null: false
     t.uuid "item_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
@@ -745,7 +746,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "produces", force: :cascade do |t|
-    t.bigint "agent_id", null: false
+    t.uuid "agent_id", null: false
     t.uuid "manifestation_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
@@ -784,7 +785,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "realizes", force: :cascade do |t|
-    t.bigint "agent_id", null: false
+    t.uuid "agent_id", null: false
     t.uuid "expression_id", null: false
     t.integer "position"
     t.datetime "created_at", null: false
@@ -910,12 +911,12 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   end
 
   create_table "series_statement_merges", force: :cascade do |t|
-    t.integer "series_statement_id", null: false
-    t.integer "series_statement_merge_list_id", null: false
+    t.bigint "series_statement_id"
+    t.bigint "series_statement_merge_list_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["series_statement_id"], name: "index_series_statement_merges_on_series_statement_id"
-    t.index ["series_statement_merge_list_id"], name: "index_series_statement_merges_on_list_id"
+    t.index ["series_statement_merge_list_id"], name: "index_series_statement_merges_on_series_statement_merge_list_id"
   end
 
   create_table "series_statements", force: :cascade do |t|
@@ -1154,6 +1155,11 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   add_foreign_key "accepts", "items"
   add_foreign_key "accepts", "users", column: "librarian_id"
   add_foreign_key "agent_import_files", "users"
+  add_foreign_key "agent_merges", "agent_merge_lists"
+  add_foreign_key "agent_merges", "agents"
+  add_foreign_key "agent_relationships", "agent_relationship_types"
+  add_foreign_key "agent_relationships", "agents", column: "child_id"
+  add_foreign_key "agent_relationships", "agents", column: "parent_id"
   add_foreign_key "baskets", "users"
   add_foreign_key "creates", "agents"
   add_foreign_key "creates", "manifestations", column: "work_id"
@@ -1186,6 +1192,9 @@ ActiveRecord::Schema.define(version: 20171014141921) do
   add_foreign_key "realizes", "agents"
   add_foreign_key "realizes", "manifestations", column: "expression_id"
   add_foreign_key "resource_import_files", "users"
+  add_foreign_key "series_statement_merges", "series_statement_merge_lists"
+  add_foreign_key "series_statement_merges", "series_statements"
+  add_foreign_key "series_statements", "manifestations"
   add_foreign_key "shelves", "libraries"
   add_foreign_key "subscribes", "subscriptions"
   add_foreign_key "subscriptions", "users"
