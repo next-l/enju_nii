@@ -1,4 +1,4 @@
-class CreateNcidRecords < ActiveRecord::Migration[5.0]
+class CreateNcidRecords < ActiveRecord::Migration[5.1]
   def change
     create_table :ncid_records do |t|
       t.string :body, index: {unique: true}, null: false

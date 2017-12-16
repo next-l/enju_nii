@@ -679,7 +679,7 @@ ActiveRecord::Schema.define(version: 20171014141921) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ncid_records", id: :serial, force: :cascade do |t|
+  create_table "ncid_records", force: :cascade do |t|
     t.string "body", null: false
     t.uuid "manifestation_id", null: false
     t.datetime "created_at", null: false
