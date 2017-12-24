@@ -56,7 +56,7 @@ class CiniiBook
     identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
     identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
     return if identifier
-    url = "http://ci.nii.ac.jp/ncid/#{ncid}.rdf"
+    url = "https://ci.nii.ac.jp/ncid/#{ncid}.rdf"
     doc = Nokogiri::XML(Faraday.get(url).body)
     Manifestation.import_record_from_cinii_books(doc)
   end

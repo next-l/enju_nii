@@ -8,7 +8,7 @@ describe "cinii_books/index" do
       books = CiniiBook.search(params[:query])
       assign(:books, Kaminari.paginate_array(books[:items], total_count: books[:total_entries]).page(1).per(10))
       render
-      expect(rendered).to include "http://ci.nii.ac.jp/books/search?q=test"
+      expect(rendered).to include "https://ci.nii.ac.jp/books/search?q=test"
     end
   end
 end

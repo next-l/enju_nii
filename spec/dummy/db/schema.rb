@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814165332) do
+ActiveRecord::Schema.define(version: 20160820004638) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "agent_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "agent_import_file_transitions", ["agent_import_file_id"], name: "index_agent_import_file_transitions_on_agent_import_file_id"
@@ -200,12 +201,16 @@ ActiveRecord::Schema.define(version: 20160814165332) do
   end
 
   create_table "carrier_types", force: :cascade do |t|
-    t.string   "name",         null: false
+    t.string   "name",                    null: false
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   create_table "classification_types", force: :cascade do |t|
@@ -367,6 +372,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "import_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "import_request_transitions", ["import_request_id"], name: "index_import_request_transitions_on_import_request_id"
@@ -711,6 +717,8 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.datetime "picture_updated_at"
     t.text     "picture_meta"
     t.string   "picture_fingerprint"
+    t.integer  "picture_width"
+    t.integer  "picture_height"
   end
 
   add_index "picture_files", ["picture_attachable_id", "picture_attachable_type"], name: "index_picture_files_on_picture_attachable_id_and_type"
@@ -802,6 +810,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "resource_export_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "resource_export_file_transitions", ["resource_export_file_id"], name: "index_resource_export_file_transitions_on_file_id"
@@ -825,6 +834,7 @@ ActiveRecord::Schema.define(version: 20160814165332) do
     t.integer  "resource_import_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "resource_import_file_transitions", ["resource_import_file_id"], name: "index_resource_import_file_transitions_on_file_id"
