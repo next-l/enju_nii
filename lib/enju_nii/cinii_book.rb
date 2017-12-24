@@ -130,12 +130,16 @@ module EnjuNii
           rss = search_cinii_by_isbn(cinii_normalize_isbn(isbn))
         end
         if rss.items.first
-          Nokogiri::XML(Faraday.get("#{rss.items.first.link}.rdf").body)
+          conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
+            faraday.use FaradayMiddleware::FollowRedirects
+            faraday.adapter :net_http
+          end
+          conn.get.body
         end
       end
 
       def search_cinii_by_isbn(isbn)
-        url = "http://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+        url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
         RSS::RDF::Channel.install_text_element('opensearch:totalResults', 'http://a9.com/-/spec/opensearch/1.1/', '?', 'totalResults', :text, 'opensearch:totalResults')
         RSS::BaseListener.install_get_text_element('http://a9.com/-/spec/opensearch/1.1/', 'totalResults', 'totalResults=')
         rss = RSS::Parser.parse(url, false)
@@ -195,7 +199,11 @@ module EnjuNii
         if series && (parent_url = series['rdf:resource'])
           ptbl = series['dc:title']
           parent_url = parent_url.gsub(/\#\w+\Z/, '')
-          parent_doc = Nokogiri::XML(Faraday.get(parent_url + '.rdf').body)
+          conn = Faraday.new("#{parent_url}.rdf") do |faraday|
+            faraday.use FaradayMiddleware::FollowRedirects
+            faraday.adapter :net_http
+          end
+          parent_doc = Nokogiri::XML(conn.get.body)
           parent_titles = get_cinii_title(parent_doc)
           series_statement = SeriesStatement.new(parent_titles)
           series_statement.series_statement_identifier = parent_url

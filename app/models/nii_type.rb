@@ -1,6 +1,5 @@
 class NiiType < ActiveRecord::Base
   include MasterModel
-  default_scope { order('nii_types.position') }
   has_many :manifestations
 end
 

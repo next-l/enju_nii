@@ -126,6 +126,14 @@ RSpec.describe NiiTypesController, type: :controller do
         put :update, params: {id: nii_type.to_param, nii_type: valid_attributes}, session: valid_session
         expect(response).to redirect_to(nii_type)
       end
+
+      it "moves its position when specified" do
+        nii_type = NiiType.create! valid_attributes
+        position = nii_type.position
+        put :update, params: {id: nii_type.id, move: 'higher'}
+        expect(response).to redirect_to nii_types_url
+        assigns(:nii_type).reload.position.should eq position - 1
+      end
     end
 
     context "with invalid params" do

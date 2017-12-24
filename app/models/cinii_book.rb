@@ -53,7 +53,7 @@ class CiniiBook
   def self.import_ncid(ncid)
     manifestation = NcidRecord.find_by(body: ncid).try(:manifestation)
     return manifestation if manifestation
-    url = "http://ci.nii.ac.jp/ncid/#{ncid}.rdf"
+    url = "https://ci.nii.ac.jp/ncid/#{ncid}.rdf"
     doc = Nokogiri::XML(Faraday.get(url).body)
     Manifestation.import_record_from_cinii_books(doc)
   end
