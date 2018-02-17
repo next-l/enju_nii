@@ -28,7 +28,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 24 Dec 2017 04:38:27 GMT
+  recorded_at: Sat, 17 Feb 2018 13:06:38 GMT
 - request:
     method: get
     uri: https://ci.nii.ac.jp/books/opensearch/search?count=10&format=rss&p=1&q=library
@@ -48,7 +48,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Dec 2017 04:38:27 GMT
+      - Sat, 17 Feb 2018 13:06:39 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
       Connection:
@@ -56,20 +56,20 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Set-Cookie:
-      - TS01b7c0b3=01bdee8456faee94e70fdb439ebe12d2aed71f711c22b30df5f9b20d1938ee0f1981cd054f8ad867b63ff8ac6ae47dbe290fafbf42;
+      - TS01b7c0b3=01bdee8456241758637927b533adb68c23acfd015fe261078f1cbe1e3d14bb267180479a580df785a56f5f18947594081ec7c23ad1;
         Path=/
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
         <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss">
         <title>CiNii Books OpenSearch - 1 library 10</title>
         <description>CiNii Books OpenSearch - 1 library 10</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss</link>
-        <dc:date>2017-12-24T13:38:27+09:00</dc:date>
-        <opensearch:totalResults>170281</opensearch:totalResults>
+        <dc:date>2018-02-17T22:06:39+09:00</dc:date>
+        <opensearch:totalResults>170875</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
@@ -169,5 +169,5 @@ http_interactions:
         </item>
         </rdf:RDF>
     http_version: 
-  recorded_at: Sun, 24 Dec 2017 04:38:27 GMT
+  recorded_at: Sat, 17 Feb 2018 13:06:39 GMT
 recorded_with: VCR 4.0.0
