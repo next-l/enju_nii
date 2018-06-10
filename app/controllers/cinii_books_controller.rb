@@ -23,7 +23,7 @@ class CiniiBooksController < ApplicationController
       @manifestation = CiniiBook.import_ncid(params[:book][:ncid])
       respond_to do |format|
         if @manifestation.try(:save)
-          flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.manifestation'))
+          flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.manifestation'))
           format.html { redirect_to manifestation_url(@manifestation) }
         else
           flash[:notice] = t('enju_nii.record_not_found')
