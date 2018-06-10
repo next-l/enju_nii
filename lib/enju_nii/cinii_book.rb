@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module EnjuNii
   module CiNiiBook
     def self.included(base)
@@ -7,23 +6,23 @@ module EnjuNii
 
     module ClassMethods
       def import_from_cinii_books(options)
-        #if options[:isbn]
+        # if options[:isbn]
         lisbn = Lisbn.new(options[:isbn])
         raise EnjuNii::InvalidIsbn unless lisbn.valid?
-        #end
+        # end
 
         manifestation = Manifestation.find_by_isbn(lisbn.isbn)
         return manifestation if manifestation.present?
 
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
-        #raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
+        # raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
         import_record_from_cinii_books(doc)
       end
 
       def import_record_from_cinii_books(doc)
         # http://ci.nii.ac.jp/info/ja/api/api_outline.html#cib_od
-        #return nil
+        # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
         identifier_type = IdentifierType.where(name: 'ncid').first
@@ -54,7 +53,7 @@ module EnjuNii
         manifestation.extent = doc.at('//dcterms:extent').try(:content)
         manifestation.dimensions = doc.at('//cinii:size').try(:content)
 
-        language = Language.where(:iso_639_3 => get_cinii_language(doc)).first
+        language = Language.where(iso_639_3: get_cinii_language(doc)).first
         if language
           manifestation.language_id = language.id
         else
@@ -102,7 +101,7 @@ module EnjuNii
               subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
               subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
               subjects.each do |term|
-                subject = Subject.where(:term => term[:term]).first
+                subject = Subject.where(term: term[:term]).first
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
@@ -120,7 +119,7 @@ module EnjuNii
       end
 
       def search_cinii_book(query, options = {})
-        options = {:p => 1, :count => 10, :raw => false}.merge(options)
+        options = {p: 1, count: 10, raw: false}.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
@@ -170,22 +169,22 @@ module EnjuNii
       def get_cinii_creator(doc)
         doc.xpath("//foaf:maker/foaf:Person").map{|e|
           {
-            :full_name => e.at("./foaf:name").content,
-            :full_name_transcription => e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
-            :patron_identifier => e.attributes["about"].try(:content)
+            full_name: e.at("./foaf:name").content,
+            full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
+            patron_identifier: e.attributes["about"].try(:content)
           }
         }
       end
 
       def get_cinii_publisher(doc)
-        doc.xpath("//dc:publisher").map{|e| {:full_name => e.content}}
+        doc.xpath("//dc:publisher").map{|e| {full_name: e.content}}
       end
 
       def get_cinii_title(doc)
         {
-          :original_title => doc.at("//dc:title[not(@xml:lang)]").children.first.content,
-          :title_transcription => doc.xpath("//dc:title[@xml:lang]", 'dc': 'http://purl.org/dc/elements/1.1/').map{|e| e.try(:content)}.join("\n"),
-          :title_alternative => doc.xpath("//dcterms:alternative").map{|e| e.try(:content)}.join("\n")
+          original_title: doc.at("//dc:title[not(@xml:lang)]").children.first.content,
+          title_transcription: doc.xpath("//dc:title[@xml:lang]", 'dc': 'http://purl.org/dc/elements/1.1/').map{|e| e.try(:content)}.join("\n"),
+          title_alternative: doc.xpath("//dcterms:alternative").map{|e| e.try(:content)}.join("\n")
         }
       end
 
@@ -201,7 +200,7 @@ module EnjuNii
       def get_cinii_subjects(doc)
         subjects = []
         doc.xpath('//foaf:topic').each do |s|
-          subjects << { :term => s["dc:title"] }
+          subjects << { term: s["dc:title"] }
         end
         subjects
       end
@@ -225,9 +224,9 @@ module EnjuNii
               title, volume_number, = part.split(/ ; /)
               original_title, title_transcription, = title.split(/\|\|/)
               series_statement = SeriesStatement.new(
-                :original_title => original_title,
-                :title_transcription => title_transcription,
-                :volume_number_string => volume_number,
+                original_title: original_title,
+                title_transcription: title_transcription,
+                volume_number_string: volume_number,
               )
               manifestation.series_statements << series_statement
             end

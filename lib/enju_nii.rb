@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require "enju_nii/engine"
 require 'open-uri'
 require 'enju_nii/cinii_book'
