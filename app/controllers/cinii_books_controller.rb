@@ -10,7 +10,7 @@ class CiniiBooksController < ApplicationController
     @query = params[:query].to_s.strip
     books = CiniiBook.search(params[:query], page)
     @books = Kaminari.paginate_array(
-      books[:items], total_count: books[:total_entries], page: page
+      books[:items], total_count: books[:total_entries]
     ).page(page).per(10)
 
     respond_to do |format|

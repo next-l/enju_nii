@@ -11,7 +11,7 @@ describe CiniiBooksController do
     login_fixture_admin
 
     it "should get index", vcr: true do
-      get :index, query: 'library'
+      get :index, params: { query: 'library' }
       assigns(:books).should_not be_empty
     end
 
