@@ -132,7 +132,7 @@ module EnjuNii
         else
           RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
           RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
-          feed = RSS::Parser.parse(url, false)
+          RSS::Parser.parse(url, false)
         end
       end
 
@@ -154,7 +154,7 @@ module EnjuNii
         url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
         RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
         RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
-        rss = RSS::Parser.parse(url, false)
+        RSS::Parser.parse(url, false)
       end
 
       private
