@@ -6,5 +6,5 @@ appraise "rails-5.1-ndl" do
 end
 
 appraise "rails-5.1-loc" do
-  gem "enju_loc", github: 'next-l/enju_loc', branch: '1.3'
+  gem "enju_loc", "~> 0.3.0.beta.1"
 end
