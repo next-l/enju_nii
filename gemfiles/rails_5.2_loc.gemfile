@@ -4,11 +4,12 @@ source "https://rubygems.org"
 
 gem "jquery-rails"
 gem "rails-controller-testing"
+gem "mobility"
 gem "enju_seed", branch: "1.4", git: "https://github.com/next-l/enju_seed.git"
 gem "enju_leaf", branch: "1.4", git: "https://github.com/next-l/enju_leaf.git"
 gem "enju_library", branch: "1.4", git: "https://github.com/next-l/enju_library.git"
 gem "enju_biblio", branch: "1.4", git: "https://github.com/next-l/enju_biblio.git"
 gem "enju_subject", branch: "1.4", git: "https://github.com/next-l/enju_subject.git"
-gem "enju_loc", "~> 0.3.0.beta.1"
+gem "enju_loc", "~> 0.4.0.beta.1", branch: "1.4", git: "https://github.com/next-l/enju_loc.git"
 
 gemspec path: "../"
