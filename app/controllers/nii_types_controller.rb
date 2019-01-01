@@ -62,7 +62,7 @@ class NiiTypesController < ApplicationController
     end
 
     respond_to do |format|
-      if @nii_type.update_attributes(nii_type_params)
+      if @nii_type.update(nii_type_params)
         format.html { redirect_to @nii_type, notice:  t('controller.successfully_updated', model:  t('activerecord.models.nii_type')) }
         format.json { head :no_content }
       else

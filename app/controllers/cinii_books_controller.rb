@@ -5,7 +5,7 @@ class CiniiBooksController < ApplicationController
     if params[:page].to_i == 0
       page = 1
     else
-      page = params[:page].to_i
+      page = params[:page]
     end
     @query = params[:query].to_s.strip
     books = CiniiBook.search(params[:query], page)

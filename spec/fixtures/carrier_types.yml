@@ -1,22 +1,26 @@
 --- 
 carrier_type_00001: 
   name: volume
-  display_name_translations: {"en": "Volume", "ja": "冊子体"}
+  display_name: "en: Volume\r\n\
+    ja: 冊子体"
   id: 1
   position: 1
 carrier_type_00002: 
   name: audio_disc
-  display_name_translations: {"en": "Audio disc", "ja": "オーディオディスク"}
+  display_name: "en: Audio disc\r\n\
+    ja: オーディオディスク"
   id: 2
   position: 2
 carrier_type_00003: 
   name: videodisc
-  display_name_translations: {"en": "Videodisc", "ja": "ビデオディスク"}
+  display_name: "en: Videodisc\r\n\
+    ja: ビデオディスク"
   id: 3
   position: 3
 carrier_type_00004: 
   name: online_resource
-  display_name_translations: {"en": "Online resource", "ja": "オンラインリソース"}
+  display_name: "en: Online resource\r\n\
+    ja: オンラインリソース"
   id: 4
   position: 4
 
@@ -26,7 +30,7 @@ carrier_type_00004:
 #
 #  id           :integer          not null, primary key
 #  name         :string(255)      not null
-#  display_name_translations :text
+#  display_name :text
 #  note         :text
 #  position     :integer
 #  created_at   :datetime         not null

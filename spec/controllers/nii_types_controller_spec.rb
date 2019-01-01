@@ -18,152 +18,149 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe NiiTypesController, type: :controller do
+describe NiiTypesController do
   fixtures :all
   login_fixture_admin
 
   # This should return the minimal set of attributes required to create a valid
   # NiiType. As you add validations to NiiType, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    { name: 'test' }
-  }
+  # update the return value of this method accordingly.
+  def valid_attributes
+    {name: 'test'}
+  end
 
-  let(:invalid_attributes) {
-    { name: '' }
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # NiiTypesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
-  describe "GET #index" do
+  describe "GET index" do
     it "assigns all nii_types as @nii_types" do
       nii_type = NiiType.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index
       expect(assigns(:nii_types)).to eq(NiiType.order(:position))
     end
   end
 
-  describe "GET #show" do
+  describe "GET show" do
     it "assigns the requested nii_type as @nii_type" do
       nii_type = NiiType.create! valid_attributes
-      get :show, params: {id: nii_type.to_param}, session: valid_session
+      get :show, params: { id: nii_type.id }
       expect(assigns(:nii_type)).to eq(nii_type)
     end
   end
 
-  describe "GET #new" do
+  describe "GET new" do
     it "assigns a new nii_type as @nii_type" do
-      get :new, params: {}, session: valid_session
+      get :new
       expect(assigns(:nii_type)).to be_a_new(NiiType)
     end
   end
 
-  describe "GET #edit" do
+  describe "GET edit" do
     it "assigns the requested nii_type as @nii_type" do
       nii_type = NiiType.create! valid_attributes
-      get :edit, params: {id: nii_type.to_param}, session: valid_session
+      get :edit, params: { id: nii_type.id }
       expect(assigns(:nii_type)).to eq(nii_type)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
+  describe "POST create" do
+    describe "with valid params" do
       it "creates a new NiiType" do
-        expect {
-          post :create, params: {nii_type: valid_attributes}, session: valid_session
-        }.to change(NiiType, :count).by(1)
+        expect do
+          post :create, params: { nii_type: valid_attributes }
+        end.to change(NiiType, :count).by(1)
       end
 
       it "assigns a newly created nii_type as @nii_type" do
-        post :create, params: {nii_type: valid_attributes}, session: valid_session
+        post :create, params: { nii_type: valid_attributes }
         expect(assigns(:nii_type)).to be_a(NiiType)
         expect(assigns(:nii_type)).to be_persisted
       end
 
       it "redirects to the created nii_type" do
-        post :create, params: {nii_type: valid_attributes}, session: valid_session
+        post :create, params: { nii_type: valid_attributes }
         expect(response).to redirect_to(NiiType.last)
       end
     end
 
-    context "with invalid params" do
+    describe "with invalid params" do
       it "assigns a newly created but unsaved nii_type as @nii_type" do
-        post :create, params: {nii_type: invalid_attributes}, session: valid_session
+        # Trigger the behavior that occurs when invalid params are submitted
+        NiiType.any_instance.stub(:save).and_return(false)
+        post :create, params: { nii_type: {name: "test"} }
         expect(assigns(:nii_type)).to be_a_new(NiiType)
       end
 
       it "re-renders the 'new' template" do
-        post :create, params: {nii_type: invalid_attributes}, session: valid_session
+        # Trigger the behavior that occurs when invalid params are submitted
+        NiiType.any_instance.stub(:save).and_return(false)
+        post :create, params: { nii_type: {name: "test"} }
         expect(response).to render_template("new")
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        { name: 'new_test' }
-      }
-
+  describe "PUT update" do
+    describe "with valid params" do
       it "updates the requested nii_type" do
         nii_type = NiiType.create! valid_attributes
-        put :update, params: {id: nii_type.to_param, nii_type: new_attributes}, session: valid_session
-        nii_type.reload
-        expect(assigns(:nii_type).name).to eq('new_test')
+        # Assuming there are no other nii_types in the database, this
+        # specifies that the NiiType created on the previous line
+        # receives the :update_attributes message with whatever params are
+        # submitted in the request.
+        NiiType.any_instance.should_receive(:update).with('name' => 'test')
+        put :update, params: { id: nii_type.id, nii_type: {'name' => 'test'} }
       end
 
       it "assigns the requested nii_type as @nii_type" do
         nii_type = NiiType.create! valid_attributes
-        put :update, params: {id: nii_type.to_param, nii_type: valid_attributes}, session: valid_session
+        put :update, params: { id: nii_type.id, nii_type: valid_attributes }
         expect(assigns(:nii_type)).to eq(nii_type)
       end
 
       it "redirects to the nii_type" do
         nii_type = NiiType.create! valid_attributes
-        put :update, params: {id: nii_type.to_param, nii_type: valid_attributes}, session: valid_session
+        put :update, params: { id: nii_type.id, nii_type: valid_attributes }
         expect(response).to redirect_to(nii_type)
       end
 
       it "moves its position when specified" do
         nii_type = NiiType.create! valid_attributes
         position = nii_type.position
-        put :update, params: {id: nii_type.id, move: 'higher'}
+        put :update, params: { id: nii_type.id, move: 'higher' }
         expect(response).to redirect_to nii_types_url
         assigns(:nii_type).reload.position.should eq position - 1
       end
     end
 
-    context "with invalid params" do
+    describe "with invalid params" do
       it "assigns the nii_type as @nii_type" do
         nii_type = NiiType.create! valid_attributes
-        put :update, params: {id: nii_type.to_param, nii_type: invalid_attributes}, session: valid_session
+        # Trigger the behavior that occurs when invalid params are submitted
+        NiiType.any_instance.stub(:save).and_return(false)
+        put :update, params: { id: nii_type.id, nii_type: {name: "test"} }
         expect(assigns(:nii_type)).to eq(nii_type)
       end
 
       it "re-renders the 'edit' template" do
         nii_type = NiiType.create! valid_attributes
-        put :update, params: {id: nii_type.to_param, nii_type: invalid_attributes}, session: valid_session
+        # Trigger the behavior that occurs when invalid params are submitted
+        NiiType.any_instance.stub(:save).and_return(false)
+        put :update, params: { id: nii_type.id, nii_type: {name: "test"} }
         expect(response).to render_template("edit")
       end
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "DELETE destroy" do
     it "destroys the requested nii_type" do
       nii_type = NiiType.create! valid_attributes
-      expect {
-        delete :destroy, params: {id: nii_type.to_param}, session: valid_session
-      }.to change(NiiType, :count).by(-1)
+      expect do
+        delete :destroy, params: { id: nii_type.id }
+      end.to change(NiiType, :count).by(-1)
     end
 
     it "redirects to the nii_types list" do
       nii_type = NiiType.create! valid_attributes
-      delete :destroy, params: {id: nii_type.to_param}, session: valid_session
+      delete :destroy, params: { id: nii_type.id }
       expect(response).to redirect_to(nii_types_url)
     end
   end
-
 end

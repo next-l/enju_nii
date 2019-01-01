@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require "enju_nii/engine"
 require 'open-uri'
 require 'enju_nii/cinii_book'
@@ -12,7 +11,7 @@ module EnjuNii
     module ClassMethods
       def enju_nii_cinii_books
         include EnjuNii::CiNiiBook
-        belongs_to :nii_type
+        belongs_to :nii_type, optional: true
       end
 
       def import_isbn(isbn)

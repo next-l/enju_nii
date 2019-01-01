@@ -1,4 +1,3 @@
-
 module EnjuNii
   module CiNiiBook
     def self.included(base)
@@ -12,8 +11,8 @@ module EnjuNii
         raise EnjuNii::InvalidIsbn unless lisbn.valid?
         # end
 
-        manifestation = IsbnRecord.where(body: lisbn.isbn).first.try(:manifestation)
-        return manifestation if manifestation
+        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+        return manifestation if manifestation.present?
 
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
@@ -26,10 +25,10 @@ module EnjuNii
         # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        if ncid
-          ncid_record = NcidRecord.find_by(body: ncid)
-          return ncid_recor.manifestation if ncid_record.try(:manifestation)
-        end
+        identifier_type = IdentifierType.where(name: 'ncid').first
+        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
+        return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
         publishers = get_cinii_publisher(doc)
@@ -42,11 +41,11 @@ module EnjuNii
         pub_date = doc.at('//dc:date').try(:content)
         if pub_date
           date = pub_date.split('-')
-          date = if date[0] && date[1]
-                   format('%04d-%02d', date[0], date[1])
-                 else
-                   pub_date
-                 end
+          if date[0] and date[1]
+            date = sprintf("%04d-%02d", date[0], date[1])
+          else
+            date = pub_date
+          end
         end
         manifestation.pub_date = pub_date
 
@@ -55,19 +54,35 @@ module EnjuNii
         manifestation.dimensions = doc.at('//cinii:size').try(:content)
 
         language = Language.where(iso_639_3: get_cinii_language(doc)).first
-        manifestation.language_id = if language
-                                      language.id
-                                    else
-                                      1
-                                    end
+        if language
+          manifestation.language_id = language.id
+        else
+          manifestation.language_id = 1
+        end
 
-        isbn = nil
-        urn = doc.at('//dcterms:hasPart[@rdf:resource]')
+        urn = doc.at("//dcterms:hasPart[@rdf:resource]")
         if urn
-          urn = urn.attributes['resource'].value
+          urn = urn.attributes["resource"].value
           if urn =~ /^urn:isbn/
-            isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, '')).isbn
+            isbn = Lisbn.new(urn.gsub(/^urn:isbn:/, "")).isbn
           end
+        end
+
+        identifier = {}
+        if ncid
+          identifier[:ncid] = Identifier.new(body: ncid)
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
+          identifier[:ncid].identifier_type = identifier_type_ncid
+        end
+        if isbn
+          identifier[:isbn] = Identifier.new(body: isbn)
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
+          identifier[:isbn].identifier_type = identifier_type_isbn
+        end
+        identifier.each do |k, v|
+          manifestation.identifiers << v
         end
 
         manifestation.carrier_type = CarrierType.where(name: 'volume').first
@@ -84,50 +99,47 @@ module EnjuNii
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
               subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
-              subject_heading_type ||= SubjectHeadingType.create!(name: 'bsh')
+              subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
               subjects.each do |term|
                 subject = Subject.where(term: term[:term]).first
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
                   subject_type = SubjectType.where(name: 'concept').first
-                  subject_type ||= SubjectType.create(name: 'concept')
+                  subject_type = SubjectType.create(name: 'concept') unless subject_type
                   subject.subject_type = subject_type
                 end
                 manifestation.subjects << subject
               end
             end
           end
-          ncid_record = NcidRecord.where(body: ncid).first_or_initialize
-          ncid_record.manifestation = manifestation
-          ncid_record.save
-          isbn_record = IsbnRecord.where(body: isbn).first_or_initialize
-          manifestation.isbn_records << isbn_record
         end
 
         manifestation
       end
 
       def search_cinii_book(query, options = {})
-        options = { p: 1, count: 10, raw: false }.merge(options)
+        options = {p: 1, count: 10, raw: false}.merge(options)
         doc = nil
         results = {}
         startrecord = options[:idx].to_i
-        startrecord = 1 if startrecord == 0
-        url = "http://ci.nii.ac.jp/books/opensearch/search?q=#{URI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
+        if startrecord == 0
+          startrecord = 1
+        end
+        url = "https://ci.nii.ac.jp/books/opensearch/search?q=#{URI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
         if options[:raw] == true
           open(url).read
         else
-          RSS::RDF::Channel.install_text_element('opensearch:totalResults', 'http://a9.com/-/spec/opensearch/1.1/', '?', 'totalResults', :text, 'opensearch:totalResults')
-          RSS::BaseListener.install_get_text_element('http://a9.com/-/spec/opensearch/1.1/', 'totalResults', 'totalResults=')
-          feed = RSS::Parser.parse(url, false)
+          RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
+          RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
+          RSS::Parser.parse(url, false)
         end
       end
 
       def return_rdf(isbn)
-        rss = search_cinii_by_isbn(isbn)
+        rss = self.search_cinii_by_isbn(isbn)
         if rss.channel.totalResults.to_i == 0
-          rss = search_cinii_by_isbn(cinii_normalize_isbn(isbn))
+          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
         end
         if rss.items.first
           conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
@@ -140,13 +152,12 @@ module EnjuNii
 
       def search_cinii_by_isbn(isbn)
         url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
-        RSS::RDF::Channel.install_text_element('opensearch:totalResults', 'http://a9.com/-/spec/opensearch/1.1/', '?', 'totalResults', :text, 'opensearch:totalResults')
-        RSS::BaseListener.install_get_text_element('http://a9.com/-/spec/opensearch/1.1/', 'totalResults', 'totalResults=')
-        rss = RSS::Parser.parse(url, false)
+        RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
+        RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
+        RSS::Parser.parse(url, false)
       end
 
       private
-
       def cinii_normalize_isbn(isbn)
         if isbn.length == 10
           Lisbn.new(isbn).isbn13
@@ -156,29 +167,29 @@ module EnjuNii
       end
 
       def get_cinii_creator(doc)
-        doc.xpath('//foaf:maker/foaf:Person').map do |e|
+        doc.xpath("//foaf:maker/foaf:Person").map{|e|
           {
-            full_name: e.at('./foaf:name').content,
-            full_name_transcription: e.xpath('./foaf:name[@xml:lang]').map(&:content).join("\n"),
-            patron_identifier: e.attributes['about'].try(:content)
+            full_name: e.at("./foaf:name").content,
+            full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
+            patron_identifier: e.attributes["about"].try(:content)
           }
-        end
+        }
       end
 
       def get_cinii_publisher(doc)
-        doc.xpath('//dc:publisher').map { |e| { full_name: e.content } }
+        doc.xpath("//dc:publisher").map{|e| {full_name: e.content}}
       end
 
       def get_cinii_title(doc)
         {
-          original_title: doc.at('//dc:title[not(@xml:lang)]').content,
-          title_transcription: doc.xpath('//dc:title[@xml:lang]').map { |e| e.try(:content) }.join("\n"),
-          title_alternative: doc.xpath('//dcterms:alternative').map { |e| e.try(:content) }.join("\n")
+          original_title: doc.at("//dc:title[not(@xml:lang)]").children.first.content,
+          title_transcription: doc.xpath("//dc:title[@xml:lang]", 'dc': 'http://purl.org/dc/elements/1.1/').map{|e| e.try(:content)}.join("\n"),
+          title_alternative: doc.xpath("//dcterms:alternative").map{|e| e.try(:content)}.join("\n")
         }
       end
 
       def get_cinii_language(doc)
-        language = doc.at('//dc:language').try(:content)
+        language = doc.at("//dc:language").try(:content)
         if language.size > 3
           language[0..2]
         else
@@ -189,16 +200,16 @@ module EnjuNii
       def get_cinii_subjects(doc)
         subjects = []
         doc.xpath('//foaf:topic').each do |s|
-          subjects << { term: s['dc:title'] }
+          subjects << { term: s["dc:title"] }
         end
         subjects
       end
 
       def create_cinii_series_statements(doc, manifestation)
-        series = doc.at('//dcterms:isPartOf')
-        if series && (parent_url = series['rdf:resource'])
-          ptbl = series['dc:title']
-          parent_url = parent_url.gsub(/\#\w+\Z/, '')
+        series = doc.at("//dcterms:isPartOf")
+        if series and parent_url = series["rdf:resource"]
+          ptbl = series["dc:title"]
+          parent_url = parent_url.gsub(/\#\w+\Z/, "")
           conn = Faraday.new("#{parent_url}.rdf") do |faraday|
             faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
@@ -215,7 +226,7 @@ module EnjuNii
               series_statement = SeriesStatement.new(
                 original_title: original_title,
                 title_transcription: title_transcription,
-                volume_number_string: volume_number
+                volume_number_string: volume_number,
               )
               manifestation.series_statements << series_statement
             end
