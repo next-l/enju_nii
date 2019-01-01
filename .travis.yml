@@ -9,6 +9,7 @@ before_script:
   - ./cc-test-reporter before-build
   - psql -c 'create database enju_nii_dummy_test;' -U postgres
   - psql enju_nii_dummy_test -c 'CREATE EXTENSION pgcrypto'
+  - bundle exec rake db:migrate
 script:
   - bundle exec rspec
 after_script:
