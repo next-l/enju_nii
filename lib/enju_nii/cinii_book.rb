@@ -25,10 +25,8 @@ module EnjuNii
         # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        identifier_type = IdentifierType.where(name: 'ncid').first
-        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
-        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
-        return identifier.manifestation if identifier
+        ncid_record = NcidRecord.find_by(body: ncid)
+        return ncid_record.manifestation if ncid_record
 
         creators = get_cinii_creator(doc)
         publishers = get_cinii_publisher(doc)
@@ -70,19 +68,13 @@ module EnjuNii
 
         identifier = {}
         if ncid
-          identifier[:ncid] = Identifier.new(body: ncid)
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
-          identifier[:ncid].identifier_type = identifier_type_ncid
+          NcidRecord.create(body: ncid, manifestation: manifestation)
         end
         if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
-          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
-        identifier.each do |k, v|
-          manifestation.identifiers << v
+          IsbnRecordAndManifestation.create(
+            isbn_record: IsbnRecord.where(body: isbn).first_or_create,
+            manifestation: manifestation
+          )
         end
 
         manifestation.carrier_type = CarrierType.where(name: 'volume').first
