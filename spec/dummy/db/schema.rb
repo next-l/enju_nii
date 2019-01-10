@@ -209,7 +209,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.datetime "updated_at"
     t.string "attachment_file_name"
     t.string "attachment_content_type"
-    t.integer "attachment_file_size"
+    t.bigint "attachment_file_size"
     t.datetime "attachment_updated_at"
   end
 
@@ -529,7 +529,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.boolean "csv_charset_conversion", default: false, null: false
     t.string "header_logo_file_name"
     t.string "header_logo_content_type"
-    t.integer "header_logo_file_size"
+    t.bigint "header_logo_file_size"
     t.datetime "header_logo_updated_at"
     t.text "header_logo_meta"
     t.index ["short_name"], name: "index_library_groups_on_short_name"
@@ -601,6 +601,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
     t.datetime "attachment_updated_at"
+    t.integer "nii_type_id"
     t.text "title_alternative_transcription"
     t.text "description"
     t.text "abstract"
@@ -619,14 +620,12 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.text "attachment_meta"
     t.integer "month_of_publication"
     t.boolean "fulltext_content"
+    t.string "doi"
     t.boolean "serial"
     t.text "statement_of_responsibility"
     t.text "publication_place"
-    t.text "extent_of_text"
     t.text "extent"
     t.text "dimensions"
-    t.integer "nii_type_id"
-    t.string "doi"
     t.index ["access_address"], name: "index_manifestations_on_access_address"
     t.index ["date_of_publication"], name: "index_manifestations_on_date_of_publication"
     t.index ["doi"], name: "index_manifestations_on_doi"
@@ -711,7 +710,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
 
   create_table "ncid_records", force: :cascade do |t|
     t.string "body", null: false
-    t.bigint "manifestation_id"
+    t.bigint "manifestation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["body"], name: "index_ncid_records_on_body", unique: true
@@ -852,7 +851,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.integer "user_id"
     t.string "resource_export_file_name"
     t.string "resource_export_content_type"
-    t.integer "resource_export_file_size"
+    t.bigint "resource_export_file_size"
     t.datetime "resource_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
@@ -1068,7 +1067,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.integer "user_id"
     t.string "user_export_file_name"
     t.string "user_export_content_type"
-    t.integer "user_export_file_size"
+    t.bigint "user_export_file_size"
     t.datetime "user_export_updated_at"
     t.datetime "executed_at"
     t.datetime "created_at"
