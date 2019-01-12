@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+ncid_record_00001:
+  id: 1
+  body: BN15603730
+  manifestation_id: 217
+
+# == Schema Information
+#
+# Table name: ncid_records
+#
+#  id               :bigint(8)        not null, primary key
+#  body             :string           not null
+#  manifestation_id :bigint(8)        not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
