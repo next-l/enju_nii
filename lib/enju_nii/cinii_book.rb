@@ -6,13 +6,14 @@ module EnjuNii
 
     module ClassMethods
       def import_from_cinii_books(options)
-        # if options[:isbn]
         lisbn = Lisbn.new(options[:isbn])
         raise EnjuNii::InvalidIsbn unless lisbn.valid?
-        # end
 
-        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
-        return manifestation if manifestation.present?
+        isbn_record = IsbnRecord.find_by(body: lisbn.isbn13) || IsbnRecord.find_by(body: lisbn.isbn10)
+        if isbn_record
+          manifestation = isbn_record.manifestations.first
+          return manifestation if manifestation
+        end
 
         doc = return_rdf(lisbn.isbn)
         raise EnjuNii::RecordNotFound unless doc
@@ -66,19 +67,9 @@ module EnjuNii
           end
         end
 
-        identifier = {}
-        if ncid
-          NcidRecord.create(body: ncid, manifestation: manifestation)
-        end
-        if isbn
-          IsbnRecordAndManifestation.create(
-            isbn_record: IsbnRecord.where(body: isbn).first_or_create,
-            manifestation: manifestation
-          )
-        end
-
-        manifestation.carrier_type = CarrierType.where(name: 'volume').first
-        manifestation.manifestation_content_type = ContentType.where(name: 'text').first
+        manifestation.carrier_type = CarrierType.find_by(name: 'volume')
+        manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
+        manifestation.nii_type = NiiType.find_by(name: 'Book')
 
         if manifestation.valid?
           Agent.transaction do
@@ -90,19 +81,30 @@ module EnjuNii
             manifestation.creators = creator_patrons
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
-              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
-              subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
+              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first_or_create!
               subjects.each do |term|
-                subject = Subject.where(term: term[:term]).first
+                subject = Subject.find_by(term: term[:term])
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
-                  subject_type = SubjectType.where(name: 'concept').first
-                  subject_type = SubjectType.create(name: 'concept') unless subject_type
+                  subject_type = SubjectType.where(name: 'concept').first_or_create!
                   subject.subject_type = subject_type
                 end
                 manifestation.subjects << subject
               end
+            end
+
+            identifier = {}
+            if ncid
+              NcidRecord.create(body: ncid, manifestation: manifestation)
+            end
+            if isbn.present?
+              isbn_record = IsbnRecord.find_by(body: isbn.isbn13) || IsbnRecord.find_by(body: isbn.isbn10)
+              isbn_record = IsbnRecord.create(body: isbn.isbn13) unless isbn_record
+              IsbnRecordAndManifestation.create(
+                isbn_record: isbn_record,
+                manifestation: manifestation
+              )
             end
           end
         end
