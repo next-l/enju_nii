@@ -717,13 +717,13 @@ ActiveRecord::Schema.define(version: 2019_01_10_145847) do
     t.index ["manifestation_id"], name: "index_ncid_records_on_manifestation_id"
   end
 
-  create_table "nii_types", id: :serial, force: :cascade do |t|
+  create_table "nii_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_nii_types_on_name", unique: true
   end
 
