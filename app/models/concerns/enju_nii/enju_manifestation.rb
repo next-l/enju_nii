@@ -3,7 +3,7 @@ module EnjuNii
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :nii_type
+      belongs_to :nii_type, optional: true
       has_one :ncid_record
       searchable do
         string :ncid do
