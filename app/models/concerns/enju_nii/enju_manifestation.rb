@@ -5,8 +5,10 @@ module EnjuNii
     included do
       belongs_to :nii_type
       has_one :ncid_record
-      string :ncid do
-        ncid_record.try(:body)
+      searchable do
+        string :ncid do
+          ncid_record.try(:body)
+        end
       end
     end
   end
