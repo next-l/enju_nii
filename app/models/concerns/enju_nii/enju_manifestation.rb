@@ -33,7 +33,7 @@ module EnjuNii
         end
       end
 
-      def return_rdf(isbn)
+      def self.return_rdf(isbn)
         rss = self.search_cinii_by_isbn(isbn)
         if rss.channel.totalResults.to_i == 0
           rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
@@ -47,7 +47,7 @@ module EnjuNii
         end
       end
 
-      def search_cinii_by_isbn(isbn)
+      def self.search_cinii_by_isbn(isbn)
         url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
         RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
         RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
