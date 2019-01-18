@@ -43,7 +43,7 @@ module EnjuNii
             faraday.use FaradayMiddleware::FollowRedirects
             faraday.adapter :net_http
           end
-          conn.get.body
+          Nokogiri::XML(conn.get.body)
         end
       end
 
