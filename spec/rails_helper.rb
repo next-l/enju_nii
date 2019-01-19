@@ -8,6 +8,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
 require 'vcr'
+require 'factory_bot'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -38,8 +39,16 @@ RSpec.configure do |config|
     Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
   end
 
+  config.before :each, solr: true do
+    Sunspot.session = $original_sunspot_session
+    Sunspot.remove_all!
+  end
+
   config.infer_spec_type_from_file_location!
 end
+
+FactoryBot.definition_file_paths << "#{::Rails.root}/../../spec/factories"
+FactoryBot.find_definitions
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassette_library'

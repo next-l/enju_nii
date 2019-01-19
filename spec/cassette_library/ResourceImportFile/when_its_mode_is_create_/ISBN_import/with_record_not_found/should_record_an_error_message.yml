@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://ci.nii.ac.jp/books/opensearch/search?format=rss&isbn=9780007264551
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 19 Jan 2019 04:02:51 GMT
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Set-Cookie:
+      - TS01b7c0b3=01bdee8456f193d64df9776fa91491c086474328cf3d2f4ee2cdddc10056972400610b6fdef14d7e25cca7fef5bd1081379ca458cd;
+        Path=/
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
+        <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?isbn=9780007264551&amp;format=rss">
+        <title>CiNii Books OpenSearch - 9780007264551</title>
+        <description>CiNii Books OpenSearch - 9780007264551</description>
+        <link>http://ci.nii.ac.jp/books/opensearch/search?isbn=9780007264551&amp;format=rss</link>
+        <dc:date>2019-01-19T13:02:51+09:00</dc:date>
+        <opensearch:totalResults>0</opensearch:totalResults>
+        <opensearch:startIndex>0</opensearch:startIndex>
+        <opensearch:itemsPerPage>0</opensearch:itemsPerPage>
+        <items>
+        <rdf:Seq/>
+        </items>
+        </channel>
+        </rdf:RDF>
+    http_version: 
+  recorded_at: Sat, 19 Jan 2019 04:02:51 GMT
+- request:
+    method: get
+    uri: https://ci.nii.ac.jp/books/opensearch/search?format=rss&isbn=0007264550
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 19 Jan 2019 04:02:51 GMT
+      Content-Type:
+      - application/rss+xml;charset=UTF-8
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Set-Cookie:
+      - TS01b7c0b3=01bdee8456633d708b33903747dc85e1fe78d629b909d6d63ef514243d61e999b01da563117d6843e1ea90bb0f3b5973cfc19b517e;
+        Path=/
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
+        <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?isbn=0007264550&amp;format=rss">
+        <title>CiNii Books OpenSearch - 0007264550</title>
+        <description>CiNii Books OpenSearch - 0007264550</description>
+        <link>http://ci.nii.ac.jp/books/opensearch/search?isbn=0007264550&amp;format=rss</link>
+        <dc:date>2019-01-19T13:02:51+09:00</dc:date>
+        <opensearch:totalResults>0</opensearch:totalResults>
+        <opensearch:startIndex>0</opensearch:startIndex>
+        <opensearch:itemsPerPage>0</opensearch:itemsPerPage>
+        <items>
+        <rdf:Seq/>
+        </items>
+        </channel>
+        </rdf:RDF>
+    http_version: 
+  recorded_at: Sat, 19 Jan 2019 04:02:51 GMT
+recorded_with: VCR 4.0.0

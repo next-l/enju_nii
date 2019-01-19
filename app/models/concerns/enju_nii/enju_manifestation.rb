@@ -58,7 +58,7 @@ module EnjuNii
 
       def self.import_from_cinii_books(options)
         lisbn = Lisbn.new(options[:isbn])
-        raise EnjuNii::InvalidIsbn unless lisbn.valid?
+        raise Manifestation::InvalidIsbn unless lisbn.valid?
 
         isbn_record = IsbnRecord.find_by(body: lisbn.isbn13) || IsbnRecord.find_by(body: lisbn.isbn10)
         if isbn_record
@@ -67,8 +67,8 @@ module EnjuNii
         end
 
         doc = return_rdf(lisbn.isbn)
-        raise EnjuNii::RecordNotFound unless doc
-        # raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
+        raise Manifestation::RecordNotFound unless doc
+        # raise Manifestation::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
         import_record_from_cinii_books(doc)
       end
 
