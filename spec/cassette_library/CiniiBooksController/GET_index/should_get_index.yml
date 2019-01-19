@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 19 Jan 2019 04:02:07 GMT
+      - Sat, 19 Jan 2019 07:11:28 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
       Connection:
@@ -27,7 +27,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Set-Cookie:
-      - TS01b7c0b3=01bdee8456ef14cff71fbade54496dea6ad57eb995c131779109ab9a643caefb0fa5cb50c2f0effbe090fc357ce7db6e0a67f7cfb1;
+      - TS01b7c0b3=01bdee845616f65b8d640dc6dcbbdb239927a7d4e7bc01af671740b4c6282af40b08de95500a04136c450ee94dac1b809d6f83b4c9;
         Path=/
       Transfer-Encoding:
       - chunked
@@ -39,7 +39,7 @@ http_interactions:
         <title>CiNii Books OpenSearch - 1 library 10</title>
         <description>CiNii Books OpenSearch - 1 library 10</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=library&amp;count=10&amp;format=rss</link>
-        <dc:date>2019-01-19T13:02:07+09:00</dc:date>
+        <dc:date>2019-01-19T16:11:28+09:00</dc:date>
         <opensearch:totalResults>173936</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
@@ -140,5 +140,5 @@ http_interactions:
         </item>
         </rdf:RDF>
     http_version: 
-  recorded_at: Sat, 19 Jan 2019 04:02:07 GMT
+  recorded_at: Sat, 19 Jan 2019 07:11:28 GMT
 recorded_with: VCR 4.0.0

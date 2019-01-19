@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 19 Jan 2019 04:02:51 GMT
+      - Sat, 19 Jan 2019 07:12:04 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
       Connection:
@@ -27,7 +27,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Set-Cookie:
-      - TS01b7c0b3=01bdee8456f193d64df9776fa91491c086474328cf3d2f4ee2cdddc10056972400610b6fdef14d7e25cca7fef5bd1081379ca458cd;
+      - TS01b7c0b3=01bdee84562da2331a2a040d310af299663485ebe7fdbf3c545a3a2544393321ec62f52edc874fa9944a1afcb3ac10b77b44200556;
         Path=/
       Transfer-Encoding:
       - chunked
@@ -39,7 +39,7 @@ http_interactions:
         <title>CiNii Books OpenSearch - 9780007264551</title>
         <description>CiNii Books OpenSearch - 9780007264551</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?isbn=9780007264551&amp;format=rss</link>
-        <dc:date>2019-01-19T13:02:51+09:00</dc:date>
+        <dc:date>2019-01-19T16:12:04+09:00</dc:date>
         <opensearch:totalResults>0</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>0</opensearch:itemsPerPage>
@@ -49,7 +49,7 @@ http_interactions:
         </channel>
         </rdf:RDF>
     http_version: 
-  recorded_at: Sat, 19 Jan 2019 04:02:51 GMT
+  recorded_at: Sat, 19 Jan 2019 07:12:05 GMT
 - request:
     method: get
     uri: https://ci.nii.ac.jp/books/opensearch/search?format=rss&isbn=0007264550
@@ -69,7 +69,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 19 Jan 2019 04:02:51 GMT
+      - Sat, 19 Jan 2019 07:12:05 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
       Connection:
@@ -77,7 +77,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Set-Cookie:
-      - TS01b7c0b3=01bdee8456633d708b33903747dc85e1fe78d629b909d6d63ef514243d61e999b01da563117d6843e1ea90bb0f3b5973cfc19b517e;
+      - TS01b7c0b3=01bdee84560afa45946fded7b82e154f7523ab32a6fb94a399f1391236fdca7e64e0845d3d50254f441fe90bab51f88f25f3738686;
         Path=/
       Transfer-Encoding:
       - chunked
@@ -89,7 +89,7 @@ http_interactions:
         <title>CiNii Books OpenSearch - 0007264550</title>
         <description>CiNii Books OpenSearch - 0007264550</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?isbn=0007264550&amp;format=rss</link>
-        <dc:date>2019-01-19T13:02:51+09:00</dc:date>
+        <dc:date>2019-01-19T16:12:05+09:00</dc:date>
         <opensearch:totalResults>0</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>0</opensearch:itemsPerPage>
@@ -99,5 +99,5 @@ http_interactions:
         </channel>
         </rdf:RDF>
     http_version: 
-  recorded_at: Sat, 19 Jan 2019 04:02:51 GMT
+  recorded_at: Sat, 19 Jan 2019 07:12:05 GMT
 recorded_with: VCR 4.0.0
