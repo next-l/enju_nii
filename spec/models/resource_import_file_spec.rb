@@ -20,16 +20,16 @@ describe ResourceImportFile do
         old_import_results_count = ResourceImportResult.count
         @file.import_start.should eq({manifestation_imported: 10, item_imported: 10, manifestation_found: 6, item_found: 3, failed: 7})
         manifestation = Item.find_by(item_identifier: '11111').manifestation
-        manifestation.publishers.first.full_name.should eq 'test4'
-        manifestation.publishers.first.full_name_transcription.should eq 'てすと4'
-        manifestation.publishers.second.full_name_transcription.should eq 'てすと5'
-        manifestation.produces.first.produce_type.name.should eq 'publisher'
-        manifestation.creates.first.create_type.name.should eq 'author'
+        manifestation.publishers.order(:created_at).first.full_name.should eq 'test4'
+        manifestation.publishers.order(:created_at).first.full_name_transcription.should eq 'てすと4'
+        manifestation.publishers.order(:created_at).second.full_name_transcription.should eq 'てすと5'
+        manifestation.produces.order(:created_at).first.produce_type.name.should eq 'publisher'
+        manifestation.creates.order(:created_at).first.create_type.name.should eq 'author'
         manifestation.issn_records.pluck(:body).should eq ['03875806']
         Manifestation.count.should eq old_manifestations_count + 9
         Item.count.should eq old_items_count + 10
         Agent.count.should eq old_agents_count + 6
-        @file.resource_import_results.order(:id).first.body.split("\t").first.should eq 'manifestation_identifier'
+        @file.resource_import_results.order(:created_at).first.body.split("\t").first.should eq 'manifestation_identifier'
         ResourceImportResult.count.should eq old_import_results_count + 23
 
         manifestation_101 = Manifestation.find_by(manifestation_identifier: '101')
@@ -38,14 +38,14 @@ describe ResourceImportFile do
         manifestation_101.series_statements.first.title_transcription.should eq 'しゅしりーず'
         manifestation_101.series_statements.first.title_subseries.should eq '副シリーズ'
         manifestation_101.series_statements.first.title_subseries_transcription.should eq 'ふくしりーず'
-        manifestation_101.items.order(:id).last.call_number.should eq '007|A'
+        manifestation_101.items.order(:created_at).last.call_number.should eq '007|A'
         manifestation_101.serial.should be_falsy
 
         item_10101 = Item.find_by(item_identifier: '10101')
         item_10101.manifestation.creators.size.should eq 2
-        item_10101.manifestation.creates.order(:id).first.create_type.name.should eq 'author'
-        item_10101.manifestation.creates.order(:id).second.agent.full_name.should eq 'test1'
-        item_10101.manifestation.creates.order(:id).second.create_type.name.should eq 'illustrator'
+        item_10101.manifestation.creates.order(:created_at).first.create_type.name.should eq 'author'
+        item_10101.manifestation.creates.order(:created_at).second.agent.full_name.should eq 'test1'
+        item_10101.manifestation.creates.order(:created_at).second.create_type.name.should eq 'illustrator'
         item_10101.manifestation.date_of_publication.should eq Time.zone.parse('2001-01-01')
         item_10101.budget_type.name.should eq 'Public fund'
         item_10101.bookstore.name.should eq 'Example store'
@@ -80,7 +80,7 @@ describe ResourceImportFile do
 
         Manifestation.find_by(manifestation_identifier: '103').original_title.should eq 'ダブル"クォート"を含む資料'
         item = Item.find_by(item_identifier: '11111')
-        item.shelf.name.should eq Shelf.find(3).name
+        item.shelf.name.should eq shelves(:shelf_00001).name
         item.manifestation.price.should eq 1000
         item.price.should eq 0
         item.manifestation.publishers.size.should eq 2
@@ -108,8 +108,8 @@ describe ResourceImportFile do
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
-        item_10104.manifestation.subjects.order(:id).map{|s| {s.subject_heading_type.name => s.term}}.should eq [{"ndlsh" => "コンピュータ"}, {"ndlsh" => "図書館"}]
-        item_10104.manifestation.classifications.order(:id).map{|c| {c.classification_type.name => c.category}}.should eq [{"ndc9" => "007"}, {"ddc" => "003"}, {"ddc" => "004"}]
+        item_10104.manifestation.subjects.order(:created_at).map{|s| {s.subject_heading_type.name => s.term}}.should eq [{"ndlsh" => "コンピュータ"}, {"ndlsh" => "図書館"}]
+        item_10104.manifestation.classifications.order(:created_at).map{|c| {c.classification_type.name => c.category}}.should eq [{"ndc9" => "007"}, {"ddc" => "003"}, {"ddc" => "004"}]
 
         manifestation_104 = Manifestation.find_by(manifestation_identifier: '104')
         manifestation_104.isbn_records.pluck(:body).should eq ['9784797327038']
@@ -119,11 +119,11 @@ describe ResourceImportFile do
         manifestation_105 = Manifestation.find_by(manifestation_identifier: '105')
         manifestation_105.serial.should be_truthy
 
-        ResourceImportResult.where(manifestation_id: manifestation_101.id).order(:id).last.error_message.should eq "line 22: #{I18n.t('import.manifestation_found')}"
-        ResourceImportResult.where(item_id: item_10101.id).order(:id).last.error_message.should eq "line 9: #{I18n.t('import.item_found')}"
+        ResourceImportResult.where(manifestation_id: manifestation_101.id).order(:created_at).last.error_message.should eq "line 22: #{I18n.t('import.manifestation_found')}"
+        ResourceImportResult.where(item_id: item_10101.id).order(:created_at).last.error_message.should eq "line 9: #{I18n.t('import.item_found')}"
 
         Item.find_by(item_identifier: '11113').manifestation.original_title.should eq 'test10'
-        Item.find_by(item_identifier: '11114').manifestation.id.should eq 1
+        Item.find_by(item_identifier: '11114').manifestation.id.should eq manifestations(:manifestation_00001).id
 
         @file.resource_import_fingerprint.should be_truthy
         @file.executed_at.should be_truthy
@@ -136,7 +136,7 @@ describe ResourceImportFile do
         old_message_count = Message.count
         @file.import_start
         Message.count.should eq old_message_count + 1
-        Message.order(:id).last.subject.should eq 'インポートが完了しました'
+        Message.order(:created_at).last.subject.should eq 'インポートが完了しました'
       end
 
       it "should be searchable right after the import", solr: true, vcr: true do
@@ -233,14 +233,14 @@ resource_import_file_test_edition	2	Revised Ed.
   describe "when its mode is 'update'" do
     describe "NCID import" do
       it "should import ncid value" do
-        file = ResourceImportFile.create resource_import: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), user: users(:admin), edit_mode: 'update'
+        file = ResourceImportFile.create resource_import: StringIO.new("manifestation_id\tncid\n#{manifestations(:manifestation_00001).id}\tBA67656964\n"), user: users(:admin), edit_mode: 'update'
         result = file.import_start
         # expect(result[:manifestation_found]).to eq 1
         expect(file.error_message).to be_nil
-        resource_import_result = file.resource_import_results.last
+        resource_import_result = file.resource_import_results.order(:created_at).last
         expect(resource_import_result.error_message).to be_blank
-        expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
+        expect(manifestation).not_to be_blank
         expect(manifestation.ncid_record.body).to eq "BA67656964"
       end
     end

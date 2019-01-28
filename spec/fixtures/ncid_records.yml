@@ -3,7 +3,7 @@
 ncid_record_00001:
   id: 1
   body: BN15603730
-  manifestation_id: 217
+  manifestation_id: 1d3f3170-24ea-474d-9a22-28f7f6742b45
 
 # == Schema Information
 #
@@ -11,7 +11,7 @@ ncid_record_00001:
 #
 #  id               :bigint(8)        not null, primary key
 #  body             :string           not null
-#  manifestation_id :bigint(8)        not null
+#  manifestation_id :uuid             not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

@@ -13,7 +13,7 @@ describe ResourceExportFile do
     file = export_file.resource_export
     expect(file).to be_truthy
     lines = File.open(file.path).readlines.map(&:chomp)
-    expect(lines.first.split(/\t/)).to include "ncid"
-    expect(lines.last.split(/\t/)).to include "BA91833159"
+    expect(lines.find{|line| line =~ /ncid/}).to be_truthy
+    expect(lines.find{|line| line =~ /BA91833159/}).to be_truthy
   end
 end
