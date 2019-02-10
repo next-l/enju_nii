@@ -12,7 +12,7 @@ describe ResourceExportFile do
     export_file.export!
     file = export_file.resource_export
     expect(file).to be_truthy
-    lines = File.open(file.path).readlines.map(&:chomp)
+    lines = StringIO.new(file.download).readlines.map(&:chomp)
     expect(lines.find{|line| line =~ /ncid/}).to be_truthy
     expect(lines.find{|line| line =~ /BA91833159/}).to be_truthy
   end
