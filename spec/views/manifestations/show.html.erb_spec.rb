@@ -5,7 +5,7 @@ describe "manifestations/show" do
 
   before(:each) do
     assign(:manifestation, FactoryBot.create(:manifestation))
-    allow(view).to receive(:policy).and_return double(create?: false, udpate?: false, destroy?: false)
+    allow(view).to receive(:policy).and_return double(show?: true, create?: false, udpate?: false, destroy?: false)
   end
 
   describe "identifier_link" do
