@@ -62,15 +62,9 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   end
 
   create_table "agent_import_files", force: :cascade do |t|
-    t.string "content_type"
-    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "agent_import_file_name"
-    t.string "agent_import_content_type"
-    t.integer "agent_import_file_size"
-    t.datetime "agent_import_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "agent_import_fingerprint"
@@ -977,10 +971,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "picture_file_name"
-    t.string "picture_content_type"
-    t.integer "picture_file_size"
-    t.datetime "picture_updated_at"
     t.text "picture_meta"
     t.string "picture_fingerprint"
     t.integer "picture_width"
@@ -1159,15 +1149,9 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   end
 
   create_table "resource_import_files", force: :cascade do |t|
-    t.string "content_type"
-    t.integer "size"
     t.bigint "user_id"
     t.text "note"
     t.datetime "executed_at"
-    t.string "resource_import_file_name"
-    t.string "resource_import_content_type"
-    t.integer "resource_import_file_size"
-    t.datetime "resource_import_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "edit_mode"
@@ -1522,16 +1506,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  create_table "versions", id: :serial, force: :cascade do |t|
-    t.string "item_type", null: false
-    t.integer "item_id", null: false
-    t.string "event", null: false
-    t.string "whodunnit"
-    t.text "object"
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "withdraws", force: :cascade do |t|
