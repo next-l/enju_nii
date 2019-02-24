@@ -104,7 +104,7 @@ describe ResourceImportFile do
         item_10104.manifestation.edition_string.should eq '初版'
         item_10104.manifestation.edition.should eq 1
         item_10104.manifestation.serial_number.should eq 120
-        item_10104.manifestation.doi_record.body.should eq 'example/2014.08.18'
+        item_10104.manifestation.doi_record.body.should eq '10.5555/12345678'
         item_10104.manifestation.height.should be_nil
         item_10104.manifestation.width.should be_nil
         item_10104.manifestation.depth.should be_nil
@@ -155,7 +155,7 @@ describe ResourceImportFile do
         file.resource_import.attach(io: StringIO.new("original_title\tisbn\noriginal_title_multiple_isbns\t978-4840239219//978-4043898039\n"), filename: 'attachment.txt')
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
-        resource_import_result = file.resource_import_results.last
+        resource_import_result = file.resource_import_results.order(:created_at).last
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation
         expect(manifestation.isbn_records.pluck(:body)).to include("9784840239219")
@@ -170,7 +170,7 @@ describe ResourceImportFile do
           file.resource_import.attach(io: StringIO.new("isbn\n9780007264551"), filename: 'attachment.txt')
           result = file.import_start
           expect(result[:failed]).to eq 1
-          resource_import_result = file.resource_import_results.last
+          resource_import_result = file.resource_import_results.order(:created_at).last
           expect(resource_import_result.error_message).not_to be_empty
         end
       end
@@ -183,7 +183,7 @@ describe ResourceImportFile do
           file.resource_import.attach(io: StringIO.new("isbn\n978000726455x"), filename: 'attachment.txt')
           result = file.import_start
           expect(result[:failed]).to eq 1
-          resource_import_result = file.resource_import_results.last
+          resource_import_result = file.resource_import_results.order(:created_at).last
           expect(resource_import_result.error_message).not_to be_empty
         end
       end
@@ -197,7 +197,7 @@ describe ResourceImportFile do
         file.resource_import.attach(io: StringIO.new("original_title\tncid\noriginal_title_ncid\tBA67656964\n"), filename: 'attachment.txt')
         result = file.import_start
         expect(result[:manifestation_imported]).to eq 1
-        resource_import_result = file.resource_import_results.last
+        resource_import_result = file.resource_import_results.order(:created_at).last
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
         manifestation = resource_import_result.manifestation

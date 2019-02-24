@@ -7,7 +7,7 @@ manifestation_identifier	manifestation_id	original_title	note	title_transcriptio
 102		test4	○ identifierあり、item_identifierあり				主シリーズ		副シリーズ		test1		シリーズの著者	test		2001-1			シリーズ1号														257	182	12		1	200				10102												Japanese						
 101		“test 5”	△ identifier重複、item_identifier非重複								test1||author//test2||illustrator	てすと1//てすと2	シリーズの著者	test																												10103									Example store									
 102		test6	× identifier重複、item_identifier重複								test			test3																												10101																		
-		test7	○ ISBN不正、タイトルあり、所蔵情報あり													2001-1-1	第3巻	3		初版	1	第10号	10	120	9000000000000		example/2014.08.18	online_resource	still_image											first_shelf	007|A	10104							コンピュータ//図書館	Public fund		007	003//004							
+		test7	○ ISBN不正、タイトルあり、所蔵情報あり													2001-1-1	第3巻	3		初版	1	第10号	10	120	9000000000000		10.5555/12345678	online_resource	still_image											first_shelf	007|A	10104							コンピュータ//図書館	Public fund		007	003//004							
 			× ISBN不正、タイトルなし																						22222222																	10105																		
 		test8	○ ISBNなし、所蔵情報あり								test			test4//test5	てすと4//てすと5											0387-5806 					1000	0										11111																		
 		test9	× item_identifier重複																																							11111																		

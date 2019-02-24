@@ -26,3 +26,4 @@ gem 'enju_circulation', github: 'next-l/enju_circulation'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'rails-controller-testing', group: :test
 gem 'rspec_junit_formatter', group: :test
+gem 'sassc-rails'
