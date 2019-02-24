@@ -1,5 +1,5 @@
 require 'enju_subject'
-require 'rss'
+require 'rss/1.0'
 require 'faraday_middleware'
 
 module EnjuNii
