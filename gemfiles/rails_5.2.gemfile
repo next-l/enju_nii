@@ -15,5 +15,6 @@ gem "enju_circulation", git: "https://github.com/next-l/enju_circulation.git"
 gem "enju_manifestation_viewer", git: "https://github.com/next-l/enju_manifestation_viewer.git"
 gem "rails-controller-testing", group: :test
 gem "rspec_junit_formatter", group: :test
+gem "sassc-rails"
 
 gemspec path: "../"
