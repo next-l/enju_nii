@@ -22,7 +22,6 @@ gem 'enju_biblio', github: 'next-l/enju_biblio'
 gem 'enju_subject', github: 'next-l/enju_subject'
 gem 'enju_message', github: 'next-l/enju_message'
 gem 'enju_event', github: 'next-l/enju_event'
-gem 'enju_circulation', github: 'next-l/enju_circulation'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'rails-controller-testing', group: :test
 gem 'rspec_junit_formatter', group: :test
