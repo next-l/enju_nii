@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   enable_extension "plpgsql"
 
   create_table "accepts", force: :cascade do |t|
-    t.bigint "basket_id"
+    t.uuid "basket_id"
     t.uuid "item_id"
     t.bigint "librarian_id"
     t.datetime "created_at", null: false
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.index ["required_role_id"], name: "index_agents_on_required_role_id"
   end
 
-  create_table "baskets", force: :cascade do |t|
+  create_table "baskets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "user_id"
     t.text "note"
     t.integer "lock_version", default: 0, null: false
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
 
   create_table "checked_items", force: :cascade do |t|
     t.uuid "item_id", null: false
-    t.bigint "basket_id", null: false
+    t.uuid "basket_id", null: false
     t.bigint "librarian_id"
     t.datetime "due_date", null: false
     t.datetime "created_at", null: false
@@ -250,16 +250,14 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   end
 
   create_table "checkins", force: :cascade do |t|
-    t.uuid "item_id", null: false
     t.bigint "librarian_id"
-    t.bigint "basket_id"
+    t.uuid "basket_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "lock_version", default: 0, null: false
-    t.bigint "checkout_id"
+    t.bigint "checkout_id", null: false
     t.index ["basket_id"], name: "index_checkins_on_basket_id"
     t.index ["checkout_id"], name: "index_checkins_on_checkout_id"
-    t.index ["item_id"], name: "index_checkins_on_item_id"
     t.index ["librarian_id"], name: "index_checkins_on_librarian_id"
   end
 
@@ -298,7 +296,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
     t.uuid "item_id", null: false
     t.bigint "checkin_id"
     t.bigint "librarian_id"
-    t.bigint "basket_id"
+    t.uuid "basket_id"
     t.datetime "due_date"
     t.integer "checkout_renewal_count", default: 0, null: false
     t.integer "lock_version", default: 0, null: false
@@ -1508,7 +1506,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   end
 
   create_table "withdraws", force: :cascade do |t|
-    t.bigint "basket_id"
+    t.uuid "basket_id"
     t.uuid "item_id"
     t.bigint "librarian_id"
     t.datetime "created_at", null: false
@@ -1534,7 +1532,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_135957) do
   add_foreign_key "checked_items", "items"
   add_foreign_key "checked_items", "users"
   add_foreign_key "checkins", "checkouts"
-  add_foreign_key "checkins", "items"
   add_foreign_key "checkout_stat_has_manifestations", "manifestations"
   add_foreign_key "checkout_stat_has_users", "user_checkout_stats"
   add_foreign_key "checkout_stat_has_users", "users"
