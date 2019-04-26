@@ -18,6 +18,6 @@ manifestation_identifier	manifestation_id	original_title	note	title_transcriptio
 103		"ダブル""クォート""を含む資料"	○ ダブルクォートを含む資料																																																									
 104		test10	○ TSV中にタイトルがあれば他の項目もTSVファイル優先								test3			test4											4797327030																																			
 104	99999		△ identifier重複、item_identifier非重複、タイトルなし。manifestation_identifierはmanifestation_idに優先する																																							11113																		
-	0f4ef509-cf56-41d9-bfa7-78b1e14fbc21		△ manifestation_id重複、item_identifier非重複、タイトルなし																																							11114																		
+	1		△ manifestation_id重複、item_identifier非重複、タイトルなし																																							11114																		
 101			△identifier重複、item_identifierなし、タイトルなし																																					first_shelf	007|A																			
 105		逐次刊行物	○serialがtrue			true																																		first_shelf	007|A																			
