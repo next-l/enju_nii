@@ -9,6 +9,8 @@ before_script:
   - bundle exec rake db:migrate
 services:
   - redis-server
+  - mysql
+  - postgresql
 gemfile:
   - gemfiles/rails_5.2.gemfile
   - gemfiles/rails_5.2_ndl.gemfile
@@ -21,3 +23,15 @@ notifications:
   slack:
     secure: UIe53zKTV3GYyi07+PIkndBzOYYU2bWDNuGUNbbTvx0tZ77SEoY32cYPn7NrdydIRT+WPEglDsYHXH2Vp8onO/xUQkt127zP2vGn5jEfL+GpAe75EhR4QkyrIZXItoSfIjXifEkkniSEUUT9PKk4dkTJv1kIancufImYj/EQX1A=
 sudo: false
+addons:
+  postgresql: "10"
+  apt:
+    sources:
+      - google-chrome
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+    - google-chrome-stable
+jdk:
+  - openjdk8
+dist: xenial
