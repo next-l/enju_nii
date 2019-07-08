@@ -1,2 +1,0 @@
-"original_title"	"isbn:13"
-original_title_multiple_isbns	978-4840239219//978-4043898039

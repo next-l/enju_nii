@@ -8,6 +8,3 @@ end
 
 Manifestation.include(EnjuNii::EnjuManifestation)
 Manifestation.include(EnjuSubject::EnjuManifestation)
-Manifestation.include(EnjuManifestationViewer::EnjuManifestation)
-Manifestation.include(EnjuLoc::EnjuManifestation) if defined?(EnjuLoc)
-Item.include(EnjuLibrary::EnjuItem)

@@ -1,74 +1,22 @@
+# frozen_string_literal: true
+
 module EnjuNii
   module EnjuManifestation
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :nii_type, optional: true
-      has_one :ncid_record
-      searchable do
-        string :ncid do
-          ncid_record.try(:body)
-        end
-      end
-
-      def self.import_isbn(isbn)
-        import_from_cinii_books(isbn: isbn)
-      end
-
-      def self.search_cinii_book(query, options = {})
-        options = {p: 1, count: 10, raw: false}.merge(options)
-        doc = nil
-        results = {}
-        startrecord = options[:idx].to_i
-        if startrecord == 0
-          startrecord = 1
-        end
-        url = "https://ci.nii.ac.jp/books/opensearch/search?q=#{URI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
-        if options[:raw] == true
-          open(url).read
-        else
-          RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
-          RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
-          RSS::Parser.parse(url, false)
-        end
-      end
-
-      def self.return_rdf(isbn)
-        rss = self.search_cinii_by_isbn(isbn)
-        if rss.channel.totalResults.to_i == 0
-          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
-        end
-        if rss.items.first
-          conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
-            faraday.use FaradayMiddleware::FollowRedirects
-            faraday.adapter :net_http
-          end
-          Nokogiri::XML(conn.get.body)
-        end
-      end
-
-      def self.search_cinii_by_isbn(isbn)
-        url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
-        RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
-        RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
-        RSS::Parser.parse(url, false)
-      end
-
-      private
-
       def self.import_from_cinii_books(options)
+        # if options[:isbn]
         lisbn = Lisbn.new(options[:isbn])
-        raise Manifestation::InvalidIsbn unless lisbn.valid?
+        raise EnjuNii::InvalidIsbn unless lisbn.valid?
+        # end
 
-        isbn_record = IsbnRecord.find_by(body: lisbn.isbn13) || IsbnRecord.find_by(body: lisbn.isbn10)
-        if isbn_record
-          manifestation = isbn_record.manifestations.first
-          return manifestation if manifestation
-        end
+        manifestation = Manifestation.find_by_isbn(lisbn.isbn)
+        return manifestation if manifestation.present?
 
         doc = return_rdf(lisbn.isbn)
-        raise Manifestation::RecordNotFound unless doc
-        # raise Manifestation::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
+        raise EnjuNii::RecordNotFound unless doc
+        # raise EnjuNii::RecordNotFound if doc.at('//openSearch:totalResults').content.to_i == 0
         import_record_from_cinii_books(doc)
       end
 
@@ -77,15 +25,17 @@ module EnjuNii
         # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        ncid_record = NcidRecord.find_by(body: ncid)
-        return ncid_record.manifestation if ncid_record
+        identifier_type = IdentifierType.where(name: 'ncid').first
+        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
+        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
+        return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
         publishers = get_cinii_publisher(doc)
 
         # title
         title = get_cinii_title(doc)
-        manifestation = ::Manifestation.new(title)
+        manifestation = Manifestation.new(title)
 
         # date of publication
         pub_date = doc.at('//dc:date').try(:content)
@@ -118,9 +68,25 @@ module EnjuNii
           end
         end
 
-        manifestation.carrier_type = CarrierType.find_by(name: 'volume')
-        manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
-        manifestation.nii_type = NiiType.find_by(name: 'Book')
+        identifier = {}
+        if ncid
+          identifier[:ncid] = Identifier.new(body: ncid)
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
+          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
+          identifier[:ncid].identifier_type = identifier_type_ncid
+        end
+        if isbn
+          identifier[:isbn] = Identifier.new(body: isbn)
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
+          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
+          identifier[:isbn].identifier_type = identifier_type_isbn
+        end
+        identifier.each do |k, v|
+          manifestation.identifiers << v
+        end
+
+        manifestation.carrier_type = CarrierType.where(name: 'volume').first
+        manifestation.manifestation_content_type = ContentType.where(name: 'text').first
 
         if manifestation.valid?
           Agent.transaction do
@@ -132,30 +98,19 @@ module EnjuNii
             manifestation.creators = creator_patrons
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
-              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first_or_create!
+              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
+              subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
               subjects.each do |term|
-                subject = Subject.find_by(term: term[:term])
+                subject = Subject.where(term: term[:term]).first
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
-                  subject_type = SubjectType.where(name: 'concept').first_or_create!
+                  subject_type = SubjectType.where(name: 'concept').first
+                  subject_type = SubjectType.create(name: 'concept') unless subject_type
                   subject.subject_type = subject_type
                 end
                 manifestation.subjects << subject
               end
-            end
-
-            identifier = {}
-            if ncid
-              NcidRecord.create(body: ncid, manifestation: manifestation)
-            end
-            if isbn.present?
-              isbn_record = IsbnRecord.find_by(body: isbn.isbn13) || IsbnRecord.find_by(body: isbn.isbn10)
-              isbn_record = IsbnRecord.create(body: isbn.isbn13) unless isbn_record
-              IsbnRecordAndManifestation.create(
-                isbn_record: isbn_record,
-                manifestation: manifestation
-              )
             end
           end
         end
@@ -163,6 +118,46 @@ module EnjuNii
         manifestation
       end
 
+      def self.search_cinii_book(query, options = {})
+        options = {p: 1, count: 10, raw: false}.merge(options)
+        doc = nil
+        results = {}
+        startrecord = options[:idx].to_i
+        if startrecord == 0
+          startrecord = 1
+        end
+        url = "https://ci.nii.ac.jp/books/opensearch/search?q=#{URI.escape(query)}&p=#{options[:p]}&count=#{options[:count]}&format=rss"
+        if options[:raw] == true
+          open(url).read
+        else
+          RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
+          RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
+          RSS::Parser.parse(url, false)
+        end
+      end
+
+      def self.return_rdf(isbn)
+        rss = self.search_cinii_by_isbn(isbn)
+        if rss.channel.totalResults.to_i == 0
+          rss = self.search_cinii_by_isbn(cinii_normalize_isbn(isbn))
+        end
+        if rss.items.first
+          conn = Faraday.new("#{rss.items.first.link}.rdf") do |faraday|
+            faraday.use FaradayMiddleware::FollowRedirects
+            faraday.adapter :net_http
+          end
+          conn.get.body
+        end
+      end
+
+      def self.search_cinii_by_isbn(isbn)
+        url = "https://ci.nii.ac.jp/books/opensearch/search?isbn=#{isbn}&format=rss"
+        RSS::RDF::Channel.install_text_element("opensearch:totalResults", "http://a9.com/-/spec/opensearch/1.1/", "?", "totalResults", :text, "opensearch:totalResults")
+        RSS::BaseListener.install_get_text_element("http://a9.com/-/spec/opensearch/1.1/", "totalResults", "totalResults=")
+        RSS::Parser.parse(url, false)
+      end
+
+      private
       def self.cinii_normalize_isbn(isbn)
         if isbn.length == 10
           Lisbn.new(isbn).isbn13
@@ -239,8 +234,8 @@ module EnjuNii
         end
       end
     end
-  end
 
-  class AlreadyImported < StandardError
+    class AlreadyImported < StandardError
+    end
   end
 end

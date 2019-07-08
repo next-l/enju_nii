@@ -1,4 +1,4 @@
-require "enju_nii/engine"
+require 'enju_nii/engine'
 require 'open-uri'
 
 module EnjuNii

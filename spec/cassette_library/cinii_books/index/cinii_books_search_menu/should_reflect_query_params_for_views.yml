@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 19 Jan 2019 07:12:09 GMT
+      - Sun, 24 Dec 2017 04:12:03 GMT
       Content-Type:
       - application/rss+xml;charset=UTF-8
       Connection:
@@ -27,20 +27,20 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Set-Cookie:
-      - TS01b7c0b3=01bdee8456cdae429ecc50c2896e8416d3b4061433e6c6de0aa2cd107788b8d5e4323c3e12fd22e7d90b6b6ec5d8239f5b21c6ef65;
+      - TS01b7c0b3=01bdee8456247e3d6de3d8695b88f908e5bf34a27b92bad9f5de8ac4ccd0741a15ee84347df9d550202067348cddb4cd6cd1eab45c;
         Path=/
       Transfer-Encoding:
       - chunked
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xml:lang="ja" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
+        <?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/" xmlns:cinii="http://ci.nii.ac.jp/ns/1.0/" xmlns="http://purl.org/rss/1.0/">
         <channel rdf:about="http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss">
         <title>CiNii Books OpenSearch - 1 test 10</title>
         <description>CiNii Books OpenSearch - 1 test 10</description>
         <link>http://ci.nii.ac.jp/books/opensearch/search?p=1&amp;q=test&amp;count=10&amp;format=rss</link>
-        <dc:date>2019-01-19T16:12:09+09:00</dc:date>
-        <opensearch:totalResults>30438</opensearch:totalResults>
+        <dc:date>2017-12-24T13:12:03+09:00</dc:date>
+        <opensearch:totalResults>29944</opensearch:totalResults>
         <opensearch:startIndex>0</opensearch:startIndex>
         <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
         <items>
@@ -143,5 +143,5 @@ http_interactions:
         </item>
         </rdf:RDF>
     http_version: 
-  recorded_at: Sat, 19 Jan 2019 07:12:09 GMT
+  recorded_at: Sun, 24 Dec 2017 04:12:03 GMT
 recorded_with: VCR 4.0.0
