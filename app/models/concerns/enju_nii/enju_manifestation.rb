@@ -5,6 +5,8 @@ module EnjuNii
     extend ActiveSupport::Concern
 
     included do
+      belongs_to :nii_type, optional: true
+
       def self.import_from_cinii_books(options)
         # if options[:isbn]
         lisbn = Lisbn.new(options[:isbn])
