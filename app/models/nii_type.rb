@@ -1,4 +1,4 @@
-class NiiType < ActiveRecord::Base
+class NiiType < ApplicationRecord
   include MasterModel
   has_many :manifestations
 end
