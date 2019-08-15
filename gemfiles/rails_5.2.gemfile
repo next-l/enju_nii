@@ -4,11 +4,6 @@ source "https://rubygems.org"
 
 gem "jquery-rails"
 gem "enju_leaf", branch: "2.x", git: "https://github.com/next-l/enju_leaf.git"
-gem "enju_library", branch: "2.x", git: "https://github.com/next-l/enju_library.git"
-gem "enju_biblio", branch: "2.x", git: "https://github.com/next-l/enju_biblio.git"
-gem "enju_subject", branch: "2.x", git: "https://github.com/next-l/enju_subject.git"
-gem "enju_message", branch: "2.x", git: "https://github.com/next-l/enju_message.git"
-gem "enju_manifestation_viewer", branch: "2.x", git: "https://github.com/next-l/enju_manifestation_viewer.git"
 gem "sassc-rails"
 gem "paper_trail"
 

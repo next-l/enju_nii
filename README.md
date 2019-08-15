@@ -1,7 +1,6 @@
 # EnjuNii
-[![CircleCI](https://circleci.com/gh/next-l/enju_nii.svg?style=svg)](https://circleci.com/gh/next-l/enju_nii)
-[![Coverage Status](https://coveralls.io/repos/github/next-l/enju_nii/badge.svg?branch=master)](https://coveralls.io/github/next-l/enju_nii?branch=master)
-[![security](https://hakiri.io/github/next-l/enju_nii/master.svg)](https://hakiri.io/github/next-l/enju_nii/master)
+[![CircleCI](https://circleci.com/gh/next-l/enju_nii/tree/2.x.svg?style=svg)](https://circleci.com/gh/next-l/enju_nii/tree/2.x)
+[![Coverage Status](https://coveralls.io/repos/github/next-l/enju_nii/badge.svg?branch=2.x)](https://coveralls.io/github/next-l/enju_nii?branch=2.x)
 
 CiNii Booksから書誌をインポートするための Enju プラグインです。
 
@@ -9,7 +8,7 @@ CiNii Booksから書誌をインポートするための Enju プラグインで
 
 お使いのenju_leafのGemfile に以下の行を追加してください。
 
-    gem 'enju_nii', github: "next-l/enju_nii", branch: 'master'
+    gem 'enju_nii', github: "next-l/enju_nii", branch: '2.x'
 
 gemをインストールします。
 
