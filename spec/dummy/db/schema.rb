@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_13_115451) do
+ActiveRecord::Schema.define(version: 2019_08_18_075628) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "accepts", id: :serial, force: :cascade do |t|
@@ -299,6 +298,18 @@ ActiveRecord::Schema.define(version: 2019_07_13_115451) do
     t.index ["work_id"], name: "index_creates_on_work_id"
   end
 
+  create_table "doi_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.string "display_body", null: false
+    t.string "source"
+    t.jsonb "response", default: {}, null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body"], name: "index_doi_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_doi_records_on_manifestation_id"
+  end
+
   create_table "donates", id: :serial, force: :cascade do |t|
     t.integer "agent_id", null: false
     t.integer "item_id", null: false
@@ -432,6 +443,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_115451) do
     t.string "binding_call_number"
     t.datetime "binded_at"
     t.integer "manifestation_id", null: false
+    t.text "memo"
     t.index ["binding_item_identifier"], name: "index_items_on_binding_item_identifier"
     t.index ["bookstore_id"], name: "index_items_on_bookstore_id"
     t.index ["item_identifier"], name: "index_items_on_item_identifier"
@@ -609,6 +621,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_115451) do
     t.text "publication_place"
     t.text "extent"
     t.text "dimensions"
+    t.text "memo"
     t.index ["access_address"], name: "index_manifestations_on_access_address"
     t.index ["date_of_publication"], name: "index_manifestations_on_date_of_publication"
     t.index ["manifestation_identifier"], name: "index_manifestations_on_manifestation_identifier"
@@ -644,6 +657,25 @@ ActiveRecord::Schema.define(version: 2019_07_13_115451) do
     t.datetime "updated_at"
     t.index ["agent_id"], name: "index_owns_on_agent_id"
     t.index ["item_id"], name: "index_owns_on_item_id"
+  end
+
+  create_table "periodical_and_manifestations", force: :cascade do |t|
+    t.bigint "periodical_id", null: false
+    t.bigint "manifestation_id", null: false
+    t.boolean "periodical_master", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manifestation_id"], name: "index_periodical_and_manifestations_on_manifestation_id"
+    t.index ["periodical_id"], name: "index_periodical_and_manifestations_on_periodical_id"
+    t.index ["periodical_master"], name: "index_periodical_and_manifestations_on_periodical_master", unique: true, where: "(periodical_master IS TRUE)"
+  end
+
+  create_table "periodicals", force: :cascade do |t|
+    t.text "original_title", null: false
+    t.bigint "frequency_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["frequency_id"], name: "index_periodicals_on_frequency_id"
   end
 
   create_table "picture_files", id: :serial, force: :cascade do |t|
@@ -1098,6 +1130,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_115451) do
     t.index ["librarian_id"], name: "index_withdraws_on_librarian_id"
   end
 
+  add_foreign_key "doi_records", "manifestations"
   add_foreign_key "isbn_record_and_manifestations", "isbn_records"
   add_foreign_key "isbn_record_and_manifestations", "manifestations"
   add_foreign_key "issn_record_and_manifestations", "issn_records"
@@ -1105,6 +1138,9 @@ ActiveRecord::Schema.define(version: 2019_07_13_115451) do
   add_foreign_key "items", "manifestations"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
+  add_foreign_key "periodical_and_manifestations", "manifestations"
+  add_foreign_key "periodical_and_manifestations", "periodicals"
+  add_foreign_key "periodicals", "frequencies"
   add_foreign_key "profiles", "users"
   add_foreign_key "user_has_roles", "roles"
   add_foreign_key "user_has_roles", "users"
