@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_11_19_105435) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "accepts", force: :cascade do |t|
@@ -223,22 +224,22 @@ ActiveRecord::Schema.define(version: 2019_11_19_105435) do
     t.jsonb "display_name_translations", default: {}, null: false
   end
 
-  create_table "classification_types", id: :serial, force: :cascade do |t|
+  create_table "classification_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "classifications", id: :serial, force: :cascade do |t|
+  create_table "classifications", force: :cascade do |t|
     t.integer "parent_id"
     t.string "category", null: false
     t.text "note"
     t.integer "classification_type_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "lft"
     t.integer "rgt"
     t.integer "manifestation_id"
@@ -928,37 +929,36 @@ ActiveRecord::Schema.define(version: 2019_11_19_105435) do
     t.index ["library_id"], name: "index_shelves_on_library_id"
   end
 
-  create_table "subject_heading_types", id: :serial, force: :cascade do |t|
+  create_table "subject_heading_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "subject_types", id: :serial, force: :cascade do |t|
+  create_table "subject_types", force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
     t.text "note"
     t.integer "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "subjects", id: :serial, force: :cascade do |t|
-    t.integer "parent_id"
+  create_table "subjects", force: :cascade do |t|
+    t.bigint "parent_id"
     t.integer "use_term_id"
-    t.string "term"
+    t.string "term", null: false
     t.text "term_transcription"
-    t.integer "subject_type_id", null: false
+    t.bigint "subject_type_id", null: false
     t.text "scope_note"
     t.text "note"
-    t.integer "required_role_id", default: 1, null: false
+    t.bigint "required_role_id", default: 1, null: false
     t.integer "lock_version", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "url"
     t.integer "manifestation_id"
     t.integer "subject_heading_type_id"
