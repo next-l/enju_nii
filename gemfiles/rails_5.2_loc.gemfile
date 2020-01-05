@@ -6,9 +6,6 @@ gem "jquery-rails"
 gem "sassc-rails"
 gem "rails", "~> 5.2"
 gem "enju_leaf", branch: "2.x", git: "https://github.com/next-l/enju_leaf.git"
-gem "enju_library", branch: "2.x", git: "https://github.com/next-l/enju_library.git"
-gem "enju_biblio", branch: "2.x", git: "https://github.com/next-l/enju_biblio.git"
-gem "enju_subject", branch: "2.x", git: "https://github.com/next-l/enju_subject.git"
 gem "enju_loc", "~> 0.4.0.rc.1", branch: "2.x", git: "https://github.com/next-l/enju_loc.git"
 
 group :test do
