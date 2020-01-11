@@ -23,7 +23,7 @@ gem 'enju_message', github: 'next-l/enju_message'
 gem 'enju_manifestation_viewer', github: 'next-l/enju_manifestation_viewer'
 gem 'sassc-rails'
 gem 'rails', '~> 5.2'
-gem 'sprockets', '~> 3.7'
+gem 'webpacker'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
