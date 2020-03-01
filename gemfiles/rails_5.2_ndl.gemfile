@@ -12,7 +12,7 @@ gem "enju_message", git: "https://github.com/next-l/enju_message.git"
 gem "enju_manifestation_viewer", git: "https://github.com/next-l/enju_manifestation_viewer.git"
 gem "sassc-rails"
 gem "rails", "~> 5.2"
-gem "sprockets", "~> 3.7"
+gem "webpacker"
 gem "enju_ndl", "~> 0.5.0.beta.1", git: "https://github.com/next-l/enju_ndl.git"
 
 group :test do
