@@ -16,7 +16,6 @@ describe ResourceImportFile do
         result = file.import_start
         expect(result[:manifestation_created]).to eq 1
         resource_import_result = file.resource_import_results.last
-        p resource_import_result
         resource_import_result.item.save!
         expect(resource_import_result.error_message).to be_blank
         expect(resource_import_result.manifestation).not_to be_blank
@@ -36,7 +35,7 @@ describe ResourceImportFile do
         file.resource_import.attach(io: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), filename: 'attachment.txt')
         file.save
         result = file.import_start
-        expect(result[:manifestation_found]).to eq 1
+        expect(result[:manifestation_updated]).to eq 1
         expect(file.error_message).to be_nil
         resource_import_result = file.resource_import_results.last
         expect(resource_import_result.error_message).to be_blank

@@ -1,7 +1,7 @@
 require_dependency EnjuBiblio::Engine.config.root.join('app', 'importers', 'manifestation_importer.rb').to_s
 
 module NiiImporter
-  def create_nii_entry(row, **options)
+  def create_entry(row, **options)
     entry = super
     entry.ncid = row['ncid']
     entry
@@ -16,14 +16,11 @@ module NiiEntryImporter
     import_ncid
   end
 
-  def hoge
-    puts "aaa"
-    super
-  end
+  private
 
   def find_by_ncid
     return if ncid.blank?
-    NcidRecord.find_by(body: ncid)&.manifestation
+    NcidRecord.find_by(body: ncid.strip)&.manifestation
   end
 
   def import_ncid
