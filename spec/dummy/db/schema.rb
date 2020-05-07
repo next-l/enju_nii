@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_165544) do
+ActiveRecord::Schema.define(version: 2020_05_06_091212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "agent_relationship_types", force: :cascade do |t|
     t.string "name", null: false
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -285,7 +284,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "create_types", force: :cascade do |t|
     t.string "name"
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -327,7 +325,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "form_of_works", force: :cascade do |t|
     t.string "name", null: false
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -337,7 +334,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "frequencies", comment: "発行頻度", force: :cascade do |t|
     t.string "name", null: false
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -554,7 +550,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "licenses", comment: "ライセンス", force: :cascade do |t|
     t.string "name", null: false
-    t.string "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -595,7 +590,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "manifestation_relationship_types", force: :cascade do |t|
     t.string "name", null: false
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -684,7 +678,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "medium_of_performances", force: :cascade do |t|
     t.string "name", null: false
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -761,6 +754,15 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
+  create_table "ncid_records", force: :cascade do |t|
+    t.bigint "manifestation_id", null: false
+    t.string "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["body"], name: "index_ncid_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_ncid_records_on_manifestation_id"
+  end
+
   create_table "nii_types", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "display_name"
@@ -822,7 +824,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "produce_types", force: :cascade do |t|
     t.string "name"
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -864,7 +865,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
 
   create_table "realize_types", force: :cascade do |t|
     t.string "name"
-    t.text "display_name"
     t.text "note", comment: "備考"
     t.integer "position"
     t.datetime "created_at", null: false
@@ -1252,6 +1252,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_165544) do
   add_foreign_key "messages", "messages", column: "parent_id"
   add_foreign_key "messages", "users", column: "receiver_id"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "ncid_records", "manifestations"
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"

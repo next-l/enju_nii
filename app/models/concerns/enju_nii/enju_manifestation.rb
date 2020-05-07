@@ -6,6 +6,7 @@ module EnjuNii
 
     included do
       belongs_to :nii_type, optional: true
+      has_one :ncid_record
 
       def self.import_from_cinii_books(options)
         # if options[:isbn]
@@ -27,9 +28,7 @@ module EnjuNii
         # return nil
 
         ncid = doc.at('//cinii:ncid').try(:content)
-        identifier_type = IdentifierType.where(name: 'ncid').first
-        identifier_type = IdentifierType.create!(name: 'ncid') unless identifier_type
-        identifier = Identifier.where(body: ncid, identifier_type_id: identifier_type.id).first
+        identifier = NcidRecord.find_by(body: ncid)
         return identifier.manifestation if identifier
 
         creators = get_cinii_creator(doc)
@@ -55,7 +54,7 @@ module EnjuNii
         manifestation.extent = doc.at('//dcterms:extent').try(:content)
         manifestation.dimensions = doc.at('//cinii:size').try(:content)
 
-        language = Language.where(iso_639_3: get_cinii_language(doc)).first
+        language = Language.find_by(iso_639_3: get_cinii_language(doc))
         if language
           manifestation.language_id = language.id
         else
@@ -70,25 +69,19 @@ module EnjuNii
           end
         end
 
-        identifier = {}
-        if ncid
-          identifier[:ncid] = Identifier.new(body: ncid)
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').first
-          identifier_type_ncid = IdentifierType.where(name: 'ncid').create! unless identifier_type_ncid
-          identifier[:ncid].identifier_type = identifier_type_ncid
-        end
-        if isbn
-          identifier[:isbn] = Identifier.new(body: isbn)
-          identifier_type_isbn = IdentifierType.where(name: 'isbn').first
-          identifier_type_isbn = IdentifierType.where(name: 'isbn').create! unless identifier_type_isbn
-          identifier[:isbn].identifier_type = identifier_type_isbn
-        end
-        identifier.each do |k, v|
-          manifestation.identifiers << v
+        if ncid.present?
+          manifestation.ncid_record = NcidRecord.find_or_create_by(body: ncid.strip)
         end
 
-        manifestation.carrier_type = CarrierType.where(name: 'volume').first
-        manifestation.manifestation_content_type = ContentType.where(name: 'text').first
+        if isbn.present?
+          IsbnRecordAndManifestation.create(
+            isbn_record: IsbnRecord.find_or_create_by(body: isbn),
+            manifestation: manifestation
+          )
+        end
+
+        manifestation.carrier_type = CarrierType.find_by(name: 'volume')
+        manifestation.manifestation_content_type = ContentType.find_by(name: 'text')
 
         if manifestation.valid?
           Agent.transaction do
@@ -100,14 +93,14 @@ module EnjuNii
             manifestation.creators = creator_patrons
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
-              subject_heading_type = SubjectHeadingType.where(name: 'bsh').first
+              subject_heading_type = SubjectHeadingType.find_by(name: 'bsh')
               subject_heading_type = SubjectHeadingType.create!(name: 'bsh') unless subject_heading_type
               subjects.each do |term|
-                subject = Subject.where(term: term[:term]).first
+                subject = Subject.find_by(term: term[:term])
                 unless subject
                   subject = Subject.new(term)
                   subject.subject_heading_type = subject_heading_type
-                  subject_type = SubjectType.where(name: 'concept').first
+                  subject_type = SubjectType.find_by(name: 'concept')
                   subject_type = SubjectType.create(name: 'concept') unless subject_type
                   subject.subject_type = subject_type
                 end
