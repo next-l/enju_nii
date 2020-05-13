@@ -474,6 +474,15 @@ ActiveRecord::Schema.define(version: 2020_05_06_091212) do
     t.index ["shelf_id"], name: "index_items_on_shelf_id"
   end
 
+  create_table "jpno_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body"], name: "index_jpno_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_jpno_records_on_manifestation_id"
+  end
+
   create_table "languages", comment: "言語", force: :cascade do |t|
     t.string "name", null: false
     t.string "native_name"
@@ -761,6 +770,24 @@ ActiveRecord::Schema.define(version: 2020_05_06_091212) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["body"], name: "index_ncid_records_on_body", unique: true
     t.index ["manifestation_id"], name: "index_ncid_records_on_manifestation_id"
+  end
+
+  create_table "ndl_bib_id_records", force: :cascade do |t|
+    t.string "body", null: false
+    t.bigint "manifestation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body"], name: "index_ndl_bib_id_records_on_body", unique: true
+    t.index ["manifestation_id"], name: "index_ndl_bib_id_records_on_manifestation_id"
+  end
+
+  create_table "ndla_records", force: :cascade do |t|
+    t.bigint "agent_id"
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_ndla_records_on_agent_id"
+    t.index ["body"], name: "index_ndla_records_on_body", unique: true
   end
 
   create_table "nii_types", id: :serial, force: :cascade do |t|
@@ -1242,6 +1269,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_091212) do
   add_foreign_key "item_custom_values", "item_custom_properties"
   add_foreign_key "item_custom_values", "items"
   add_foreign_key "items", "manifestations"
+  add_foreign_key "jpno_records", "manifestations"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
   add_foreign_key "manifestation_and_subjects", "manifestations"
@@ -1253,6 +1281,8 @@ ActiveRecord::Schema.define(version: 2020_05_06_091212) do
   add_foreign_key "messages", "users", column: "receiver_id"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "ncid_records", "manifestations"
+  add_foreign_key "ndl_bib_id_records", "manifestations"
+  add_foreign_key "ndla_records", "agents"
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
