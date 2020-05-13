@@ -11,7 +11,7 @@ describe ResourceImportFile do
           default_shelf_id: 3,
           edit_mode: 'create'
         )
-        file.resource_import.attach(io: StringIO.new("original_title\tncid\noriginal_title_ncid\tBA67656964\n"), filename: 'attachment.txt')
+        file.attachment.attach(io: StringIO.new("original_title\tncid\noriginal_title_ncid\tBA67656964\n"), filename: 'attachment.txt')
         file.save!
         result = file.import_start
         expect(result[:manifestation_created]).to eq 1
@@ -32,7 +32,7 @@ describe ResourceImportFile do
           user: users(:admin),
           edit_mode: 'update'
         )
-        file.resource_import.attach(io: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), filename: 'attachment.txt')
+        file.attachment.attach(io: StringIO.new("manifestation_id\tncid\n1\tBA67656964\n"), filename: 'attachment.txt')
         file.save
         result = file.import_start
         expect(result[:manifestation_updated]).to eq 1

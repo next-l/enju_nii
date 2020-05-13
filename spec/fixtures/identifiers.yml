@@ -97,6 +97,11 @@ identifier_00201:
   identifier_type_id: 2
   body: "09130000"
 
+identifier_00201:
+  manifestation_id: 201
+  identifier_type_id: 5
+  body: "aa11223344"
+
 # == Schema Information
 #
 # Table name: identifiers
