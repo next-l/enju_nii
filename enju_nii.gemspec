@@ -14,14 +14,14 @@ Gem::Specification.new do |s|
   s.description = "add nii_type attribute to Next-L Enju"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/db/*.sqlite3"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
+  s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/db/*.sqlite3"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"] - Dir["spec/dummy/private/*"]
 
-  s.add_dependency "enju_subject", "~> 0.3.2"
+  s.add_dependency "enju_subject", "~> 0.3.3"
   s.add_dependency "enju_biblio", "~> 0.3.10"
   s.add_dependency "faraday_middleware"
 
   s.add_development_dependency "enju_leaf", "~> 1.3.4"
-  s.add_development_dependency "enju_message", "~> 0.3.2"
+  s.add_development_dependency "enju_message", "~> 0.3.3"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
