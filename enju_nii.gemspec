@@ -17,10 +17,10 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"] - Dir["spec/dummy/db/*.sqlite3"] - Dir["spec/dummy/log/*"] - Dir["spec/dummy/solr/{data,pids,default,development,test}/*"] - Dir["spec/dummy/tmp/*"]
 
   s.add_dependency "enju_subject", "~> 0.3.2"
-  s.add_dependency "enju_biblio", "~> 0.3.10.rc.3"
+  s.add_dependency "enju_biblio", "~> 0.3.10"
   s.add_dependency "faraday_middleware"
 
-  s.add_development_dependency "enju_leaf", "~> 1.3.4.rc.2"
+  s.add_development_dependency "enju_leaf", "~> 1.3.4"
   s.add_development_dependency "enju_message", "~> 0.3.2"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
