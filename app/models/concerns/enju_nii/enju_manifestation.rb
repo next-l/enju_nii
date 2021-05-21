@@ -7,6 +7,7 @@ module EnjuNii
     included do
       belongs_to :nii_type, optional: true
       has_one :ncid_record
+      accepts_nested_attributes_for :ncid_record, allow_destroy: true, reject_if: :all_blank
 
       def self.import_from_cinii_books(options)
         # if options[:isbn]
@@ -87,10 +88,10 @@ module EnjuNii
           Agent.transaction do
             manifestation.save!
             create_cinii_series_statements(doc, manifestation)
-            publisher_patrons = Agent.import_agents(publishers)
-            creator_patrons = Agent.import_agents(creators)
-            manifestation.publishers = publisher_patrons
-            manifestation.creators = creator_patrons
+            publisher_agents = Agent.import_agents(publishers)
+            creator_agents = Agent.import_agents(creators)
+            manifestation.publishers = publisher_agents
+            manifestation.creators = creator_agents
             if defined?(EnjuSubject)
               subjects = get_cinii_subjects(doc)
               subject_heading_type = SubjectHeadingType.find_by(name: 'bsh')
@@ -166,7 +167,7 @@ module EnjuNii
           {
             full_name: e.at("./foaf:name").content,
             full_name_transcription: e.xpath("./foaf:name[@xml:lang]").map{|n| n.content}.join("\n"),
-            patron_identifier: e.attributes["about"].try(:content)
+            agent_identifier: e.attributes["about"].try(:content)
           }
         }
       end
